@@ -238,6 +238,62 @@ def make_heart():
     d.polygon([(3, 4), (5, 3), (7, 5), (5, 6)], fill=(255, 164, 151, 255))
     image.save(OUT / "heart-red.png", format="PNG", optimize=True)
 
+
+def make_colored_rupee(filename, colors):
+    image = Image.new("RGBA", (24, 32), C["clear"])
+    d = ImageDraw.Draw(image)
+    dark, body, light, shade = colors
+    d.polygon([(12, 1), (21, 9), (21, 23), (12, 30), (3, 23), (3, 9)], fill=dark)
+    d.polygon([(12, 3), (19, 10), (19, 22), (12, 28), (5, 22), (5, 10)], fill=body)
+    d.polygon([(12, 4), (17, 10), (12, 15), (7, 10)], fill=light)
+    d.polygon([(7, 12), (11, 16), (11, 25), (5, 21), (5, 11)], fill=shade)
+    d.polygon([(13, 16), (19, 11), (19, 22), (13, 27)], fill=dark)
+    d.line([(12, 2), (19, 9)], fill=C["cream"], width=1)
+    image.save(OUT / filename, format="PNG", optimize=True)
+
+
+def make_triforce():
+    image = Image.new("RGBA", (32, 30), C["clear"])
+    d = ImageDraw.Draw(image)
+    gold = (213, 157, 55, 255)
+    light = (255, 222, 130, 255)
+    dark = (117, 72, 24, 255)
+    # Three separate triangles keep the classic negative-space center.
+    triangles = [
+        [(16, 1), (2, 27), (30, 27)],
+        [(9, 14), (2, 27), (16, 27)],
+        [(23, 14), (16, 27), (30, 27)],
+    ]
+    for points in triangles:
+        d.polygon(points, fill=dark)
+    d.polygon([(16, 3), (4, 25), (28, 25)], fill=gold)
+    d.polygon([(16, 5), (7, 23), (25, 23)], fill=light)
+    d.polygon([(9, 16), (4, 25), (14, 25)], fill=gold)
+    d.polygon([(23, 16), (18, 25), (28, 25)], fill=gold)
+    d.line([(16, 5), (8, 21)], fill=C["cream"], width=1)
+    image.save(OUT / "triforce.png", format="PNG", optimize=True)
+
+
+def make_heart_variant(filename, state):
+    image = Image.new("RGBA", (16, 16), C["clear"])
+    d = ImageDraw.Draw(image)
+    outline = [(1, 4), (4, 1), (7, 3), (8, 4), (11, 1), (14, 4),
+               (14, 8), (8, 15), (1, 8)]
+    d.polygon(outline, fill=C["outline"])
+    if state == "empty":
+        d.polygon([(2, 4), (4, 2), (7, 4), (8, 5), (11, 2), (13, 4),
+                   (13, 8), (8, 13), (2, 8)], fill=(77, 65, 60, 255))
+        d.polygon([(3, 5), (5, 4), (7, 6), (8, 7), (11, 4), (12, 5),
+                   (12, 8), (8, 12), (3, 8)], fill=(45, 43, 42, 255))
+    elif state == "half":
+        d.polygon([(2, 4), (4, 2), (7, 4), (8, 5), (11, 2), (13, 4),
+                   (13, 8), (8, 13), (2, 8)], fill=(70, 65, 60, 255))
+        d.polygon([(2, 4), (4, 2), (7, 4), (8, 5), (8, 13), (2, 8)],
+                  fill=(185, 48, 52, 255))
+        d.polygon([(3, 4), (5, 3), (7, 5), (5, 6)], fill=(255, 164, 151, 255))
+    image.save(OUT / filename, format="PNG", optimize=True)
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     make_frame("panel-frame.png", 64, 16, "deep")
@@ -252,6 +308,11 @@ def main():
     make_inventory_tab(selected=True)
     make_item_cursor()
     make_heart()
+    make_colored_rupee("rupee-red.png", ((91, 24, 31, 255), (190, 48, 57, 255), (255, 166, 151, 255), (125, 31, 45, 255)))
+    make_colored_rupee("rupee-blue.png", ((20, 54, 105, 255), (48, 112, 190, 255), (164, 220, 255, 255), (27, 77, 143, 255)))
+    make_triforce()
+    make_heart_variant("heart-empty.png", "empty")
+    make_heart_variant("heart-half.png", "half")
     print("Generated detailed Hyrule pixel-art 9-slice PNG textures.")
 
 
