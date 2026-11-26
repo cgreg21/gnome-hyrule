@@ -5,7 +5,8 @@ A user-installable GNOME desktop theme inspired by 16/32-bit Zelda-era JRPG pixe
 ## Included
 
 - GNOME Shell stylesheet (GNOME 51 target; live-session validation still required)
-- PNG pixel-art frames using 9-slice borders for Shell menus, notifications, buttons, and entries\n- Zelda-style inventory details: parchment menu frame, recessed item slots, selected-slot frame, and a faceted green rupee
+- PNG pixel-art frames using 9-slice borders for Shell menus, notifications, buttons, and entries
+- Zelda-style inventory details: parchment menu frame, recessed item slots, selected-slot frame, and a faceted green rupee
 - GTK 3 light/dark stylesheets and a best-effort GTK 4 stylesheet using the same PNG frame assets
 - Pixel-art SVG, 128×128 compatibility PNG, and native 512×512 PNG icon sets for GNOME apps, folders, file types, and system status
 - User-local install and uninstall scripts
@@ -27,6 +28,24 @@ Uninstall:
 ```bash
 bash scripts/uninstall.sh
 ```
+
+## Screenshots
+
+Screenshots must come from a real GNOME session with Hyrule-Pixel installed;
+the repository does not use generated mockups as evidence of the theme's
+runtime appearance. Capture the GTK demo applications locally:
+
+```bash
+sudo apt install gnome-screenshot gtk-3-examples gtk-4-examples
+bash scripts/install.sh
+bash scripts/capture-gtk-screenshots.sh
+```
+
+The script saves `gtk3-widget-factory.png` and `gtk4-demo.png` in
+`docs/screenshots/`. Add those PNG files to the repository, then embed them
+here once the real captures have been reviewed. Capture GNOME Shell Overview,
+Quick Settings, the calendar and notifications separately from the running
+desktop; the lock screen is not modified by the user-local installer.
 
 ## PNG frames and 9-slice rendering
 
