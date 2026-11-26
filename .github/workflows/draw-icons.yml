@@ -1,4 +1,4 @@
-name: Draw Hyrule icons
+name: Generate Hyrule AI icons
 
 on:
   workflow_dispatch:
@@ -15,7 +15,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  draw:
+  generate:
+    if: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,20 +25,23 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install drawing library
+      - name: Install image processing library
         run: python -m pip install --disable-pip-version-check "Pillow==11.1.0"
-      - name: Draw pixel icons
+      - name: Generate AI artwork with FLUX.1 Schnell
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: python scripts/draw-icons.py
-      - name: Validate generated theme
+      - name: Validate generated assets
         run: bash scripts/check.sh
       - name: Commit generated PNG icons
         run: |
           git add -A icons/Hyrule-Icons/512x512
           if git diff --cached --quiet; then
-            echo "Icons are already up to date."
+            echo "AI-generated icons are already up to date."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "art: regenerate Hyrule pixel icons with Pillow"
+          git commit -m "art: generate Hyrule icons with FLUX.1 Schnell"
           git push
