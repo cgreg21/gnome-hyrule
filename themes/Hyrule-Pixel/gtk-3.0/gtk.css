@@ -1,0 +1,69 @@
+/* Hyrule Pixel GTK 3 */
+@define-color hyrule_forest #123f2b;
+@define-color hyrule_deep #09291d;
+@define-color hyrule_active #28783c;
+@define-color hyrule_gold #e5b83e;
+@define-color hyrule_paper #f2d49a;
+@define-color hyrule_ink #241b12;
+@define-color theme_bg_color @hyrule_deep;
+@define-color theme_fg_color #fff3d2;
+@define-color theme_selected_bg_color @hyrule_active;
+@define-color theme_selected_fg_color @hyrule_paper;
+
+* {
+  outline-color: @hyrule_gold;
+  -gtk-secondary-caret-color: @hyrule_gold;
+}
+
+window,
+.background {
+  background-color: @hyrule_deep;
+  color: #fff3d2;
+}
+
+headerbar,
+.titlebar {
+  background-color: @hyrule_forest;
+  color: #fff3d2;
+  border-bottom: 2px solid @hyrule_gold;
+  box-shadow: none;
+}
+
+button,
+entry,
+spinbutton,
+combobox,
+.menu,
+.context-menu {
+  border-radius: 0;
+}
+
+button {
+  background-image: none;
+  background-color: @hyrule_forest;
+  color: #fff3d2;
+  border: 1px solid @hyrule_gold;
+  box-shadow: none;
+}
+
+button:hover,
+button:checked {
+  background-color: @hyrule_active;
+  color: @hyrule_paper;
+}
+
+entry,
+textview,
+list,
+treeview {
+  background-color: @hyrule_paper;
+  color: @hyrule_ink;
+  border-color: @hyrule_gold;
+}
+
+selection,
+*:selected {
+  background-color: @hyrule_active;
+  color: @hyrule_paper;
+}
+
