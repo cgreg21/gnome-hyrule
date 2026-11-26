@@ -3,7 +3,9 @@
 The Hyrule icon theme keeps its pixel-art PNG catalog generated from
 `scripts/draw-icons.py`. The generator writes native 512×512 RGBA images;
 there is no intermediate low-resolution bitmap and no resize operation.
-The older 128×128 set remains available for compatibility.
+The older 128×128 set remains available for compatibility. The icon theme
+registers both sizes, with the 512×512 set listed first for high-resolution
+surfaces.
 
 ## Visual conventions
 
