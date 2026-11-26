@@ -52,16 +52,16 @@ capture_app() {
   case "$command_name" in
     gtk3-widget-factory)
       for page in 2 3; do
-        xdotool mousemove --window "$window_id" "$((520 + page * 70))" 50 click 1
+        xdotool mousemove --window "$window_id" "$((510 + page * 75))" 14 click 1
         sleep 2
         timeout 20s import -window "$window_id" "$OUTPUT_DIR/gtk3-page-$page.png"
       done
       ;;
     gtk4-demo)
-      xdotool mousemove --window "$window_id" 50 159 click 1
+      xdotool mousemove --window "$window_id" 50 125 click 1
       sleep 2
       timeout 20s import -window "$window_id" "$OUTPUT_DIR/gtk4-themes.png"
-      xdotool mousemove --window "$window_id" 50 380 click 1
+      xdotool mousemove --window "$window_id" 50 346 click 1
       sleep 2
       timeout 20s import -window "$window_id" "$OUTPUT_DIR/gtk4-entry.png"
       ;;
