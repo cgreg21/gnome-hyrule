@@ -23,7 +23,7 @@ for svg in svg_files:
         raise SystemExit(f"Pixel-art rendering hint missing: {svg.relative_to(root)}")
 
 theme_index = (icons / "index.theme").read_text()
-for section in ("[128x128/apps]", "[128x128/places]", "[128x128/status]", "[128x128/mimetypes]", "[scalable/apps]", "[scalable/places]", "[scalable/status]", "[scalable/mimetypes]"):
+for section in ("[128x128/apps]", "[128x128/places]", "[128x128/status]", "[128x128/mimetypes]", "[512x512/apps]", "[512x512/places]", "[512x512/status]", "[512x512/mimetypes]", "[scalable/apps]", "[scalable/places]", "[scalable/status]", "[scalable/mimetypes]"):
     if section not in theme_index:
         raise SystemExit(f"Missing icon theme directory declaration: {section}")
 for directory in ("apps", "places", "status", "mimetypes"):
@@ -31,8 +31,11 @@ for directory in ("apps", "places", "status", "mimetypes"):
         raise SystemExit(f"Missing icon directory: scalable/{directory}")
     if not (icons / "128x128" / directory).is_dir():
         raise SystemExit(f"Missing PNG icon directory: 128x128/{directory}")
+    if not (icons / "512x512" / directory).is_dir():
+        raise SystemExit(f"Missing native PNG icon directory: 512x512/{directory}")
 
 png_files = sorted((icons / "128x128").rglob("*.png"))
+native_png_files = sorted((icons / "512x512").rglob("*.png"))
 for png in png_files:
     data = png.read_bytes()
     if data[:8] != b"\x89PNG\r\n\x1a\n":
@@ -44,7 +47,17 @@ for png in png_files:
     if (width, height) != (128, 128):
         raise SystemExit(f"Expected 128x128 PNG: {png.relative_to(root)} ({width}x{height})")
 if len(png_files) < 33:
-    raise SystemExit(f"Expected at least 33 PNG icons, found {len(png_files)}")
+    raise SystemExit(f"Expected at least 33 legacy PNG icons, found {len(png_files)}")
+for png in native_png_files:
+    data = png.read_bytes()
+    if data[:8] != b"\\x89PNG\\r\\n\\x1a\\n" or len(data) < 24 or data[12:16] != b"IHDR":
+        raise SystemExit(f"Invalid native PNG: {png.relative_to(root)}")
+    width = int.from_bytes(data[16:20], "big")
+    height = int.from_bytes(data[20:24], "big")
+    if (width, height) != (512, 512):
+        raise SystemExit(f"Expected native 512x512 PNG: {png.relative_to(root)} ({width}x{height})")
+if len(native_png_files) != 33:
+    raise SystemExit(f"Expected exactly 33 native 512x512 PNG icons, found {len(native_png_files)}")
 
 required_pngs = (
     "places/folder-music.png", "places/folder-videos.png",
@@ -55,6 +68,9 @@ required_pngs = (
 missing_pngs = [name for name in required_pngs if not (icons / "128x128" / name).is_file()]
 if missing_pngs:
     raise SystemExit("Missing generated PNG icons: " + ", ".join(missing_pngs))
+missing_native = [name for name in required_pngs if not (icons / "512x512" / name).is_file()]
+if missing_native:
+    raise SystemExit("Missing native 512x512 PNG icons: " + ", ".join(missing_native))
 
 required = [
     root / "README.md",
@@ -83,5 +99,5 @@ if missing_icons:
     raise SystemExit("Missing system icons: " + ", ".join(missing_icons))
 if len(svg_files) < 10:
     raise SystemExit(f"Expected at least 10 SVG icons, found {len(svg_files)}")
-print(f"Validated {len(svg_files)} SVG and {len(png_files)} PNG icon(s), pixel-art rendering, system icons, scripts, and theme files.")
+print(f"Validated {len(svg_files)} SVG, {len(png_files)} legacy PNG and {len(native_png_files)} native 512x512 PNG icon(s), pixel-art rendering, system icons, scripts, and theme files.")
 PY
