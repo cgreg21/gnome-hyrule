@@ -43,7 +43,7 @@ widget sizes without stretching its pixel-art corners.
 GNOME Shell St uses its compact `border-image: url(...) top right bottom left`
 syntax. GTK uses the standard `border-image: url(...) slice / width stretch`
 syntax. These are 9-slice borders, not Android's marker-pixel `.9.png` format.
-The PNG files are generated reproducibly by `scripts/draw-theme-textures.py`.
+The PNG files are generated reproducibly by `scripts/draw-theme-textures.py`. The parchment frame is applied to Shell popups; the item-slot and rupee sprites are reusable assets for inventory-style surfaces.
 
 ## Compatibility notes
 
