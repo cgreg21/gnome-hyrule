@@ -121,6 +121,11 @@ def draw_icon(name):
         d.ellipse((5,17,26,26), fill=P["gold"], outline=P["ink"])
         d.ellipse((11,18,20,23), fill=P["forest"], outline=P["ink"])
         rect(d, (14,19,17,22), P["cream"])
+    elif name == "drive-harddisk":
+        rect(d, (7,11,24,23), P["grey"], P["ink"])
+        rect(d, (9,13,22,15), P["white"])
+        rect(d, (9,17,22,20), P["gold_dark"])
+        d.ellipse((19,18,22,21), fill=P["green"], outline=P["ink"])
     elif name.startswith("folder"):
         rect(d, (4,10,27,25), P["gold_dark"], P["ink"])
         rect(d, (5,8,15,13), P["gold"], P["ink"])
