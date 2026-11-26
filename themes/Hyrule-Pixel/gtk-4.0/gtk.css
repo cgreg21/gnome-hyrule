@@ -34,3 +34,77 @@ entry {
   border-radius: 0;
   padding: 6px;
 }
+
+
+/* Inventory-inspired GTK 4 controls */
+checkbutton check,
+radiobutton radio {
+  background-color: #f2d49a;
+  color: #241b12;
+  border: 2px solid #e5b83e;
+  border-radius: 0;
+}
+
+checkbutton check:checked,
+radiobutton radio:checked {
+  background-color: #28783c;
+  color: #fff3d2;
+}
+
+switch {
+  background-color: #09291d;
+  border: 2px solid #e5b83e;
+  border-radius: 0;
+}
+
+switch:checked {
+  background-color: #28783c;
+}
+
+switch slider {
+  background-color: #f2d49a;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+}
+
+scale trough,
+levelbar trough,
+progressbar trough {
+  background-color: #09291d;
+  border: 1px solid #e5b83e;
+  border-radius: 0;
+}
+
+scale highlight,
+levelbar block.filled,
+progressbar progress {
+  background-color: #28783c;
+  border-radius: 0;
+}
+
+scale slider {
+  background-color: #f2d49a;
+  border: 2px solid #9a6724;
+  border-radius: 0;
+}
+
+scrollbar slider {
+  background-color: #9a6724;
+  border: 1px solid #e5b83e;
+  border-radius: 0;
+  min-width: 8px;
+  min-height: 8px;
+}
+
+scrollbar slider:hover {
+  background-color: #e5b83e;
+}
+
+tooltip,
+tooltip.background {
+  background-color: #f2d49a;
+  color: #241b12;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+}
+
