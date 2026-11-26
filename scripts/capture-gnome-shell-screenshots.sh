@@ -60,12 +60,10 @@ sleep 8
 DEVKIT_WINDOW="$(xdotool search --onlyvisible --name 'Mutter Development Kit' | head -n 1)"
 test -n "$DEVKIT_WINDOW"
 # The Devkit window manager does not implement _NET_ACTIVE_WINDOW.
-# Resize it directly; the tour's Skip button is at this display coordinate.
+# Resize it directly; the first-run window is closed through GNOME Shell below.
 xdotool windowmove "$DEVKIT_WINDOW" 0 0
 xdotool windowsize "$DEVKIT_WINDOW" 1600 1000
 sleep 2
-xdotool mousemove 700 730 click 1
-sleep 3
 
 gnome-shell --version | grep -q '51\.' || { gnome-shell --version; exit 1; }
 
@@ -83,6 +81,10 @@ eval_shell() {
     --object-path /org/gnome/Shell \
     --method org.gnome.Shell.Eval "$1"
 }
+
+# Close Fedora's first-run welcome window inside the nested GNOME session.
+eval_shell 'global.get_window_actors().filter(a => /Welcome|Fedora/.test(a.meta_window.get_title() || "")).forEach(a => a.meta_window.delete(global.get_current_time()))'
+sleep 2
 
 rm -f "$OUTPUT_DIR"/shell-*.png
 eval_shell 'Main.overview.show()'
