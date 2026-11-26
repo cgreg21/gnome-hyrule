@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Draw native 512px Hyrule pixel icons with Pillow; no bitmap upscaling."""
+"""Draw native 512px Hyrule pixel icons with Pillow; no bitmap upscaling.
+
+Each geometric primitive is rasterized directly on the 512px output canvas.
+"""
 from pathlib import Path
 from PIL import Image, ImageDraw
 
