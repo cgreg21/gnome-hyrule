@@ -85,6 +85,10 @@ eval_shell() {
     --method org.gnome.Shell.Eval "$1"
 }
 
+# Close first-run application windows in the nested session (the Devkit host stays open).
+eval_shell 'global.get_window_actors().forEach(a => a.meta_window.delete(global.get_current_time()))'
+sleep 2
+
 rm -f "$OUTPUT_DIR"/shell-*.png
 eval_shell 'Main.overview.show()'
 capture shell-overview.png
