@@ -56,8 +56,8 @@ for _ in $(seq 1 40); do
 done
 sleep 8
 
-# Identify the Fedora first-run process so the screenshot session can suppress it.
-ps -eo pid,comm,args | grep -Ei 'tour|welcome|initial|fedora' >&2 || true
+# Fedora's container welcome screen is provided by GNOME Tour.
+pkill -x gnome-tour 2>/dev/null || true
 
 # Dismiss the Devkit first-run tour and use the full virtual display.
 DEVKIT_WINDOW="$(xdotool search --onlyvisible --name 'Mutter Development Kit' | head -n 1)"
