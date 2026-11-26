@@ -1,27 +1,27 @@
 /* Hyrule Pixel — GNOME Shell 51 starter theme */
-$panel_bg: #09291d;
-$panel_fg: #fff3d2;
-$gold: #e5b83e;
-$forest: #123f2b;
-$active: #28783c;
-$paper: #f2d49a;
-$ink: #241b12;
+#09291d: #09291d;
+#fff3d2: #fff3d2;
+#e5b83e: #e5b83e;
+#123f2b: #123f2b;
+#28783c: #28783c;
+#f2d49a: #f2d49a;
+#241b12: #241b12;
 
 stage {
-  color: $panel_fg;
+  color: #fff3d2;
   font-family: Cantarell, sans-serif;
 }
 
 #panel {
-  background-color: $panel_bg;
-  color: $panel_fg;
-  border-bottom: 2px solid $gold;
+  background-color: #09291d;
+  color: #fff3d2;
+  border-bottom: 2px solid #e5b83e;
   font-weight: bold;
   box-shadow: none;
 }
 
 #panel .panel-button {
-  color: $panel_fg;
+  color: #fff3d2;
   border-radius: 0;
   padding: 0 8px;
   transition-duration: 120ms;
@@ -30,23 +30,23 @@ stage {
 #panel .panel-button:hover,
 #panel .panel-button:active,
 #panel .panel-button:checked {
-  background-color: $active;
-  color: $paper;
-  box-shadow: inset 0 -2px $gold;
+  background-color: #28783c;
+  color: #f2d49a;
+  box-shadow: inset 0 -2px #e5b83e;
 }
 
 .popup-menu-content,
 .popup-menu {
-  background-color: $forest;
-  color: $panel_fg;
-  border: 2px solid $gold;
+  background-color: #123f2b;
+  color: #fff3d2;
+  border: 2px solid #e5b83e;
   border-radius: 0;
   padding: 6px;
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45);
 }
 
 .popup-menu-item {
-  color: $panel_fg;
+  color: #fff3d2;
   border-radius: 0;
   padding: 8px 12px;
 }
@@ -54,28 +54,28 @@ stage {
 .popup-menu-item:hover,
 .popup-menu-item:focus,
 .popup-menu-item:active {
-  background-color: $active;
-  color: $paper;
+  background-color: #28783c;
+  color: #f2d49a;
 }
 
 .popup-separator-menu-item .popup-separator {
-  background-color: $gold;
+  background-color: #e5b83e;
   height: 1px;
 }
 
 .button,
 .modal-dialog .modal-dialog-button {
-  background-color: $forest;
-  color: $panel_fg;
-  border: 2px solid $gold;
+  background-color: #123f2b;
+  color: #fff3d2;
+  border: 2px solid #e5b83e;
   border-radius: 0;
   padding: 7px 12px;
 }
 
 .button:hover,
 .modal-dialog .modal-dialog-button:hover {
-  background-color: $active;
-  color: $paper;
+  background-color: #28783c;
+  color: #f2d49a;
 }
 
 .quick-settings,
@@ -86,32 +86,32 @@ stage {
 
 .quick-toggle,
 .quick-menu-toggle .quick-toggle {
-  background-color: $forest;
-  border: 1px solid $gold;
-  color: $panel_fg;
+  background-color: #123f2b;
+  border: 1px solid #e5b83e;
+  color: #fff3d2;
 }
 
 .quick-toggle:checked,
 .quick-menu-toggle .quick-toggle:checked {
-  background-color: $active;
-  color: $paper;
+  background-color: #28783c;
+  color: #f2d49a;
 }
 
 .message,
 .notification-banner,
 .message-list-placeholder {
-  background-color: $forest;
-  color: $panel_fg;
-  border: 2px solid $gold;
+  background-color: #123f2b;
+  color: #fff3d2;
+  border: 2px solid #e5b83e;
   border-radius: 0;
 }
 
 .workspace-thumbnail {
-  border: 1px solid $gold;
+  border: 1px solid #e5b83e;
 }
 
 .workspace-thumbnail:active {
-  background-color: $active;
+  background-color: #28783c;
 }
 
 #overview,
@@ -120,11 +120,11 @@ stage {
 }
 
 .search-entry {
-  background-color: $paper;
-  color: $ink;
-  border: 2px solid $gold;
+  background-color: #f2d49a;
+  color: #241b12;
+  border: 2px solid #e5b83e;
   border-radius: 0;
-  selection-background-color: $active;
+  selection-background-color: #28783c;
 }
 
 StEntry,
