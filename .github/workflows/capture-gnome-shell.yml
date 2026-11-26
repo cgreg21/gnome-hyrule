@@ -32,7 +32,6 @@ jobs:
             mutter-devkit \
             weston \
             xorg-x11-server-Xvfb \
-            xorg-x11-utils \
             xdotool \
             ImageMagick \
             libnotify \
