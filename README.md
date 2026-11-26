@@ -38,11 +38,31 @@ repository's **Actions → Capture theme screenshots** page.
 
 ### GTK 3
 
+**Widget Factory – page 1**
+
 ![Hyrule Pixel GTK 3 Widget Factory](docs/screenshots/gtk3-widget-factory.png)
+
+**Widget Factory – page 2**
+
+![Hyrule Pixel GTK 3 Widget Factory page 2](docs/screenshots/gtk3-page-2.png)
+
+**Widget Factory – page 3**
+
+![Hyrule Pixel GTK 3 Widget Factory page 3](docs/screenshots/gtk3-page-3.png)
 
 ### GTK 4
 
+**GTK Demo – overview**
+
 ![Hyrule Pixel GTK 4 Demo](docs/screenshots/gtk4-demo.png)
+
+**GTK Demo – themes**
+
+![Hyrule Pixel GTK 4 themes](docs/screenshots/gtk4-themes.png)
+
+**GTK Demo – entry widgets**
+
+![Hyrule Pixel GTK 4 entry widgets](docs/screenshots/gtk4-entry.png)
 
 These automated captures show GTK application styling. They are not GNOME
 Shell desktop screenshots: Overview, the top panel, calendar, Quick Settings,
