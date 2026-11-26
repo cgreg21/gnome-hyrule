@@ -56,15 +56,6 @@ for _ in $(seq 1 40); do
 done
 sleep 8
 
-# Log visible X11 windows to identify any host-side first-run dialog.
-for window in $(xdotool search --onlyvisible --name '.*' 2>/dev/null || true); do
-  printf 'X11 window %s: ' "$window" >&2
-  xdotool getwindowname "$window" >&2 || true
-done
-
-# Fedora's container welcome screen is provided by GNOME Tour.
-pkill -x gnome-tour 2>/dev/null || true
-
 # Dismiss the Devkit first-run tour and use the full virtual display.
 DEVKIT_WINDOW="$(xdotool search --onlyvisible --name 'Mutter Development Kit' | head -n 1)"
 test -n "$DEVKIT_WINDOW"
@@ -90,10 +81,6 @@ eval_shell() {
     --object-path /org/gnome/Shell \
     --method org.gnome.Shell.Eval "$1"
 }
-
-# Close first-run application windows in the nested session (the Devkit host stays open).
-eval_shell 'global.get_window_actors().forEach(a => a.meta_window.delete(global.get_current_time()))'
-sleep 2
 
 rm -f "$OUTPUT_DIR"/shell-*.png
 eval_shell 'Main.overview.show()'
