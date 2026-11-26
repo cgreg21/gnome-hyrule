@@ -11,9 +11,14 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: capture-screenshots-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   capture:
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
       - name: Check out theme
         uses: actions/checkout@v4
