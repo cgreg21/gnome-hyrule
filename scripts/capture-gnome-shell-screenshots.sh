@@ -46,8 +46,6 @@ cp -a "$ROOT/themes/Hyrule-Pixel" "$HOME/.themes/"
 USER_THEME_ID="user-theme@gnome-shell-extensions.gcampax.github.com"
 gsettings set org.gnome.shell enabled-extensions "['$USER_THEME_ID']"
 gsettings set org.gnome.shell.extensions.user-theme name 'Hyrule-Pixel'
-# Suppress Fedora's first-run tour so it cannot cover the desktop captures.
-gsettings set org.gnome.desktop.welcome-dialog show-at-startup false
 
 # Devkit presents the nested Wayland desktop in a GTK window on the Xvfb display.
 gnome-shell --devkit --wayland --unsafe-mode >"$RUNTIME_DIR/gnome-shell.log" 2>&1 &
@@ -57,6 +55,9 @@ for _ in $(seq 1 40); do
   sleep 0.5
 done
 sleep 8
+
+# Identify the Fedora first-run process so the screenshot session can suppress it.
+ps -eo pid,comm,args | grep -Ei 'tour|welcome|initial|fedora' >&2 || true
 
 # Dismiss the Devkit first-run tour and use the full virtual display.
 DEVKIT_WINDOW="$(xdotool search --onlyvisible --name 'Mutter Development Kit' | head -n 1)"
