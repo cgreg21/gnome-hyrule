@@ -5,8 +5,8 @@ A user-installable GNOME desktop theme inspired by 16/32-bit Zelda-era JRPG pixe
 ## Included
 
 - GNOME Shell stylesheet (GNOME 51 target; live-session validation still required)
-- GTK 3 light/dark stylesheets
-- Best-effort GTK 4 stylesheet
+- PNG pixel-art frames using 9-slice borders for Shell menus, notifications, buttons, and entries
+- GTK 3 light/dark stylesheets and a best-effort GTK 4 stylesheet using the same PNG frame assets
 - Pixel-art SVG and 128×128 PNG icon sets for GNOME apps, folders, file types, and system status
 - User-local install and uninstall scripts
 
@@ -27,6 +27,23 @@ Uninstall:
 ```bash
 bash scripts/uninstall.sh
 ```
+
+## PNG frames and 9-slice rendering
+
+The theme uses small RGBA PNG textures rather than flat CSS borders for its main
+panels, buttons, and text entries. The image is divided into four fixed corner
+regions and stretchable edge/center regions, so the frame adapts to different
+widget sizes without stretching its pixel-art corners.
+
+- `themes/Hyrule-Pixel/assets/panel-frame.png`: 48×48 PNG, 12 px slice
+- `themes/Hyrule-Pixel/assets/button-frame.png`: 24×24 PNG, 6 px slice
+- `themes/Hyrule-Pixel/assets/entry-frame.png`: 24×24 PNG, 6 px slice
+- `themes/Hyrule-Pixel/assets/gold-divider.png`: 24×3 repeatable PNG divider
+
+GNOME Shell St uses its compact `border-image: url(...) top right bottom left`
+syntax. GTK uses the standard `border-image: url(...) slice / width stretch`
+syntax. These are 9-slice borders, not Android's marker-pixel `.9.png` format.
+The PNG files are generated reproducibly by `scripts/draw-theme-textures.py`.
 
 ## Compatibility notes
 
