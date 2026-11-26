@@ -16,25 +16,42 @@ concurrency:
 
 jobs:
   generate:
-    if: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
     runs-on: ubuntu-latest
     steps:
+      - name: Check Cloudflare credentials
+        id: credentials
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID repository secrets to enable AI generation."
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Checkout
+        if: steps.credentials.outputs.ready == 'true'
         uses: actions/checkout@v4
       - name: Set up Python
+        if: steps.credentials.outputs.ready == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Install image processing library
+        if: steps.credentials.outputs.ready == 'true'
         run: python -m pip install --disable-pip-version-check "Pillow==11.1.0"
       - name: Generate AI artwork with FLUX.1 Schnell
+        if: steps.credentials.outputs.ready == 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: python scripts/draw-icons.py
       - name: Validate generated assets
+        if: steps.credentials.outputs.ready == 'true'
         run: bash scripts/check.sh
       - name: Commit generated PNG icons
+        if: steps.credentials.outputs.ready == 'true'
         run: |
           git add -A icons/Hyrule-Icons/512x512
           if git diff --cached --quiet; then
