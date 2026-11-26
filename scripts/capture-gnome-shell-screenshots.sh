@@ -46,6 +46,8 @@ cp -a "$ROOT/themes/Hyrule-Pixel" "$HOME/.themes/"
 USER_THEME_ID="user-theme@gnome-shell-extensions.gcampax.github.com"
 gsettings set org.gnome.shell enabled-extensions "['$USER_THEME_ID']"
 gsettings set org.gnome.shell.extensions.user-theme name 'Hyrule-Pixel'
+# Suppress Fedora's first-run tour so it cannot cover the desktop captures.
+gsettings set org.gnome.desktop.welcome-dialog show-at-startup false
 
 # Devkit presents the nested Wayland desktop in a GTK window on the Xvfb display.
 gnome-shell --devkit --wayland --unsafe-mode >"$RUNTIME_DIR/gnome-shell.log" 2>&1 &
@@ -81,10 +83,6 @@ eval_shell() {
     --object-path /org/gnome/Shell \
     --method org.gnome.Shell.Eval "$1"
 }
-
-# Close Fedora's first-run welcome window inside the nested GNOME session.
-eval_shell 'global.get_window_actors().filter(a => /Welcome|Fedora/.test(a.meta_window.get_title() || "")).forEach(a => a.meta_window.delete(global.get_current_time()))'
-sleep 2
 
 rm -f "$OUTPUT_DIR"/shell-*.png
 eval_shell 'Main.overview.show()'
