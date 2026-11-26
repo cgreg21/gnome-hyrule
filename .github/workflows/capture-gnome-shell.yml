@@ -57,7 +57,7 @@ jobs:
 
       - name: Capture GNOME Shell 51 desktop views
         run: |
-          chown -R theme-ci:theme-ci "$GITHUB_WORKSPACE"
+          chown -R theme-ci:theme-ci "$GITHUB_WORKSPACE/docs/screenshots"
           runuser -u theme-ci -- env \
             HOME=/home/theme-ci \
             USER=theme-ci \
