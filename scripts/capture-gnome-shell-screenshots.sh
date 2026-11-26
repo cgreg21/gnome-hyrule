@@ -36,9 +36,7 @@ export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 bash "$ROOT/scripts/install.sh"
 
-# Mutter Devkit requires a PipeWire session even for headless rendering.
 pipewire >"$RUNTIME_DIR/pipewire.log" 2>&1 &
-PIPEWIRE_PID=$!
 wireplumber >"$RUNTIME_DIR/wireplumber.log" 2>&1 &
 sleep 2
 mkdir -p "$HOME/.themes"
@@ -49,7 +47,8 @@ USER_THEME_ID="user-theme@gnome-shell-extensions.gcampax.github.com"
 gsettings set org.gnome.shell enabled-extensions "['$USER_THEME_ID']"
 gsettings set org.gnome.shell.extensions.user-theme name 'Hyrule-Pixel'
 
-gnome-shell --devkit >"$RUNTIME_DIR/gnome-shell.log" 2>&1 &
+# Devkit presents the nested Wayland desktop in a GTK window on the Xvfb display.
+gnome-shell --devkit --wayland --unsafe-mode >"$RUNTIME_DIR/gnome-shell.log" 2>&1 &
 SHELL_PID=$!
 for _ in $(seq 1 40); do
   kill -0 "$SHELL_PID" 2>/dev/null || { cat "$RUNTIME_DIR/gnome-shell.log"; exit 1; }
@@ -63,6 +62,7 @@ capture() {
   sleep 2
   import -window root "$OUTPUT_DIR/$name"
   identify -format '%wx%h' "$OUTPUT_DIR/$name" | grep -q '^1600x1000$'
+  [[ "$(identify -format '%k' "$OUTPUT_DIR/$name")" -ge 64 ]]
 }
 
 eval_shell() {
@@ -87,3 +87,4 @@ for screenshot in "$OUTPUT_DIR"/shell-*.png; do
   test -s "$screenshot"
   identify "$screenshot"
 done
+[[ "$(sha256sum "$OUTPUT_DIR"/shell-*.png | cut -d ' ' -f 1 | sort -u | wc -l)" -eq 4 ]]
