@@ -61,9 +61,9 @@ capture_app() {
       xdotool mousemove --window "$window_id" 50 159 click 1
       sleep 2
       timeout 20s import -window "$window_id" "$OUTPUT_DIR/gtk4-themes.png"
-      xdotool mousemove --window "$window_id" 50 380 click 1
+      xdotool mousemove --window "$window_id" 50 125 click 1
       sleep 2
-      timeout 20s import -window "$window_id" "$OUTPUT_DIR/gtk4-entry.png"
+      timeout 20s import -window "$window_id" "$OUTPUT_DIR/gtk4-frames.png"
       ;;
   esac
 
