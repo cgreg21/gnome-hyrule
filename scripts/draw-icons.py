@@ -153,7 +153,7 @@ def draw_icon(name):
             rect(d, (9,13,22,15), P["white"])
             rect(d, (9,17,22,20), P["gold_dark"])
             d.ellipse((19,18,22,21), fill=P["green"], outline=P["ink"])
-    elif name.endswith("-x-generic"):
+    elif name.endswith("-x-generic") or name == "application-x-executable":
         frame(d, 7, 4, 24, 27, "paper")
         d.polygon([(18,4),(24,10),(18,10)], fill=P["gold"], outline=P["ink"])
         if name.startswith("text"):
@@ -302,7 +302,7 @@ def draw_icon(name):
         elif name == "folder-pictures":
             rect(d, (11, 15, 12, 16), P["white"])
             rect(d, (16, 19, 20, 20), P["green"])
-    elif name.endswith("-x-generic"):
+    elif name.endswith("-x-generic") or name == "application-x-executable":
         rect(d, (9, 6, 10, 8), P["white"])
         rect(d, (11, 11, 20, 11), P["gold"])
         if name.startswith("text"):
