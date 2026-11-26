@@ -8,6 +8,10 @@ on:
       - ".github/workflows/theme-textures.yml"
   workflow_dispatch:
 
+concurrency:
+  group: hyrule-theme-textures-main
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -15,7 +19,9 @@ jobs:
   textures:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4\n        with:\n          ref: main
+      - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
