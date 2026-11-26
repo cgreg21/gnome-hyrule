@@ -37,7 +37,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     frame("panel-frame.png", 48, 12, "forest", "gold", "bright", "shadow")
     frame("button-frame.png", 24, 6, "green", "gold", "bright", "shadow")
-    frame("entry-frame.png", 24, 6, "paper" if "paper" in PALETTE else "bright", "gold", "bright", "shadow")
+    frame("entry-frame.png", 24, 6, "bright", "gold", "bright", "shadow")
     # A repeatable 3-pixel divider tile for separators and menu decoration.
     divider = Image.new("RGBA", (24, 3), PALETTE["transparent"])
     draw = ImageDraw.Draw(divider)
