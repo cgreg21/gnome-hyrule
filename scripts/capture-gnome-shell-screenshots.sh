@@ -21,11 +21,12 @@ export XDG_RUNTIME_DIR="$RUNTIME_DIR"
 export DISPLAY="${DISPLAY:-:99}"
 Xvfb "$DISPLAY" -screen 0 1600x1000x24 -nolisten tcp >"$RUNTIME_DIR/xvfb.log" 2>&1 &
 XVFB_PID=$!
+X_SOCKET="/tmp/.X11-unix/X${DISPLAY#:}"
 for _ in $(seq 1 50); do
-  xdpyinfo >/dev/null 2>&1 && break
+  [[ -S "$X_SOCKET" ]] && break
   sleep 0.2
 done
-xdpyinfo >/dev/null
+[[ -S "$X_SOCKET" ]]
 
 weston --backend=x11 --socket=wayland-1 --width=1600 --height=1000 --fullscreen --no-config >"$RUNTIME_DIR/weston.log" 2>&1 &
 WESTON_PID=$!
