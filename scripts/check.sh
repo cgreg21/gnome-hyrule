@@ -75,6 +75,28 @@ missing_native = [name for name in required_pngs if not (icons / "512x512" / nam
 if missing_native:
     raise SystemExit("Missing native 512x512 PNG icons: " + ", ".join(missing_native))
 
+texture_sizes = {
+    "panel-frame.png": (64, 64),
+    "button-frame.png": (48, 48),
+    "entry-frame.png": (48, 48),
+    "gold-divider.png": (32, 5),
+    "inventory-parchment.png": (128, 96),
+    "inventory-slot.png": (40, 40),
+    "inventory-slot-selected.png": (40, 40),
+    "rupee-green.png": (24, 32),
+}
+texture_dir = root / "themes/Hyrule-Pixel/assets"
+for name, expected in texture_sizes.items():
+    path = texture_dir / name
+    if not path.is_file():
+        raise SystemExit(f"Missing theme texture: {path.relative_to(root)}")
+    data = path.read_bytes()
+    if data[:8] != b"\\x89PNG\\r\\n\\x1a\\n" or data[12:16] != b"IHDR":
+        raise SystemExit(f"Invalid theme PNG: {path.relative_to(root)}")
+    actual = (int.from_bytes(data[16:20], "big"), int.from_bytes(data[20:24], "big"))
+    if actual != expected:
+        raise SystemExit(f"Expected {expected[0]}x{expected[1]} theme PNG: {name} ({actual[0]}x{actual[1]})")
+
 required = [
     root / "README.md",
     root / "themes/Hyrule-Pixel/gnome-shell/gnome-shell.css",
