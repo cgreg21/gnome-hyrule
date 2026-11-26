@@ -5,35 +5,52 @@ ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 OUTPUT_DIR="${1:-$ROOT/docs/screenshots}"
 mkdir -p "$OUTPUT_DIR"
 
-if ! command -v gnome-screenshot >/dev/null 2>&1; then
-  echo "gnome-screenshot is required (install the gnome-screenshot package)." >&2
-  exit 1
-fi
+for command_name in xdotool import openbox; do
+  command -v "$command_name" >/dev/null || {
+    echo "Missing required command: $command_name" >&2
+    exit 1
+  }
+done
+
+openbox >/tmp/hyrule-openbox.log 2>&1 &
+WM_PID=$!
+trap 'kill "$WM_PID" 2>/dev/null || true' EXIT
+sleep 2
 
 capture_app() {
-  local app="$1"
+  local title="$1"
   local output="$2"
   local command_name="$3"
+  local window_id=""
 
-  if ! command -v "$command_name" >/dev/null 2>&1; then
-    echo "Missing $command_name. Install the package providing $command_name." >&2
+  command -v "$command_name" >/dev/null || {
+    echo "Missing $command_name; install its GTK demo package." >&2
+    return 1
+  }
+
+  echo "Launching $title with Hyrule-Pixel..."
+  GTK_THEME=Hyrule-Pixel "$command_name" >/tmp/hyrule-app.log 2>&1 &
+  local app_pid=$!
+
+  for _ in $(seq 1 30); do
+    window_id="$(xdotool search --onlyvisible --pid "$app_pid" 2>/dev/null | head -n 1 || true)"
+    [[ -n "$window_id" ]] && break
+    sleep 1
+  done
+
+  if [[ -z "$window_id" ]]; then
+    cat /tmp/hyrule-app.log >&2 || true
+    kill "$app_pid" 2>/dev/null || true
     return 1
   fi
 
-  echo "Launching $app with GTK_THEME=Hyrule-Pixel..."
-  GTK_THEME=Hyrule-Pixel "$command_name" >/tmp/hyrule-screenshot-app.log 2>&1 &
-  local app_pid=$!
-  sleep 5
-  gnome-screenshot --window --file="$OUTPUT_DIR/$output"
+  xdotool windowactivate --sync "$window_id"
+  sleep 3
+  import -window "$window_id" "$OUTPUT_DIR/$output"
   kill "$app_pid" 2>/dev/null || true
   wait "$app_pid" 2>/dev/null || true
-  echo "Saved $OUTPUT_DIR/$output"
+  echo "Captured $OUTPUT_DIR/$output"
 }
 
 capture_app "GTK 3 Widget Factory" "gtk3-widget-factory.png" "gtk3-widget-factory"
 capture_app "GTK 4 Demo" "gtk4-demo.png" "gtk4-demo"
-
-echo
-echo "GTK screenshots captured. For GNOME Shell screens (overview, calendar,"
-echo "Quick Settings and lock screen), capture the real desktop manually and"
-echo "save the PNG files in: $OUTPUT_DIR"
