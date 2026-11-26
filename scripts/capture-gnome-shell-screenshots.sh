@@ -49,7 +49,7 @@ USER_THEME_ID="user-theme@gnome-shell-extensions.gcampax.github.com"
 gsettings set org.gnome.shell enabled-extensions "['$USER_THEME_ID']"
 gsettings set org.gnome.shell.extensions.user-theme name 'Hyrule-Pixel'
 
-gnome-shell --devkit --x11 >"$RUNTIME_DIR/gnome-shell.log" 2>&1 &
+gnome-shell --devkit >"$RUNTIME_DIR/gnome-shell.log" 2>&1 &
 SHELL_PID=$!
 for _ in $(seq 1 40); do
   kill -0 "$SHELL_PID" 2>/dev/null || { cat "$RUNTIME_DIR/gnome-shell.log"; exit 1; }
