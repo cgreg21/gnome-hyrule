@@ -30,7 +30,6 @@ jobs:
             gnome-shell \
             gnome-shell-extension-user-theme \
             mutter-devkit \
-            weston \
             xorg-x11-server-Xvfb \
             xdotool \
             ImageMagick \
