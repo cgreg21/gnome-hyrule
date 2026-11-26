@@ -3,6 +3,10 @@ set -euo pipefail
 ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 bash -n "$ROOT/scripts/install.sh"
 bash -n "$ROOT/scripts/uninstall.sh"
+if grep -Eq '^\\$|^#[0-9a-fA-F]{6}:' "$ROOT/themes/Hyrule-Pixel/gnome-shell/gnome-shell.css"; then
+  echo "Invalid Sass-style token found in GNOME Shell CSS." >&2
+  exit 1
+fi
 python3 - "$ROOT" <<'PY'
 import pathlib
 import sys
