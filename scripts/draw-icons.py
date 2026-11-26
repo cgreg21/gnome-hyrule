@@ -120,7 +120,7 @@ def make_transparent(image: Image.Image) -> Image.Image:
     # Remove only the connected chroma-key background, preserving enclosed details.
     draw = ImageDraw.Draw(image)
     for point in ((0, 0), (SIZE - 1, 0), (0, SIZE - 1), (SIZE - 1, SIZE - 1)):
-        draw.floodfill(point, (0, 0, 0, 0), thresh=72)
+        ImageDraw.floodfill(image, point, (0, 0, 0, 0), thresh=72)
     return image
 
 
