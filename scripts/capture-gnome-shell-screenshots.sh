@@ -37,6 +37,9 @@ done
 [[ -S "$RUNTIME_DIR/wayland-1" ]] || { cat "$RUNTIME_DIR/weston.log"; exit 1; }
 
 export WAYLAND_DISPLAY=wayland-1
+export XDG_SESSION_TYPE=wayland
+export GDK_BACKEND=wayland
+export LIBGL_ALWAYS_SOFTWARE=1
 export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 bash "$ROOT/scripts/install.sh"
