@@ -55,6 +55,16 @@ for _ in $(seq 1 40); do
   sleep 0.5
 done
 sleep 8
+
+# Dismiss the Devkit first-run tour and use the full virtual display.
+DEVKIT_WINDOW="$(xdotool search --onlyvisible --name 'Mutter Development Kit' | head -n 1)"
+test -n "$DEVKIT_WINDOW"
+xdotool windowactivate --sync "$DEVKIT_WINDOW"
+xdotool mousemove 526 630 click 1
+sleep 2
+xdotool mousemove 1175 26 click 1
+sleep 2
+
 gnome-shell --version | grep -q '51\.' || { gnome-shell --version; exit 1; }
 
 capture() {
@@ -81,6 +91,7 @@ eval_shell 'Main.panel.statusArea.dateMenu.menu.close(); Main.panel.statusArea.q
 capture shell-quick-settings.png
 eval_shell 'Main.panel.statusArea.quickSettings.menu.close()'
 notify-send --app-name="Hyrule Pixel" "Hyrule notification" "A message from the Hyrule screenshot test."
+sleep 3
 capture shell-notification.png
 
 for screenshot in "$OUTPUT_DIR"/shell-*.png; do
