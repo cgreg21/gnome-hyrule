@@ -1,0 +1,21 @@
+/* Best-effort GTK 4 stylesheet. libadwaita apps may ignore custom themes. */
+@define-color window_bg_color #09291d;
+@define-color window_fg_color #fff3d2;
+@define-color view_bg_color #f2d49a;
+@define-color view_fg_color #241b12;
+@define-color accent_bg_color #28783c;
+@define-color accent_fg_color #fff3d2;
+@define-color headerbar_bg_color #123f2b;
+@define-color headerbar_fg_color #fff3d2;
+@define-color card_bg_color #123f2b;
+@define-color card_fg_color #fff3d2;
+@define-color popover_bg_color #123f2b;
+@define-color popover_fg_color #fff3d2;
+
+window {
+  background: #09291d;
+  color: #fff3d2;
+}
+button {
+  border-radius: 0;
+}
