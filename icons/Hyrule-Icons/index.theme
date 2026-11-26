@@ -5,19 +5,22 @@ Inherits=Adwaita,hicolor
 Directories=scalable/apps,scalable/places,scalable/status
 
 [scalable/apps]
-Size= scalable
+Size=16
 Type=Scalable
 MinSize=16
 MaxSize=512
+Context=Applications
 
 [scalable/places]
-Size= scalable
+Size=16
 Type=Scalable
 MinSize=16
 MaxSize=512
+Context=Places
 
 [scalable/status]
-Size= scalable
+Size=16
 Type=Scalable
 MinSize=16
 MaxSize=512
+Context=Status
