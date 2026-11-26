@@ -420,3 +420,106 @@ StLabel {
   background-color: #28783c;
   border: 1px solid #e5b83e;
 }
+
+/* Lock screen and unlock dialog */
+#lockDialogGroup {
+  background-color: #09291d;
+}
+
+.screen-shield-background {
+  background-color: #09291d;
+}
+
+.screen-shield-clock,
+.unlock-dialog-clock {
+  color: #fff3d2;
+  text-shadow: 2px 2px 0 #09291d;
+}
+
+.screen-shield-clock-date,
+.unlock-dialog-clock-date {
+  color: #f2d49a;
+}
+
+.unlock-dialog,
+.login-dialog {
+  background-color: rgba(9, 41, 29, 0.96);
+  color: #fff3d2;
+}
+
+.unlock-dialog .modal-dialog,
+.login-dialog .modal-dialog {
+  background-color: #123f2b;
+  color: #fff3d2;
+  border: 2px solid #e5b83e;
+  border-radius: 0;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45);
+}
+
+.unlock-dialog .prompt-dialog-password-entry,
+.login-dialog .prompt-dialog-password-entry {
+  background-color: #f2d49a;
+  color: #241b12;
+  border: 1px solid #e5b83e;
+  border-radius: 0;
+}
+
+.unlock-dialog .prompt-dialog-password-entry:focus,
+.login-dialog .prompt-dialog-password-entry:focus {
+  border-color: #fff0c4;
+  box-shadow: inset 0 0 0 1px #e5b83e;
+}
+
+.unlock-dialog .button,
+.login-dialog .button {
+  background-color: #09291d;
+  color: #fff3d2;
+  border: 1px solid #e5b83e;
+  border-radius: 0;
+}
+
+.unlock-dialog .button:hover,
+.login-dialog .button:hover {
+  background-color: #28783c;
+  color: #fff0c4;
+}
+
+/* Notification actions and message list */
+.message-list {
+  color: #fff3d2;
+}
+
+.message-list .message {
+  background-color: #123f2b;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+  padding: 8px;
+}
+
+.message-list .message:hover {
+  border-color: #e5b83e;
+}
+
+.message-list .message-title,
+.message-list .message-body {
+  color: #fff3d2;
+}
+
+.message-list .message-secondary-bin {
+  color: #f2d49a;
+}
+
+.notification-banner .notification-button,
+.message-list .message .message-action {
+  background-color: #09291d;
+  color: #f2d49a;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+}
+
+.notification-banner .notification-button:hover,
+.message-list .message .message-action:hover {
+  background-color: #28783c;
+  color: #fff3d2;
+  border-color: #e5b83e;
+}
