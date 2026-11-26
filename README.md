@@ -38,7 +38,7 @@ See [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md) for known limitations.
 
 ## Icon artwork
 
-The PNG icon source is `scripts/draw-icons.py`. It draws 32×32 pixel artwork with Pillow and enlarges it to 128×128 using nearest-neighbour scaling. To regenerate locally, install Pillow and run:
+The PNG icon source is `scripts/draw-icons.py`. It draws directly into 512×512 RGBA canvases with Pillow; no 32×32 or 128×128 bitmap is enlarged. The 128×128 compatibility assets are retained separately. To regenerate the native assets locally, install Pillow and run:
 
 ```bash
 python -m pip install Pillow==11.1.0
