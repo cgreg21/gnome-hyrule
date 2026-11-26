@@ -2,7 +2,7 @@
 Name=Hyrule-Icons
 Comment=Detailed Hyrule pixel-art icon theme
 Inherits=Adwaita,hicolor
-Directories=128x128/apps,128x128/places,128x128/mimetypes,128x128/status,scalable/apps,scalable/places,scalable/status,scalable/mimetypes
+Directories=512x512/apps,512x512/places,512x512/mimetypes,512x512/status,128x128/apps,128x128/places,128x128/mimetypes,128x128/status,scalable/apps,scalable/places,scalable/status,scalable/mimetypes
 
 [128x128/apps]
 Size=128
@@ -51,3 +51,23 @@ Type=Scalable
 MinSize=16
 MaxSize=512
 Context=MimeTypes
+
+[512x512/apps]
+Size=512
+Type=Fixed
+Context=Applications
+
+[512x512/places]
+Size=512
+Type=Fixed
+Context=Places
+
+[512x512/mimetypes]
+Size=512
+Type=Fixed
+Context=MimeTypes
+
+[512x512/status]
+Size=512
+Type=Fixed
+Context=Status
