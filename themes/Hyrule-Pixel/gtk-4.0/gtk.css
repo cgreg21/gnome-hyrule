@@ -186,3 +186,29 @@ headerbar button:hover {
   background-color: #28783c;
   border-color: #e5b83e;
 }
+
+/* Keyboard focus and disabled-state contrast */
+:focus-visible {
+  outline: 2px solid #e5b83e;
+  outline-offset: 2px;
+}
+
+button:disabled,
+entry:disabled,
+switch:disabled,
+checkbutton:disabled,
+radiobutton:disabled {
+  background-color: #514735;
+  color: #b7a987;
+  border-color: #806b43;
+}
+
+entry:disabled {
+  background-color: #d0bd96;
+  color: #71634b;
+}
+
+scale slider:disabled,
+scrollbar slider:disabled {
+  background-color: #806b43;
+}
