@@ -59,10 +59,12 @@ sleep 8
 # Dismiss the Devkit first-run tour and use the full virtual display.
 DEVKIT_WINDOW="$(xdotool search --onlyvisible --name 'Mutter Development Kit' | head -n 1)"
 test -n "$DEVKIT_WINDOW"
-xdotool windowactivate --sync "$DEVKIT_WINDOW"
-xdotool mousemove 526 630 click 1
+# The Devkit window manager does not implement _NET_ACTIVE_WINDOW.
+# Resize it directly and click the first-run tour relative to the window.
+xdotool windowmove "$DEVKIT_WINDOW" 0 0
+xdotool windowsize "$DEVKIT_WINDOW" 1600 1000
 sleep 2
-xdotool mousemove 1175 26 click 1
+xdotool mousemove --window "$DEVKIT_WINDOW" 526 630 click 1
 sleep 2
 
 gnome-shell --version | grep -q '51\.' || { gnome-shell --version; exit 1; }
