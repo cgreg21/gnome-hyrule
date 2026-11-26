@@ -43,8 +43,18 @@ for png in png_files:
     height = int.from_bytes(data[20:24], "big")
     if (width, height) != (128, 128):
         raise SystemExit(f"Expected 128x128 PNG: {png.relative_to(root)} ({width}x{height})")
-if len(png_files) < 26:
-    raise SystemExit(f"Expected at least 26 PNG icons, found {len(png_files)}")
+if len(png_files) < 33:
+    raise SystemExit(f"Expected at least 33 PNG icons, found {len(png_files)}")
+
+required_pngs = (
+    "places/folder-music.png", "places/folder-videos.png",
+    "places/drive-harddisk.png", "mimetypes/application-x-executable.png",
+    "mimetypes/package-x-generic.png", "status/network-wired.png",
+    "status/user-trash-full.png",
+)
+missing_pngs = [name for name in required_pngs if not (icons / "128x128" / name).is_file()]
+if missing_pngs:
+    raise SystemExit("Missing generated PNG icons: " + ", ".join(missing_pngs))
 
 required = [
     root / "README.md",
