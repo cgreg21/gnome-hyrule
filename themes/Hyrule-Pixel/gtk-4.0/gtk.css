@@ -108,3 +108,81 @@ tooltip.background {
   border-radius: 0;
 }
 
+/* GTK 4 menus, cards and list rows */
+popover,
+popover > contents,
+.menu,
+.context-menu {
+  background-color: #f2d49a;
+  color: #241b12;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+popover modelbutton {
+  color: #241b12;
+  border-radius: 0;
+  padding: 6px 10px;
+}
+
+popover modelbutton:hover,
+popover modelbutton:focus {
+  background-color: #28783c;
+  color: #fff3d2;
+}
+
+card,
+.boxed-list {
+  background-color: #123f2b;
+  color: #fff3d2;
+  border: 1px solid #e5b83e;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+listview row,
+gridview child {
+  background-color: #f2d49a;
+  color: #241b12;
+  border-radius: 0;
+}
+
+listview row:hover,
+gridview child:hover {
+  background-color: #e2c68f;
+}
+
+listview row:selected,
+gridview child:selected {
+  background-color: #28783c;
+  color: #fff3d2;
+}
+
+separator {
+  background-color: #e5b83e;
+  min-height: 1px;
+}
+
+frame > border {
+  border: 1px solid #e5b83e;
+  border-radius: 0;
+}
+
+headerbar {
+  background-color: #123f2b;
+  color: #fff3d2;
+  border-bottom: 2px solid #e5b83e;
+  box-shadow: none;
+}
+
+headerbar button {
+  background-color: #09291d;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+}
+
+headerbar button:hover {
+  background-color: #28783c;
+  border-color: #e5b83e;
+}
