@@ -1,40 +1,29 @@
 # Hyrule icon catalog
 
-The Hyrule icon theme keeps its pixel-art PNG catalog generated from
-`scripts/draw-icons.py`. The generator writes native 512×512 RGBA images;
-there is no intermediate low-resolution bitmap and no resize operation.
-The older 128×128 set remains available for compatibility. The icon theme
-registers both sizes, with the 512×512 set listed first for high-resolution
-surfaces.
+The 33 native 512×512 PNG icons are generated individually with Cloudflare
+Workers AI and the FLUX.1 Schnell text-to-image model. Each prompt describes
+the exact GNOME application, folder, file type or system status symbol while
+sharing the Hyrule fantasy pixel-art art direction and palette.
 
-## Visual conventions
+The generator writes transparent RGBA PNGs. It requests a clean chroma-key
+background and removes only background pixels connected to the image edges.
+Images are reduced to 512×512 when the provider returns a larger canvas; the
+generator refuses to enlarge a smaller source image. The 128×128 compatibility
+set remains available separately.
 
-- Draw directly into a 512×512 RGBA canvas. The design grid maps drawing
-  primitives to native-resolution coordinates; Pillow rasterizes each shape
-  directly at 512×512 without enlarging a bitmap.
-- Use the shared forest, parchment, gold, and gemstone palette.
-- Give folders, file types, and system states distinct silhouettes and symbols;
-  avoid relying on a color change alone to distinguish related icons.
+## Catalog
 
-## Generated catalog
+- **Applications:** 14 application-specific illustrations.
+- **Places:** 7 folders and storage illustrations.
+- **Mimetypes:** 6 file-type illustrations.
+- **Status:** 6 network, power, Bluetooth and trash illustrations.
 
-The generator currently produces 33 native 512×512 PNG icons:
+## Generation
 
-- **Applications:** 14 application-specific icons.
-- **Places:** standard, documents, downloads, pictures, music, video folders,
-  and a hard-disk icon.
-- **Mimetypes:** text, image, audio, video, executable, and package icons.
-- **Status:** wireless and wired networking, battery, Bluetooth, empty trash,
-  and full trash.
+See [the README](../README.md#ai-generated-icon-artwork) for Cloudflare
+Workers AI account setup, GitHub Actions secrets and generation instructions.
 
-## Regenerate and validate
-
-```bash
-python -m pip install Pillow==11.1.0
-python scripts/draw-icons.py
-bash scripts/check.sh
-```
-
-The `Draw Hyrule icons` GitHub Actions workflow regenerates and commits PNGs
-when the drawing script changes. The theme validation workflow checks the
-generator, SVG assets, PNG dimensions, and required catalog entries.
+The **Generate Hyrule AI icons** workflow uses FLUX.1 Schnell and commits the
+resulting 512×512 PNG files. The free Cloudflare Workers AI allocation is
+limited to 10,000 Neurons per day; consult the provider's live pricing before
+running a full batch.
