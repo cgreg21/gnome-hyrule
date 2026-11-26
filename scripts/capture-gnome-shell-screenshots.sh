@@ -64,7 +64,7 @@ test -n "$DEVKIT_WINDOW"
 xdotool windowmove "$DEVKIT_WINDOW" 0 0
 xdotool windowsize "$DEVKIT_WINDOW" 1600 1000
 sleep 2
-xdotool mousemove --window "$DEVKIT_WINDOW" 700 730 click 1
+xdotool mousemove --window "$DEVKIT_WINDOW" 700 790 click 1
 sleep 2
 
 gnome-shell --version | grep -q '51\.' || { gnome-shell --version; exit 1; }
