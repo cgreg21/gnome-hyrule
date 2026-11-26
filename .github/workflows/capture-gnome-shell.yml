@@ -27,6 +27,7 @@ jobs:
         run: |
           dnf -y install \
             dbus-daemon \
+            python3-dbusmock \
             gnome-settings-daemon \
             accountsservice \
             pipewire \
@@ -48,6 +49,7 @@ jobs:
           chmod 700 /run/user/1001
           install -d -m 755 /run/dbus
           dbus-daemon --system --fork
+          python3 -m dbusmock --system org.freedesktop.login1 /org/freedesktop/login1 org.freedesktop.login1.Manager &
           /usr/libexec/accounts-daemon &
 
       - name: Check out theme
