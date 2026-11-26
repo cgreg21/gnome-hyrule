@@ -178,7 +178,10 @@ def draw_icon(name):
 
 ICONS = {
     "apps": ["org.gnome.Nautilus", "org.gnome.Settings", "org.gnome.Software",
-             "org.gnome.Calculator", "org.gnome.Calendar", "utilities-terminal",\n             "org.gnome.TextEditor", "org.gnome.Loupe", "org.gnome.clocks",\n             "org.gnome.Music", "org.gnome.Maps", "org.gnome.SystemMonitor",\n             "org.gnome.Screenshot", "org.gnome.DiskUtility"],
+             "org.gnome.Calculator", "org.gnome.Calendar", "utilities-terminal",
+             "org.gnome.TextEditor", "org.gnome.Loupe", "org.gnome.clocks",
+             "org.gnome.Music", "org.gnome.Maps", "org.gnome.SystemMonitor",
+             "org.gnome.Screenshot", "org.gnome.DiskUtility"],
     "places": ["folder", "folder-documents", "folder-download", "folder-pictures"],
     "mimetypes": ["text-x-generic", "image-x-generic", "audio-x-generic", "video-x-generic"],
     "status": ["network-wireless", "battery-full", "bluetooth-active", "user-trash"],
