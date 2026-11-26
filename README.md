@@ -31,21 +31,24 @@ bash scripts/uninstall.sh
 
 ## Screenshots
 
-Screenshots must come from a real GNOME session with Hyrule-Pixel installed;
-the repository does not use generated mockups as evidence of the theme's
-runtime appearance. Capture the GTK demo applications locally:
+GitHub Actions installs the theme in a virtual X11 desktop, launches real GTK
+demo applications with `GTK_THEME=Hyrule-Pixel`, captures their windows, and
+publishes the PNGs here. The workflow can also be started manually from the
+repository's **Actions → Capture theme screenshots** page.
 
-```bash
-sudo apt install gnome-screenshot gtk-3-examples gtk-4-examples
-bash scripts/install.sh
-bash scripts/capture-gtk-screenshots.sh
-```
+### GTK 3
 
-The script saves `gtk3-widget-factory.png` and `gtk4-demo.png` in
-`docs/screenshots/`. Add those PNG files to the repository, then embed them
-here once the real captures have been reviewed. Capture GNOME Shell Overview,
-Quick Settings, the calendar and notifications separately from the running
-desktop; the lock screen is not modified by the user-local installer.
+![Hyrule Pixel GTK 3 Widget Factory](docs/screenshots/gtk3-widget-factory.png)
+
+### GTK 4
+
+![Hyrule Pixel GTK 4 Demo](docs/screenshots/gtk4-demo.png)
+
+These automated captures show GTK application styling. They are not GNOME
+Shell desktop screenshots: Overview, the top panel, calendar, Quick Settings,
+notifications and lock screen need a real GNOME session and are not simulated
+by the headless GTK capture workflow. The lock screen is not modified by the
+user-local installer.
 
 ## PNG frames and 9-slice rendering
 
