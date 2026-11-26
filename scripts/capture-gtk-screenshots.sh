@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 OUTPUT_DIR="${1:-$ROOT/docs/screenshots}"
 mkdir -p "$OUTPUT_DIR"
-rm -f "$OUTPUT_DIR/gtk3-widget-factory.png" "$OUTPUT_DIR/gtk4-demo.png"
+rm -f "$OUTPUT_DIR"/*.png
 
 for command_name in xdotool import openbox; do
   command -v "$command_name" >/dev/null || {
@@ -48,6 +48,25 @@ capture_app() {
   xdotool windowactivate --sync "$window_id"
   sleep 3
   import -window "$window_id" "$OUTPUT_DIR/$output"
+
+  case "$command_name" in
+    gtk3-widget-factory)
+      for page in 2 3; do
+        xdotool mousemove --window "$window_id" "$((580 + page * 60))" 50 click 1
+        sleep 2
+        import -window "$window_id" "$OUTPUT_DIR/gtk3-page-$page.png"
+      done
+      ;;
+    gtk4-demo)
+      xdotool mousemove --window "$window_id" 50 195 click 1
+      sleep 2
+      import -window "$window_id" "$OUTPUT_DIR/gtk4-themes.png"
+      xdotool mousemove --window "$window_id" 50 420 click 1
+      sleep 2
+      import -window "$window_id" "$OUTPUT_DIR/gtk4-entry.png"
+      ;;
+  esac
+
   kill "$app_pid" 2>/dev/null || true
   wait "$app_pid" 2>/dev/null || true
   echo "Captured $OUTPUT_DIR/$output"
