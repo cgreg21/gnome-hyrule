@@ -60,6 +60,177 @@ def frame(d, x1=5, y1=4, x2=26, y2=27, fill="paper"):
     rect(d, (x1, y1, x2, y2), P[fill], P["ink"])
     rect(d, (x1+2, y1+2, x2-2, y1+2), P["cream"])
 
+def micro_rect(d, xy, color):
+    """Draw a four-pixel detail directly on the native 512px canvas."""
+    d.draw.rectangle(tuple(int(v * 4) for v in xy), fill=color)
+
+
+def micro_line(d, points, color, width=4):
+    d.draw.line([(int(x * 4), int(y * 4)) for x, y in points],
+                fill=color, width=width)
+
+
+def micro_ellipse(d, xy, fill=None, outline_color=None, width=4):
+    d.draw.ellipse(tuple(int(v * 4) for v in xy), fill=fill,
+                   outline=outline_color, width=width)
+
+
+def add_micro_details(name, d):
+    """Add native 4px pixel clusters, engravings and material highlights."""
+    # Fine bevels and tiny rivets make the silhouette feel like crafted gear.
+    if name in ("org.gnome.Nautilus", "org.gnome.DiskUtility",
+                "drive-harddisk", "network-wired", "user-trash",
+                "user-trash-full"):
+        for x in (8, 22):
+            micro_rect(d, (x * 4, 44, x * 4 + 2, 48), P["cream"])
+    if name.startswith("folder"):
+        micro_line(d, [(32, 64), (96, 64), (104, 68)], P["cream"], 5)
+        micro_line(d, [(32, 92), (32, 120), (36, 124)], P["gold_dark"], 5)
+        micro_rect(d, (24, 132, 44, 136), P["white"])
+        micro_rect(d, (88, 132, 108, 136), P["gold_dark"])
+        if name == "folder-documents":
+            for y in (68, 76, 84, 92):
+                micro_line(d, [(52, y), (76, y)], P["gold_dark"], 3)
+            micro_rect(d, (56, 100, 72, 104), P["red"])
+        elif name == "folder-download":
+            micro_line(d, [(64, 64), (64, 88), (56, 80)], P["cream"], 5)
+            micro_line(d, [(64, 88), (72, 80)], P["cream"], 5)
+        elif name == "folder-pictures":
+            micro_ellipse(d, (68, 64, 80, 76), P["gold"], P["ink"])
+            micro_line(d, [(40, 112), (56, 92), (68, 108), (80, 96), (96, 116)], P["light_green"], 6)
+        elif name == "folder-music":
+            micro_line(d, [(72, 64), (72, 92), (60, 96)], P["cream"], 5)
+            micro_ellipse(d, (54, 92, 66, 104), P["gold"], P["ink"])
+            micro_rect(d, (72, 64, 88, 68), P["gold"])
+        elif name == "folder-videos":
+            micro_line(d, [(56, 72), (56, 104), (80, 88), (56, 72)], P["cream"], 5)
+    elif name == "org.gnome.Nautilus":
+        # Brass chest rivets, wood grain and a tiny Hylian crest.
+        for x in (112, 160, 208, 256, 304, 352, 400):
+            micro_rect(d, (x, 176, x + 8, 180), P["gold"])
+        micro_line(d, [(112, 320), (160, 324), (208, 320)], P["light_green"], 4)
+        micro_line(d, [(304, 320), (352, 324), (400, 320)], P["light_green"], 4)
+        micro_ellipse(d, (244, 224, 268, 248), P["gold"], P["cream"], 4)
+        micro_rect(d, (252, 232, 260, 240), P["ink"])
+    elif name == "org.gnome.Settings":
+        # Engraved gear teeth and a miniature three-point crest.
+        for x, y in ((256, 88), (256, 352), (88, 220), (352, 220)):
+            micro_rect(d, (x, y, x + 8, y + 24), P["cream"])
+        micro_line(d, [(224, 224), (256, 192), (288, 224)], P["gold"], 5)
+        micro_line(d, [(224, 224), (256, 256), (288, 224)], P["gold"], 5)
+    elif name == "org.gnome.Software":
+        # Bottle-glass glints and a faceted rupee.
+        micro_line(d, [(160, 176), (176, 152), (184, 176)], P["white"], 5)
+        micro_line(d, [(256, 208), (280, 256), (256, 304), (232, 256), (256, 208)], P["cream"], 5)
+        micro_line(d, [(256, 216), (256, 296)], P["blue"], 4)
+        micro_rect(d, (168, 336, 188, 340), P["light_green"])
+    elif name == "org.gnome.Calculator":
+        # Distinct key legends and a segmented display.
+        for x, y in ((168, 224), (248, 224), (328, 224),
+                     (168, 304), (248, 304), (328, 304)):
+            micro_rect(d, (x, y, x + 12, y + 12), P["gold_dark"])
+        micro_line(d, [(168, 128), (192, 128), (192, 144)], P["green"], 5)
+        micro_rect(d, (296, 136, 320, 140), P["white"])
+    elif name == "org.gnome.Calendar":
+        for x in (144, 240, 336):
+            micro_rect(d, (x, 112, x + 8, 132), P["gold_dark"])
+        for x, y in ((144, 240), (240, 240), (336, 240),
+                     (144, 320), (336, 320)):
+            micro_rect(d, (x, y, x + 12, y + 12), P["light_green"])
+        micro_rect(d, (232, 312, 256, 336), P["red"])
+    elif name == "utilities-terminal":
+        micro_line(d, [(112, 208), (160, 256), (112, 304)], P["white"], 8)
+        micro_line(d, [(224, 304), (320, 304)], P["gold"], 6)
+        for x in (104, 136, 168):
+            micro_ellipse(d, (x, 128, x + 12, 140), P["gold"], P["ink"], 3)
+    elif name == "org.gnome.TextEditor":
+        for y, end in ((208, 336), (240, 352), (272, 304), (304, 328)):
+            micro_line(d, [(144, y), (end, y)], P["forest"], 5)
+        micro_rect(d, (344, 352, 360, 368), P["gold"])
+        micro_line(d, [(120, 144), (120, 360)], P["gold_dark"], 5)
+    elif name == "org.gnome.Loupe":
+        micro_ellipse(d, (144, 144, 272, 272), None, P["white"], 6)
+        micro_line(d, [(168, 160), (192, 152), (208, 152)], P["white"], 5)
+        micro_line(d, [(320, 320), (376, 376)], P["gold"], 12)
+    elif name == "org.gnome.clocks":
+        for x, y in ((256, 112), (256, 368), (112, 240), (368, 240)):
+            micro_rect(d, (x, y, x + 8, y + 16), P["gold_dark"])
+        micro_line(d, [(256, 256), (256, 160)], P["cream"], 8)
+        micro_line(d, [(256, 256), (328, 256)], P["red"], 8)
+        micro_ellipse(d, (244, 244, 268, 268), P["gold"], P["ink"], 4)
+    elif name == "org.gnome.Music":
+        micro_line(d, [(144, 144), (176, 120), (320, 120)], P["gold"], 6)
+        micro_line(d, [(152, 176), (304, 176)], P["cream"], 5)
+        micro_ellipse(d, (112, 320, 176, 384), P["gold"], P["ink"], 5)
+        micro_ellipse(d, (288, 320, 352, 384), P["gold"], P["ink"], 5)
+    elif name == "org.gnome.Maps":
+        micro_line(d, [(80, 176), (144, 152), (144, 344)], P["cream"], 5)
+        micro_line(d, [(320, 160), (376, 136), (376, 336)], P["gold"], 5)
+        micro_ellipse(d, (236, 212, 276, 252), P["red"], P["cream"], 5)
+        micro_rect(d, (248, 224, 264, 240), P["white"])
+    elif name == "org.gnome.SystemMonitor":
+        for y in (184, 224, 264, 304):
+            micro_line(d, [(144, y), (152, y)], P["gold"], 4)
+        micro_line(d, [(144, 304), (184, 304), (216, 184),
+                       (256, 320), (296, 208), (352, 208)], P["cream"], 7)
+        micro_rect(d, (144, 136, 184, 144), P["light_green"])
+    elif name == "org.gnome.Screenshot":
+        micro_ellipse(d, (168, 176, 344, 352), None, P["white"], 6)
+        micro_ellipse(d, (220, 228, 292, 300), P["cream"], P["gold"], 4)
+        micro_rect(d, (96, 176, 112, 192), P["red"])
+    elif name == "org.gnome.DiskUtility":
+        micro_line(d, [(112, 192), (144, 168), (336, 168), (368, 192)], P["cream"], 5)
+        micro_ellipse(d, (208, 256, 304, 328), None, P["cream"], 5)
+        micro_rect(d, (240, 280, 272, 296), P["light_green"])
+    elif name == "drive-harddisk":
+        for x in (128, 192, 256, 320):
+            micro_rect(d, (x, 184, x + 16, 192), P["white"])
+        micro_ellipse(d, (344, 280, 376, 312), P["green"], P["cream"], 4)
+    elif name in ("text-x-generic", "image-x-generic", "audio-x-generic",
+                  "video-x-generic", "application-x-executable", "package-x-generic"):
+        micro_line(d, [(144, 96), (144, 112), (160, 112)], P["white"], 5)
+        if name == "text-x-generic":
+            for y, end in ((224, 320), (256, 336), (288, 304), (320, 328)):
+                micro_line(d, [(168, y), (end, y)], P["forest"], 5)
+        elif name == "image-x-generic":
+            micro_ellipse(d, (272, 192, 296, 216), P["gold"], P["ink"], 4)
+            micro_line(d, [(160, 328), (216, 264), (256, 312), (288, 280), (336, 336)], P["light_green"], 7)
+        elif name == "audio-x-generic":
+            micro_line(d, [(208, 208), (248, 184), (248, 312)], P["gold"], 8)
+            micro_ellipse(d, (224, 304, 264, 344), P["forest"], P["cream"], 4)
+        elif name == "video-x-generic":
+            micro_line(d, [(216, 208), (216, 312), (312, 256), (216, 208)], P["cream"], 8)
+        elif name == "application-x-executable":
+            micro_line(d, [(208, 224), (288, 256), (208, 288)], P["cream"], 8)
+        else:
+            micro_line(d, [(160, 208), (256, 256), (352, 208)], P["cream"], 6)
+            micro_line(d, [(256, 256), (256, 352)], P["gold"], 8)
+    elif name == "network-wireless":
+        for box in ((104, 112, 408, 416), (160, 176, 352, 368)):
+            micro_ellipse(d, box, None, P["cream"], 7)
+        micro_ellipse(d, (240, 320, 272, 352), P["gold"], P["ink"], 4)
+    elif name == "network-wired":
+        for x in (176, 240, 304):
+            micro_rect(d, (x, 144, x + 16, 160), P["white"])
+        micro_line(d, [(128, 368), (384, 368)], P["gold"], 8)
+    elif name == "battery-full":
+        micro_rect(d, (112, 208, 144, 288), P["light_green"])
+        micro_rect(d, (192, 208, 224, 288), P["light_green"])
+        micro_rect(d, (272, 208, 304, 288), P["light_green"])
+        micro_rect(d, (352, 208, 368, 288), P["green"])
+    elif name == "bluetooth-active":
+        micro_line(d, [(256, 88), (256, 416)], P["white"], 7)
+        micro_line(d, [(160, 160), (352, 352)], P["cream"], 7)
+        micro_line(d, [(160, 352), (352, 160)], P["cream"], 7)
+    elif name in ("user-trash", "user-trash-full"):
+        for x in (184, 264, 344):
+            micro_line(d, [(x, 216), (x, 352)], P["cream"], 7)
+        micro_line(d, [(136, 152), (376, 152)], P["white"], 7)
+        if name == "user-trash-full":
+            micro_ellipse(d, (168, 280, 224, 336), P["red"], P["cream"], 4)
+            micro_ellipse(d, (296, 272, 352, 328), P["red"], P["cream"], 4)
+
+
 def draw_icon(name):
     im, d = canvas(), None
     d = PixelDraw(ImageDraw.Draw(im))
@@ -383,6 +554,8 @@ def draw_icon(name):
         rect(d, (10, 23, 21, 24), P["shadow"])
         for x in (12, 17): rect(d, (x, 14, x, 21), P["white"])
         rect(d, (8, 8, 23, 8), P["cream"])
+    # Native 4px details add fine engraving without scaling a bitmap.
+    add_micro_details(name, d)
     # Restrained bevel highlights make the tiny art read clearly.
     rect(d, (6, 5, 8, 6), P["cream"])
     return im
