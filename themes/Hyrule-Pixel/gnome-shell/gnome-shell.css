@@ -125,3 +125,80 @@ StLabel {
   color: inherit;
 }
 
+
+/* Calendar and date menu */
+.datemenu-today-button,
+.calendar {
+  background-color: #123f2b;
+  color: #fff3d2;
+  border: 1px solid #e5b83e;
+  border-radius: 0;
+}
+
+.calendar-month-label {
+  color: #f2d49a;
+  font-weight: bold;
+}
+
+.calendar-day {
+  color: #fff3d2;
+  border-radius: 0;
+}
+
+.calendar-day:hover,
+.calendar-day:focus {
+  background-color: #28783c;
+  color: #f2d49a;
+}
+
+.calendar-day.calendar-day-heading {
+  color: #e5b83e;
+}
+
+.calendar-day.calendar-today {
+  background-color: #28783c;
+  color: #fff3d2;
+  border: 1px solid #e5b83e;
+}
+
+.calendar-day.calendar-day-with-events {
+  box-shadow: inset 0 -2px #e5b83e;
+}
+
+/* Overview and application grid */
+#dash,
+.dash-background,
+.app-well-app .overview-icon {
+  border-radius: 0;
+}
+
+.app-well-app:hover .overview-icon,
+.app-well-app:focus .overview-icon {
+  background-color: rgba(40, 120, 60, 0.55);
+  border: 1px solid #e5b83e;
+}
+
+.workspace-thumbnail {
+  background-color: rgba(18, 63, 43, 0.8);
+}
+
+.workspace-thumbnail:active,
+.workspace-thumbnail:checked {
+  border: 2px solid #e5b83e;
+}
+
+/* Notifications */
+.notification,
+.notification-banner {
+  background-color: #123f2b;
+  color: #fff3d2;
+  border: 2px solid #e5b83e;
+  border-radius: 0;
+}
+
+.notification-button {
+  background-color: #09291d;
+  color: #f2d49a;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+}
