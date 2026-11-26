@@ -7,7 +7,7 @@ A user-installable GNOME desktop theme inspired by 16/32-bit Zelda-era JRPG pixe
 - GNOME Shell stylesheet (GNOME 51 target; live-session validation still required)
 - GTK 3 light/dark stylesheets
 - Best-effort GTK 4 stylesheet
-- Growing pixel-style SVG icon set for common GNOME apps, folders, and file types
+- Pixel-art SVG and 128×128 PNG icon sets for GNOME apps, folders, file types, and system status
 - User-local install and uninstall scripts
 
 ## Install
@@ -35,6 +35,18 @@ bash scripts/uninstall.sh
 - GDM and the lock screen are intentionally not modified by the user-local installer.
 
 See [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md) for known limitations.
+
+## Icon artwork
+
+The PNG icon source is `scripts/draw-icons.py`. It draws 32×32 pixel artwork with Pillow and enlarges it to 128×128 using nearest-neighbour scaling. To regenerate locally, install Pillow and run:
+
+```bash
+python -m pip install Pillow==11.1.0
+python scripts/draw-icons.py
+bash scripts/check.sh
+```
+
+GitHub Actions also runs the **Draw Hyrule icons** workflow on generator changes or manually from the Actions tab. Generated PNG files are committed back to `main`.
 
 ## License
 
