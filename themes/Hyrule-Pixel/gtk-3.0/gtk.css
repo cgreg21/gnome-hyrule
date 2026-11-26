@@ -254,3 +254,38 @@ toolbar {
   border: none;
   border-bottom: 1px solid @hyrule_gold;
 }
+
+/* Keyboard focus and disabled-state contrast */
+button:focus,
+entry:focus,
+spinbutton:focus,
+combobox:focus,
+treeview.view:focus {
+  outline: 2px solid @hyrule_gold;
+  outline-offset: 1px;
+}
+
+button:disabled,
+entry:disabled,
+switch:disabled,
+check:disabled,
+radio:disabled {
+  background-color: #514735;
+  color: #b7a987;
+  border-color: #806b43;
+}
+
+button:disabled {
+  background-image: none;
+  box-shadow: none;
+}
+
+entry:disabled {
+  background-color: #d0bd96;
+  color: #71634b;
+}
+
+scale slider:disabled,
+scrollbar slider:disabled {
+  background-color: #806b43;
+}
