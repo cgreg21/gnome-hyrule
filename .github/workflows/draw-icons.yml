@@ -32,12 +32,12 @@ jobs:
         run: bash scripts/check.sh
       - name: Commit generated PNG icons
         run: |
-          if git diff --quiet -- icons/Hyrule-Icons/128x128; then
+          git add -A icons/Hyrule-Icons/128x128
+          if git diff --cached --quiet; then
             echo "Icons are already up to date."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add icons/Hyrule-Icons/128x128
           git commit -m "art: regenerate Hyrule pixel icons with Pillow"
           git push
