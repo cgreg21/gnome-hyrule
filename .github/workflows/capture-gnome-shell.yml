@@ -75,15 +75,15 @@ jobs:
 
       - name: Publish screenshots in README
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A docs/screenshots/
-          if git diff --cached --quiet; then
+          git -C "$GITHUB_WORKSPACE" config user.name "github-actions[bot]"
+          git -C "$GITHUB_WORKSPACE" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C "$GITHUB_WORKSPACE" add -A docs/screenshots/
+          if git -C "$GITHUB_WORKSPACE" diff --cached --quiet; then
             echo "GNOME Shell screenshots are unchanged."
             exit 0
           fi
-          git commit -m "docs: add GNOME Shell 51 screenshots"
-          git push origin HEAD:main
+          git -C "$GITHUB_WORKSPACE" commit -m "docs: add GNOME Shell 51 screenshots"
+          git -C "$GITHUB_WORKSPACE" push origin HEAD:main
 
       - name: Upload GNOME Shell screenshot artifact
         if: always()
