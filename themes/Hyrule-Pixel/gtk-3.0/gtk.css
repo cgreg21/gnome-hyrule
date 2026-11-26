@@ -75,3 +75,107 @@ selection,
   background-color: @hyrule_active;
   color: @hyrule_paper;
 }
+
+
+/* Inventory-inspired GTK controls */
+check,
+radio {
+  background-color: @hyrule_paper;
+  color: @hyrule_ink;
+  border: 2px solid @hyrule_gold;
+  border-radius: 0;
+  min-width: 14px;
+  min-height: 14px;
+}
+
+check:checked,
+radio:checked {
+  background-color: @hyrule_active;
+  color: @hyrule_paper;
+}
+
+switch {
+  background-color: @hyrule_deep;
+  border: 2px solid @hyrule_gold;
+  border-radius: 0;
+}
+
+switch:checked {
+  background-color: @hyrule_active;
+}
+
+switch slider {
+  background-color: @hyrule_paper;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+}
+
+scale trough {
+  background-color: @hyrule_deep;
+  border: 1px solid @hyrule_gold;
+  border-radius: 0;
+  min-height: 6px;
+}
+
+scale highlight {
+  background-color: @hyrule_gold;
+}
+
+scale slider {
+  background-color: @hyrule_paper;
+  border: 2px solid #9a6724;
+  border-radius: 0;
+  min-width: 12px;
+  min-height: 16px;
+}
+
+progressbar trough {
+  background-color: @hyrule_deep;
+  border: 1px solid @hyrule_gold;
+  border-radius: 0;
+}
+
+progressbar progress {
+  background-color: @hyrule_active;
+  border: 1px solid @hyrule_gold;
+  border-radius: 0;
+}
+
+scrollbar slider {
+  background-color: #9a6724;
+  border: 1px solid @hyrule_gold;
+  border-radius: 0;
+  min-width: 8px;
+  min-height: 8px;
+}
+
+scrollbar slider:hover {
+  background-color: @hyrule_gold;
+}
+
+tooltip,
+tooltip.background {
+  background-color: @hyrule_paper;
+  color: @hyrule_ink;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+}
+
+notebook > header {
+  background-color: @hyrule_deep;
+  border-color: @hyrule_gold;
+}
+
+notebook > header tab {
+  background-color: @hyrule_forest;
+  color: #fff3d2;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+  padding: 6px 10px;
+}
+
+notebook > header tab:checked {
+  background-color: @hyrule_paper;
+  color: @hyrule_ink;
+  border-bottom-color: @hyrule_paper;
+}
