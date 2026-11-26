@@ -1,10 +1,35 @@
 #!/usr/bin/env python3
-"""Draw Hyrule-themed pixel icons with Pillow; source of truth for 128px PNGs."""
+"""Draw native 512px Hyrule pixel icons with Pillow; no bitmap upscaling."""
 from pathlib import Path
 from PIL import Image, ImageDraw
 
-ROOT = Path(__file__).resolve().parents[1] / "icons/Hyrule-Icons/128x128"
-S = 32
+ROOT = Path(__file__).resolve().parents[1] / "icons/Hyrule-Icons/512x512"
+S = 512
+GRID = 16
+
+class PixelDraw:
+    """Map the original 32-unit design grid onto the native 512px canvas."""
+    def __init__(self, draw):
+        self.draw = draw
+
+    @staticmethod
+    def point(value):
+        return tuple(int(v * GRID) for v in value)
+
+    def rectangle(self, xy, **kwargs):
+        self.draw.rectangle(self.point(xy), **kwargs)
+
+    def ellipse(self, xy, **kwargs):
+        self.draw.ellipse(self.point(xy), **kwargs)
+
+    def polygon(self, xy, **kwargs):
+        self.draw.polygon([self.point(p) for p in xy], **kwargs)
+
+    def line(self, xy, **kwargs):
+        self.draw.line([self.point(p) for p in xy], width=kwargs.pop("width", 1) * GRID, **kwargs)
+
+    def arc(self, xy, start, end, **kwargs):
+        self.draw.arc(self.point(xy), start, end, width=kwargs.pop("width", 1) * GRID, **kwargs)
 P = {
     "ink": "#241B12", "deep": "#09291D", "forest": "#123F2B",
     "green": "#28783C", "light_green": "#70A85A", "gold": "#E5B83E",
@@ -28,7 +53,7 @@ def frame(d, x1=5, y1=4, x2=26, y2=27, fill="paper"):
 
 def draw_icon(name):
     im, d = canvas(), None
-    d = ImageDraw.Draw(im)
+    d = PixelDraw(ImageDraw.Draw(im))
     # Consistent ground shadow and 32-bit JRPG palette.
     rect(d, (7, 27, 24, 28), P["shadow"])
     if name == "org.gnome.Nautilus":
@@ -351,7 +376,7 @@ def draw_icon(name):
         rect(d, (8, 8, 23, 8), P["cream"])
     # Restrained bevel highlights make the tiny art read clearly.
     rect(d, (6, 5, 8, 6), P["cream"])
-    return im.resize((128, 128), Image.Resampling.NEAREST)
+    return im
 
 ICONS = {
     "apps": ["org.gnome.Nautilus", "org.gnome.Settings", "org.gnome.Software",
@@ -375,7 +400,7 @@ def main():
         for name in names:
             draw_icon(name).save(target / f"{name}.png", optimize=True)
             count += 1
-    print(f"Generated {count} Hyrule pixel icons at 128x128.")
+    print(f"Generated {count} native 512x512 Hyrule pixel icons (no bitmap upscaling).")
 
 if __name__ == "__main__":
     main()
