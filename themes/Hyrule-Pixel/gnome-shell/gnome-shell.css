@@ -33,7 +33,7 @@ stage {
   background-color: #123f2b;
   color: #fff3d2;
   border: none;
-  border-image: url("../assets/panel-frame.png") 12 12 12 12;
+  border-image: url("../assets/panel-frame.png") 16 16 16 16;
   border-radius: 0;
   padding: 12px;
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45);
@@ -62,7 +62,7 @@ stage {
   background-color: #123f2b;
   color: #fff3d2;
   border: none;
-  border-image: url("../assets/button-frame.png") 6 6 6 6;
+  border-image: url("../assets/button-frame.png") 12 12 12 12;
   border-radius: 0;
   padding: 8px 14px;
 }
@@ -119,7 +119,7 @@ stage {
   background-color: #f2d49a;
   color: #241b12;
   border: none;
-  border-image: url("../assets/entry-frame.png") 6 6 6 6;
+  border-image: url("../assets/entry-frame.png") 12 12 12 12;
   border-radius: 0;
   padding: 6px;
   selection-background-color: #28783c;
