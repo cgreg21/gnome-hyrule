@@ -55,29 +55,37 @@ for _ in $(seq 1 40); do
   kill -0 "$SHELL_PID" 2>/dev/null || { cat "$RUNTIME_DIR/gnome-shell.log"; exit 1; }
   sleep 0.5
 done
-xdotool getactivewindow windowsize 1600 1000 windowmove 0 0
 sleep 8
 gnome-shell --version | grep -q '51\.' || { gnome-shell --version; exit 1; }
 
 capture() {
   local name="$1"
   sleep 2
-  import -window root "$OUTPUT_DIR/$name"
+  local result
+  result="$(gdbus call --session \
+    --dest org.gnome.Shell \
+    --object-path /org/gnome/Shell/Screenshot \
+    --method org.gnome.Shell.Screenshot.Screenshot \
+    false false "$OUTPUT_DIR/$name")"
+  [[ "$result" == *"true"* ]]
   identify -format '%wx%h' "$OUTPUT_DIR/$name" | grep -q '^1600x1000$'
 }
 
+eval_shell() {
+  gdbus call --session \
+    --dest org.gnome.Shell \
+    --object-path /org/gnome/Shell \
+    --method org.gnome.Shell.Eval "$1"
+}
+
 rm -f "$OUTPUT_DIR"/shell-*.png
-xdotool key Super_L
+eval_shell 'Main.overview.show()'
 capture shell-overview.png
-xdotool key Escape
-sleep 1
-xdotool mousemove 800 14 click 1
+eval_shell 'Main.overview.hide(); Main.panel.statusArea.dateMenu.menu.open()'
 capture shell-calendar.png
-xdotool key Escape
-sleep 1
-xdotool mousemove 1550 14 click 1
+eval_shell 'Main.panel.statusArea.dateMenu.menu.close(); Main.panel.statusArea.quickSettings.menu.open()'
 capture shell-quick-settings.png
-xdotool key Escape
+eval_shell 'Main.panel.statusArea.quickSettings.menu.close()'
 notify-send --app-name="Hyrule Pixel" "Hyrule notification" "A message from the Hyrule screenshot test."
 capture shell-notification.png
 
