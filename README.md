@@ -7,7 +7,7 @@ A user-installable GNOME desktop theme inspired by 16/32-bit Zelda-era JRPG pixe
 - GNOME Shell stylesheet (GNOME 51 target; live-session validation still required)
 - GTK 3 light/dark stylesheets
 - Best-effort GTK 4 stylesheet
-- Small starter set of pixel-style SVG icons
+- Growing pixel-style SVG icon set for common GNOME apps, folders, and file types
 - User-local install and uninstall scripts
 
 ## Install
