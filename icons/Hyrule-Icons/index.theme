@@ -2,25 +2,32 @@
 Name=Hyrule-Icons
 Comment=Pixel-art inspired Hyrule icon theme
 Inherits=Adwaita,hicolor
-Directories=scalable/apps,scalable/places,scalable/status
+Directories=scalable/apps,scalable/places,scalable/status,scalable/mimetypes
 
 [scalable/apps]
-Size=16
+Size=64
 Type=Scalable
 MinSize=16
 MaxSize=512
 Context=Applications
 
 [scalable/places]
-Size=16
+Size=64
 Type=Scalable
 MinSize=16
 MaxSize=512
 Context=Places
 
 [scalable/status]
-Size=16
+Size=64
 Type=Scalable
 MinSize=16
 MaxSize=512
 Context=Status
+
+[scalable/mimetypes]
+Size=64
+Type=Scalable
+MinSize=16
+MaxSize=512
+Context=MimeTypes
