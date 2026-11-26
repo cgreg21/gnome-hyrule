@@ -135,6 +135,19 @@ def draw_icon(name):
             rect(d, (9,14,22,22), P["blue"], P["ink"])
             d.ellipse((17,15,20,18), fill=P["gold"])
             d.polygon([(10,21),(15,16),(19,21)], fill=P["light_green"])
+        elif name == "folder-music":
+            rect(d, (10,14,20,21), P["forest"], P["ink"])
+            rect(d, (16,13,18,19), P["gold"], P["ink"])
+            d.ellipse((12,18,16,22), fill=P["gold"], outline=P["ink"])
+            rect(d, (17,12,20,13), P["cream"])
+        elif name == "folder-videos":
+            rect(d, (9,14,22,22), P["red"], P["ink"])
+            d.polygon([(13,15),(13,21),(19,18)], fill=P["cream"], outline=P["ink"])
+        elif name == "drive-harddisk":
+            rect(d, (7,11,24,23), P["grey"], P["ink"])
+            rect(d, (9,13,22,15), P["white"])
+            rect(d, (9,17,22,20), P["gold_dark"])
+            d.ellipse((19,18,22,21), fill=P["green"], outline=P["ink"])
     elif name.endswith("-x-generic"):
         frame(d, 7, 4, 24, 27, "paper")
         d.polygon([(18,4),(24,10),(18,10)], fill=P["gold"], outline=P["ink"])
@@ -148,9 +161,30 @@ def draw_icon(name):
             rect(d, (10,16,14,20), P["gold_dark"])
             d.polygon([(14,14),(22,11),(22,21),(14,23)], fill=P["gold"])
             d.ellipse((18,20,22,24), fill=P["forest"], outline=P["ink"])
+        elif name.startswith("application-x-executable"):
+            rect(d, (10,13,21,22), P["forest"], P["ink"])
+            d.polygon([(14,15),(14,20),(19,17)], fill=P["cream"])
+            rect(d, (12,11,19,12), P["gold"])
+        elif name.startswith("package-x-generic"):
+            d.polygon([(10,14),(16,11),(22,14),(22,21),(16,24),(10,21)], fill=P["gold_dark"], outline=P["ink"])
+            d.polygon([(10,14),(16,17),(22,14),(16,11)], fill=P["cream"], outline=P["ink"])
+            rect(d, (15,17,17,22), P["gold"])
         else:
             rect(d, (10,13,21,22), P["forest"], P["ink"])
             d.polygon([(14,15),(14,20),(19,17)], fill=P["cream"])
+    elif name == "network-wired":
+        rect(d, (10,7,21,17), P["blue"], P["ink"])
+        rect(d, (12,9,19,14), P["cream"])
+        rect(d, (14,17,17,23), P["gold"], P["ink"])
+        rect(d, (8,23,23,25), P["gold_dark"], P["ink"])
+        for x in (11,15,19): rect(d, (x,24,x+1,26), P["ink"])
+    elif name == "user-trash-full":
+        rect(d, (8,10,23,25), P["grey"], P["ink"])
+        rect(d, (7,8,24,10), P["gold"], P["ink"])
+        rect(d, (12,5,19,7), P["gold_dark"], P["ink"])
+        for x in (12,17): rect(d, (x,13,x+1,22), P["cream"])
+        d.ellipse((10,17,14,21), fill=P["red"], outline=P["ink"])
+        d.ellipse((17,16,21,20), fill=P["red"], outline=P["ink"])
     elif name == "network-wireless":
         d.arc((5,7,27,27), 220, 320, fill=P["gold"], width=3)
         d.arc((9,11,23,25), 220, 320, fill=P["cream"], width=3)
@@ -274,9 +308,24 @@ def draw_icon(name):
         elif name.startswith("audio"):
             rect(d, (12, 17, 13, 21), P["cream"])
             rect(d, (20, 13, 21, 19), P["white"])
+        elif name.startswith("application-x-executable"):
+            rect(d, (11, 14, 20, 14), P["light_green"])
+            rect(d, (13, 16, 18, 19), P["cream"])
+        elif name.startswith("package-x-generic"):
+            rect(d, (12, 14, 14, 15), P["white"])
+            rect(d, (18, 14, 20, 15), P["gold"])
+            rect(d, (15, 18, 16, 22), P["cream"])
         else:
             rect(d, (11, 14, 20, 14), P["light_green"])
             rect(d, (11, 21, 20, 21), P["gold"])
+    elif name == "network-wired":
+        rect(d, (11, 8, 20, 9), P["white"])
+        rect(d, (13, 17, 14, 22), P["cream"])
+        rect(d, (18, 17, 19, 22), P["cream"])
+    elif name == "user-trash-full":
+        d.ellipse((11,18,13,20), fill=P["red"])
+        d.ellipse((18,17,20,19), fill=P["red"])
+        rect(d, (9, 11, 22, 12), P["white"])
     elif name == "network-wireless":
         d.arc((7, 8, 25, 26), 220, 320, fill=P["white"], width=1)
         d.arc((11, 12, 21, 23), 220, 320, fill=P["gold"], width=1)
@@ -305,9 +354,12 @@ ICONS = {
              "org.gnome.TextEditor", "org.gnome.Loupe", "org.gnome.clocks",
              "org.gnome.Music", "org.gnome.Maps", "org.gnome.SystemMonitor",
              "org.gnome.Screenshot", "org.gnome.DiskUtility"],
-    "places": ["folder", "folder-documents", "folder-download", "folder-pictures"],
-    "mimetypes": ["text-x-generic", "image-x-generic", "audio-x-generic", "video-x-generic"],
-    "status": ["network-wireless", "battery-full", "bluetooth-active", "user-trash"],
+    "places": ["folder", "folder-documents", "folder-download", "folder-pictures",
+               "folder-music", "folder-videos", "drive-harddisk"],
+    "mimetypes": ["text-x-generic", "image-x-generic", "audio-x-generic", "video-x-generic",
+                  "application-x-executable", "package-x-generic"],
+    "status": ["network-wireless", "network-wired", "battery-full", "bluetooth-active",
+               "user-trash", "user-trash-full"],
 }
 
 def main():
