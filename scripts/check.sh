@@ -8,11 +8,13 @@ if grep -Eq '^\\$|^#[0-9a-fA-F]{6}:' "$ROOT/themes/Hyrule-Pixel/gnome-shell/gnom
   exit 1
 fi
 python3 - "$ROOT" <<'PY'
+import ast
 import pathlib
 import sys
 import xml.etree.ElementTree as ET
 
 root = pathlib.Path(sys.argv[1])
+ast.parse((root / "scripts/draw-icons.py").read_text())
 icons = root / "icons" / "Hyrule-Icons"
 svg_files = sorted(icons.rglob("*.svg"))
 for svg in svg_files:
@@ -41,8 +43,8 @@ for png in png_files:
     height = int.from_bytes(data[20:24], "big")
     if (width, height) != (128, 128):
         raise SystemExit(f"Expected 128x128 PNG: {png.relative_to(root)} ({width}x{height})")
-if len(png_files) < 18:
-    raise SystemExit(f"Expected at least 18 PNG icons, found {len(png_files)}")
+if len(png_files) < 26:
+    raise SystemExit(f"Expected at least 26 PNG icons, found {len(png_files)}")
 
 required = [
     root / "README.md",
