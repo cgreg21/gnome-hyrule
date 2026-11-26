@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 OUTPUT_DIR="${1:-$ROOT/docs/screenshots}"
 mkdir -p "$OUTPUT_DIR"
+rm -f "$OUTPUT_DIR/gtk3-widget-factory.png" "$OUTPUT_DIR/gtk4-demo.png"
 
 for command_name in xdotool import openbox; do
   command -v "$command_name" >/dev/null || {
