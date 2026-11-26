@@ -25,12 +25,12 @@ jobs:
         run: python scripts/draw-theme-textures.py
       - name: Commit generated assets
         run: |
-          if git diff --quiet -- themes/Hyrule-Pixel/assets; then
+          git add themes/Hyrule-Pixel/assets/*.png
+          if git diff --cached --quiet; then
             echo "PNG textures are already up to date."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add themes/Hyrule-Pixel/assets/*.png
           git commit -m "Generate Hyrule pixel-art 9-slice PNG textures"
           git push
