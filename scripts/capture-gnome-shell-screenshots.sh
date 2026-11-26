@@ -56,6 +56,12 @@ for _ in $(seq 1 40); do
 done
 sleep 8
 
+# Log visible X11 windows to identify any host-side first-run dialog.
+for window in $(xdotool search --onlyvisible --name '.*' 2>/dev/null || true); do
+  printf 'X11 window %s: ' "$window" >&2
+  xdotool getwindowname "$window" >&2 || true
+done
+
 # Fedora's container welcome screen is provided by GNOME Tour.
 pkill -x gnome-tour 2>/dev/null || true
 
