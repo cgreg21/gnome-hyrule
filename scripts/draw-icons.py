@@ -17,12 +17,18 @@ class PixelDraw:
         return tuple(int(v * GRID) for v in value)
 
     def rectangle(self, xy, **kwargs):
+        if kwargs.get("outline") is not None:
+            kwargs["width"] = GRID
         self.draw.rectangle(self.point(xy), **kwargs)
 
     def ellipse(self, xy, **kwargs):
+        if kwargs.get("outline") is not None:
+            kwargs["width"] = GRID
         self.draw.ellipse(self.point(xy), **kwargs)
 
     def polygon(self, xy, **kwargs):
+        if kwargs.get("outline") is not None:
+            kwargs["width"] = GRID
         self.draw.polygon([self.point(p) for p in xy], **kwargs)
 
     def line(self, xy, **kwargs):
