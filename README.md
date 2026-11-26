@@ -5,7 +5,7 @@ A user-installable GNOME desktop theme inspired by 16/32-bit Zelda-era JRPG pixe
 ## Included
 
 - GNOME Shell stylesheet (GNOME 51 target; live-session validation still required)
-- PNG pixel-art frames using 9-slice borders for Shell menus, notifications, buttons, and entries
+- PNG pixel-art frames using 9-slice borders for Shell menus, notifications, buttons, and entries\n- Zelda-style inventory details: parchment menu frame, recessed item slots, selected-slot frame, and a faceted green rupee
 - GTK 3 light/dark stylesheets and a best-effort GTK 4 stylesheet using the same PNG frame assets
 - Pixel-art SVG and 128×128 PNG icon sets for GNOME apps, folders, file types, and system status
 - User-local install and uninstall scripts
