@@ -179,3 +179,78 @@ notebook > header tab:checked {
   color: @hyrule_ink;
   border-bottom-color: @hyrule_paper;
 }
+
+/* Menus, rows and feedback surfaces */
+menu,
+.menu,
+.context-menu {
+  background-color: @hyrule_paper;
+  color: @hyrule_ink;
+  border: 1px solid #9a6724;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+menuitem {
+  padding: 6px 10px;
+}
+
+menuitem:hover,
+menuitem:active {
+  background-color: @hyrule_active;
+  color: #fff3d2;
+}
+
+menu separator,
+separator {
+  background-color: @hyrule_gold;
+  min-height: 1px;
+}
+
+list row,
+treeview.view row {
+  background-color: @hyrule_paper;
+  color: @hyrule_ink;
+}
+
+list row:hover,
+treeview.view row:hover {
+  background-color: #e2c68f;
+}
+
+list row:selected,
+treeview.view row:selected {
+  background-color: @hyrule_active;
+  color: #fff3d2;
+}
+
+infobar {
+  border: 1px solid @hyrule_gold;
+  border-radius: 0;
+}
+
+infobar.info,
+infobar.question {
+  background-color: @hyrule_forest;
+  color: #fff3d2;
+}
+
+infobar.warning {
+  background-color: #76501d;
+  color: #fff3d2;
+}
+
+infobar.error {
+  background-color: #7a3028;
+  color: #fff3d2;
+}
+
+frame > border {
+  border: 1px solid @hyrule_gold;
+}
+
+toolbar {
+  background-color: @hyrule_forest;
+  color: #fff3d2;
+  border: none;
+  border-bottom: 1px solid @hyrule_gold;
+}
