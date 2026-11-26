@@ -61,22 +61,22 @@ def frame(d, x1=5, y1=4, x2=26, y2=27, fill="paper"):
     rect(d, (x1+2, y1+2, x2-2, y1+2), P["cream"])
 
 def micro_rect(d, xy, color):
-    """Draw a four-pixel detail directly on the native 512px canvas."""
-    d.draw.rectangle(tuple(int(v * 4) for v in xy), fill=color)
+    """Draw a small native-resolution detail directly on the 512px canvas."""
+    d.draw.rectangle(tuple(int(v) for v in xy), fill=color)
 
 
 def micro_line(d, points, color, width=4):
-    d.draw.line([(int(x * 4), int(y * 4)) for x, y in points],
+    d.draw.line([(int(x), int(y)) for x, y in points],
                 fill=color, width=width)
 
 
 def micro_ellipse(d, xy, fill=None, outline_color=None, width=4):
-    d.draw.ellipse(tuple(int(v * 4) for v in xy), fill=fill,
+    d.draw.ellipse(tuple(int(v) for v in xy), fill=fill,
                    outline=outline_color, width=width)
 
 
 def add_micro_details(name, d):
-    """Add native 4px pixel clusters, engravings and material highlights."""
+    """Add fine pixel clusters, engravings and material highlights at native resolution."""
     # Fine bevels and tiny rivets make the silhouette feel like crafted gear.
     if name in ("org.gnome.Nautilus", "org.gnome.DiskUtility",
                 "drive-harddisk", "network-wired", "user-trash",
