@@ -46,6 +46,8 @@ jobs:
           useradd --create-home --uid 1001 theme-ci
           install -d -o theme-ci -g theme-ci /run/user/1001
           chmod 700 /run/user/1001
+          dbus-daemon --system --fork
+          /usr/libexec/accounts-daemon &
 
       - name: Check out theme
         uses: actions/checkout@v4
