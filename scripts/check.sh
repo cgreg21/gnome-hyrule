@@ -33,7 +33,7 @@ for directory in ("apps", "places", "status", "mimetypes"):
 png_files = sorted((icons / "128x128").rglob("*.png"))
 for png in png_files:
     data = png.read_bytes()
-    if data[:8] != b"\\x89PNG\\r\\n\\x1a\\n":
+    if data[:8] != b"\x89PNG\r\n\x1a\n":
         raise SystemExit(f"Invalid PNG signature: {png.relative_to(root)}")
     if len(data) < 24 or data[12:16] != b"IHDR":
         raise SystemExit(f"Missing PNG header: {png.relative_to(root)}")
