@@ -14,8 +14,17 @@ import xml.etree.ElementTree as ET
 
 root = pathlib.Path(sys.argv[1])
 icons = root / "icons" / "Hyrule-Icons"
-for svg in sorted(icons.rglob("*.svg")):
+svg_files = sorted(icons.rglob("*.svg"))
+for svg in svg_files:
     ET.parse(svg)
+
+theme_index = (icons / "index.theme").read_text()
+for section in ("[scalable/apps]", "[scalable/places]", "[scalable/status]", "[scalable/mimetypes]"):
+    if section not in theme_index:
+        raise SystemExit(f"Missing icon theme directory declaration: {section}")
+for directory in ("apps", "places", "status", "mimetypes"):
+    if not (icons / "scalable" / directory).is_dir():
+        raise SystemExit(f"Missing icon directory: scalable/{directory}")
 
 required = [
     root / "README.md",
@@ -27,5 +36,7 @@ required = [
 missing = [str(path.relative_to(root)) for path in required if not path.is_file()]
 if missing:
     raise SystemExit("Missing required files: " + ", ".join(missing))
-print(f"Validated {len(list(icons.rglob('*.svg')))} SVG icon(s) and required theme files.")
+if len(svg_files) < 10:
+    raise SystemExit(f"Expected at least 10 SVG icons, found {len(svg_files)}")
+print(f"Validated {len(svg_files)} SVG icon(s), icon theme directories, scripts, and required theme files.")
 PY
