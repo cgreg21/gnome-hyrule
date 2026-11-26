@@ -208,3 +208,45 @@ StLabel {
   border: 1px solid #9a6724;
   border-radius: 0;
 }
+
+
+/* Hyrule details: OSD, tooltips, sliders and dash */
+.tooltip,
+.popup-menu .popup-menu-item:insensitive {
+  background-color: #e2c68f;
+  color: #302316;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+}
+
+.osd-window {
+  background-color: #09291d;
+  color: #fff3d2;
+  border: 2px solid #e5b83e;
+  border-radius: 0;
+  padding: 12px;
+}
+
+.osd-window StIcon {
+  color: #f2d49a;
+}
+
+.slider {
+  -barlevel-height: 6px;
+  -barlevel-background-color: #09291d;
+  -barlevel-active-background-color: #e5b83e;
+  -barlevel-overdrive-color: #c94b3b;
+  -barlevel-overdrive-separator-width: 2px;
+  -slider-handle-radius: 7px;
+}
+
+#dash .app-well-app .overview-icon {
+  border: 1px solid transparent;
+}
+
+#dash .app-well-app:focus .overview-icon,
+#dash .app-well-app:hover .overview-icon {
+  border-color: #e5b83e;
+  background-color: #28783c;
+}
+
