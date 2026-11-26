@@ -27,6 +27,12 @@ jobs:
         run: |
           dnf -y install \
             dbus-daemon \
+            gnome-settings-daemon \
+            accountsservice \
+            pipewire \
+            wireplumber \
+            xdg-desktop-portal \
+            xdg-desktop-portal-gnome \
             gnome-shell \
             gnome-shell-extension-user-theme \
             mutter-devkit \
