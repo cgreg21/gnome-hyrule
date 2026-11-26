@@ -50,7 +50,7 @@ if len(png_files) < 33:
     raise SystemExit(f"Expected at least 33 legacy PNG icons, found {len(png_files)}")
 for png in native_png_files:
     data = png.read_bytes()
-    if data[:8] != b"\\x89PNG\\r\\n\\x1a\\n" or len(data) < 24 or data[12:16] != b"IHDR":
+    if data[:8] != b"\x89PNG\r\n\x1a\n" or len(data) < 24 or data[12:16] != b"IHDR":
         raise SystemExit(f"Invalid native PNG: {png.relative_to(root)}")
     width = int.from_bytes(data[16:20], "big")
     height = int.from_bytes(data[20:24], "big")
