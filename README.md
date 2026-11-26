@@ -37,13 +37,13 @@ widget sizes without stretching its pixel-art corners.
 
 - `themes/Hyrule-Pixel/assets/panel-frame.png`: 64×64 PNG, 16 px slice
 - `themes/Hyrule-Pixel/assets/button-frame.png`: 48×48 PNG, 12 px slice
-- `themes/Hyrule-Pixel/assets/entry-frame.png`: 24×24 PNG, 6 px slice
+- `themes/Hyrule-Pixel/assets/entry-frame.png`: 48×48 PNG, 12 px slice
 - `themes/Hyrule-Pixel/assets/gold-divider.png`: 32×5 repeatable PNG divider
 
 GNOME Shell St uses its compact `border-image: url(...) top right bottom left`
 syntax. GTK uses the standard `border-image: url(...) slice / width stretch`
 syntax. These are 9-slice borders, not Android's marker-pixel `.9.png` format.
-The PNG files are generated reproducibly by `scripts/draw-theme-textures.py`. The parchment frame is applied to Shell popups; the item-slot and rupee sprites are reusable assets for inventory-style surfaces.
+The PNG files are generated reproducibly by `scripts/draw-theme-textures.py`. The parchment frame is applied to Shell popups. Reusable inventory sprites include `inventory-tab.png`, `inventory-tab-selected.png`, `inventory-cursor.png`, `heart-red.png`, both item-slot states, and `rupee-green.png`.
 
 ## Compatibility notes
 
