@@ -172,6 +172,129 @@ def draw_icon(name):
         for x in (12,17): rect(d, (x,13,x+1,22), P["cream"])
     else:
         raise ValueError(f"Unknown icon: {name}")
+    # Fine pixel details: material texture, edge lighting, and readable symbols.
+    if name == "org.gnome.Nautilus":
+        rect(d, (8, 12, 11, 13), P["gold_dark"])
+        rect(d, (20, 12, 23, 13), P["gold_dark"])
+        rect(d, (8, 18, 10, 19), P["light_green"])
+        rect(d, (21, 18, 23, 19), P["light_green"])
+        rect(d, (7, 22, 24, 23), P["deep"])
+        for x in (8, 23): rect(d, (x, 9, x+1, 10), P["white"])
+    elif name == "org.gnome.Settings":
+        d.ellipse((14, 13, 17, 16), fill=P["gold"], outline=P["ink"])
+        for x,y in ((10,9),(20,9),(10,19),(20,19)):
+            rect(d, (x,y,x+1,y+1), P["cream"])
+        rect(d, (14, 5, 17, 6), P["cream"])
+    elif name == "org.gnome.Software":
+        rect(d, (10, 10, 21, 12), P["green"])
+        rect(d, (9, 20, 11, 22), P["light_green"])
+        rect(d, (21, 20, 23, 22), P["deep"])
+        d.polygon([(16,12),(18,16),(16,20),(14,16)], fill=P["blue"], outline=P["white"])
+        rect(d, (15, 14, 16, 16), P["white"])
+    elif name == "org.gnome.Calculator":
+        rect(d, (11, 8, 13, 9), P["white"])
+        rect(d, (18, 8, 20, 9), P["light_green"])
+        for x,y in ((10,14),(15,14),(20,14),(10,19),(15,19),(20,19)):
+            rect(d, (x, y, x, y), P["white"])
+        rect(d, (12, 24, 19, 24), P["light_green"])
+    elif name == "org.gnome.Calendar":
+        rect(d, (7, 8, 24, 9), P["red"])
+        for x in (10, 20): rect(d, (x, 4, x+1, 5), P["cream"])
+        for x,y in ((9,15),(15,15),(21,15),(9,20),(15,20),(21,20)):
+            rect(d, (x, y, x, y), P["cream"])
+        rect(d, (14, 23, 17, 24), P["gold_dark"])
+    elif name == "utilities-terminal":
+        for x in (8, 12, 16): d.ellipse((x, 9, x+1, 10), fill=P["cream"])
+        rect(d, (7, 12, 24, 13), P["green"])
+        rect(d, (18, 20, 21, 20), P["cream"])
+    elif name == "org.gnome.TextEditor":
+        rect(d, (9, 12, 11, 24), P["gold_dark"])
+        rect(d, (12, 13, 20, 13), P["light_green"])
+        rect(d, (12, 17, 21, 17), P["gold_dark"])
+        rect(d, (12, 20, 18, 20), P["gold_dark"])
+        rect(d, (19, 22, 22, 22), P["cream"])
+    elif name == "org.gnome.Loupe":
+        d.ellipse((7, 7, 19, 19), outline=P["white"])
+        rect(d, (9, 8, 12, 9), P["white"])
+        rect(d, (20, 20, 23, 23), P["gold"])
+        rect(d, (22, 23, 26, 26), P["ink"])
+    elif name == "org.gnome.clocks":
+        for x,y in ((15,8),(15,22),(8,15),(22,15)):
+            rect(d, (x,y,x+1,y+1), P["gold_dark"])
+        rect(d, (14, 11, 15, 15), P["cream"])
+        rect(d, (16, 15, 20, 16), P["red"])
+        d.ellipse((14, 14, 17, 17), fill=P["gold"], outline=P["ink"])
+    elif name == "org.gnome.Music":
+        rect(d, (8, 7, 23, 8), P["light_green"])
+        rect(d, (11, 10, 20, 11), P["gold"])
+        d.line([(12, 16), (16, 13), (20, 16)], fill=P["white"], width=1)
+        rect(d, (11, 20, 12, 21), P["cream"])
+        rect(d, (19, 20, 20, 21), P["cream"])
+    elif name == "org.gnome.Maps":
+        d.line([(5, 11),(10, 9),(10, 21)], fill=P["cream"], width=1)
+        d.line([(21, 10),(25, 8),(25, 21)], fill=P["gold"], width=1)
+        d.polygon([(16, 10),(18, 14),(16, 18),(14, 14)], fill=P["gold"], outline=P["ink"])
+        rect(d, (15, 13, 16, 14), P["white"])
+    elif name == "org.gnome.SystemMonitor":
+        for y in (11, 14, 17, 20):
+            rect(d, (9, y, 10, y), P["gold_dark"])
+        d.line([(10, 19),(12, 19),(14, 13),(17, 21),(19, 15),(22, 15)], fill=P["cream"], width=1)
+        rect(d, (7, 7, 11, 8), P["light_green"])
+    elif name == "org.gnome.Screenshot":
+        rect(d, (7, 10, 9, 11), P["white"])
+        d.ellipse((12, 13, 19, 20), outline=P["white"])
+        rect(d, (15, 14, 17, 15), P["light_green"])
+        rect(d, (22, 11, 24, 12), P["gold"])
+    elif name == "org.gnome.DiskUtility":
+        d.arc((7, 8, 24, 15), 180, 360, fill=P["cream"], width=1)
+        rect(d, (8, 12, 10, 17), P["gold"])
+        rect(d, (21, 12, 23, 17), P["gold_dark"])
+        d.ellipse((13, 19, 18, 22), outline=P["cream"])
+    elif name.startswith("folder"):
+        rect(d, (6, 14, 24, 15), P["cream"])
+        rect(d, (7, 22, 23, 23), P["gold_dark"])
+        rect(d, (6, 10, 13, 11), P["white"])
+        if name == "folder-documents":
+            rect(d, (13, 14, 19, 14), P["white"])
+            rect(d, (13, 18, 18, 18), P["gold"])
+        elif name == "folder-download":
+            rect(d, (15, 14, 16, 17), P["cream"])
+            rect(d, (13, 19, 18, 20), P["light_green"])
+        elif name == "folder-pictures":
+            rect(d, (11, 15, 12, 16), P["white"])
+            rect(d, (16, 19, 20, 20), P["green"])
+    elif name.endswith("-x-generic"):
+        rect(d, (9, 6, 10, 8), P["white"])
+        rect(d, (11, 11, 20, 11), P["gold"])
+        if name.startswith("text"):
+            for y in (15,18,21,24): rect(d, (11, y, 19, y), P["gold_dark"])
+        elif name.startswith("image"):
+            rect(d, (11, 14, 12, 15), P["white"])
+            rect(d, (18, 14, 19, 15), P["cream"])
+        elif name.startswith("audio"):
+            rect(d, (12, 17, 13, 21), P["cream"])
+            rect(d, (20, 13, 21, 19), P["white"])
+        else:
+            rect(d, (11, 14, 20, 14), P["light_green"])
+            rect(d, (11, 21, 20, 21), P["gold"])
+    elif name == "network-wireless":
+        d.arc((7, 8, 25, 26), 220, 320, fill=P["white"], width=1)
+        d.arc((11, 12, 21, 23), 220, 320, fill=P["gold"], width=1)
+        rect(d, (15, 24, 16, 25), P["white"])
+    elif name == "battery-full":
+        rect(d, (7, 12, 24, 13), P["white"])
+        rect(d, (8, 20, 23, 21), P["gold_dark"])
+        rect(d, (12, 14, 13, 19), P["light_green"])
+        rect(d, (19, 14, 20, 19), P["light_green"])
+    elif name == "bluetooth-active":
+        d.line([(16, 5),(16, 26)], fill=P["white"], width=1)
+        d.line([(10, 10),(22, 20)], fill=P["cream"], width=1)
+        d.line([(10, 21),(22, 10)], fill=P["cream"], width=1)
+    elif name == "user-trash":
+        rect(d, (9, 11, 22, 12), P["grey"])
+        rect(d, (10, 23, 21, 24), P["shadow"])
+        for x in (12, 17): rect(d, (x, 14, x, 21), P["white"])
+        rect(d, (8, 8, 23, 8), P["cream"])
     # Restrained bevel highlights make the tiny art read clearly.
     rect(d, (6, 5, 8, 6), P["cream"])
     return im.resize((128, 128), Image.Resampling.NEAREST)
