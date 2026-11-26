@@ -28,7 +28,7 @@ for _ in $(seq 1 50); do
 done
 [[ -S "$X_SOCKET" ]]
 
-weston --backend=x11 --socket=wayland-1 --width=1600 --height=1000 --fullscreen --no-config >"$RUNTIME_DIR/weston.log" 2>&1 &
+weston --backend=x11 --socket=wayland-1 --width=1600 --height=1000 --use-pixman --no-config >"$RUNTIME_DIR/weston.log" 2>&1 &
 WESTON_PID=$!
 for _ in $(seq 1 100); do
   [[ -S "$RUNTIME_DIR/wayland-1" ]] && break
