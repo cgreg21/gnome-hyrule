@@ -35,6 +35,12 @@ export LIBGL_ALWAYS_SOFTWARE=1
 export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 bash "$ROOT/scripts/install.sh"
+
+# Mutter Devkit requires a PipeWire session even for headless rendering.
+pipewire >"$RUNTIME_DIR/pipewire.log" 2>&1 &
+PIPEWIRE_PID=$!
+wireplumber >"$RUNTIME_DIR/wireplumber.log" 2>&1 &
+sleep 2
 mkdir -p "$HOME/.themes"
 rm -rf "$HOME/.themes/Hyrule-Pixel"
 cp -a "$ROOT/themes/Hyrule-Pixel" "$HOME/.themes/"
