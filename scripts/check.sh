@@ -88,6 +88,11 @@ texture_sizes = {
     "inventory-tab-selected.png": (64, 24),
     "inventory-cursor.png": (16, 16),
     "heart-red.png": (16, 16),
+    "heart-empty.png": (16, 16),
+    "heart-half.png": (16, 16),
+    "rupee-red.png": (24, 32),
+    "rupee-blue.png": (24, 32),
+    "triforce.png": (32, 30),
 }
 texture_dir = root / "themes/Hyrule-Pixel/assets"
 for name, expected in texture_sizes.items():
