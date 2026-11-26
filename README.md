@@ -60,9 +60,9 @@ repository's **Actions → Capture theme screenshots** page.
 
 ![Hyrule Pixel GTK 4 themes](docs/screenshots/gtk4-themes.png)
 
-**GTK Demo – entry widgets**
+**GTK Demo – frames**
 
-![Hyrule Pixel GTK 4 entry widgets](docs/screenshots/gtk4-entry.png)
+![Hyrule Pixel GTK 4 frames](docs/screenshots/gtk4-frames.png)
 
 These automated captures show GTK application styling. They are not GNOME
 Shell desktop screenshots: Overview, the top panel, calendar, Quick Settings,
