@@ -36,17 +36,44 @@ bash scripts/uninstall.sh
 
 See [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md) for known limitations.
 
-## Icon artwork
+## AI-generated icon artwork
 
-The PNG icon source is `scripts/draw-icons.py`. It draws directly into 512×512 RGBA canvases with Pillow; no 32×32 or 128×128 bitmap is enlarged. The 128×128 compatibility assets are retained separately. To regenerate the native assets locally, install Pillow and run:
+The 33 native 512×512 PNG icons are generated from individual prompts with
+Cloudflare Workers AI using the FLUX.1 Schnell text-to-image model. The pipeline
+creates each icon as a separate image, removes the connected chroma-key
+background to produce transparent RGBA PNGs, and only downsamples when the
+provider returns a larger image. It refuses to upscale undersized images.
+
+### Enable generation in GitHub Actions
+
+1. Create a Cloudflare account and open the Workers AI dashboard.
+2. Create a Workers AI API token with **Workers AI Read** and **Workers AI Edit**
+   permissions, then copy your Cloudflare Account ID.
+3. In the GitHub repository, open **Settings → Secrets and variables → Actions**.
+4. Add these repository secrets:
+   - `CLOUDFLARE_API_TOKEN`
+   - `CLOUDFLARE_ACCOUNT_ID`
+5. Run **Actions → Generate Hyrule AI icons → Run workflow**.
+
+Cloudflare Workers AI currently includes 10,000 Neurons per day on its free
+allocation. FLUX.1 Schnell is billed in Neurons, so the number of images
+available depends on output dimensions and inference steps. Check the current
+[Cloudflare pricing](https://developers.cloudflare.com/workers-ai/platform/pricing/)
+before generating a full batch. The API token is stored only as a GitHub Actions
+secret and is never committed.
+
+To generate locally, install Pillow and export the two environment variables
+before running:
 
 ```bash
 python -m pip install Pillow==11.1.0
+export CLOUDFLARE_API_TOKEN="..."
+export CLOUDFLARE_ACCOUNT_ID="..."
 python scripts/draw-icons.py
 bash scripts/check.sh
 ```
 
-GitHub Actions also runs the **Draw Hyrule icons** workflow on generator changes or manually from the Actions tab. Generated PNG files are committed back to `main`.
+The previous 128×128 compatibility set remains unchanged.
 
 ## License
 
