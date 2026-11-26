@@ -1,0 +1,53 @@
+name: Capture theme screenshots
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/capture-screenshots.yml"
+      - "scripts/capture-gtk-screenshots.sh"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out theme
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Install virtual desktop and GTK demo applications
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb openbox xdotool imagemagick gtk-3-examples gtk-4-examples
+
+      - name: Install Hyrule-Pixel and Hyrule-Icons
+        run: bash scripts/install.sh
+
+      - name: Capture GTK 3 and GTK 4 applications
+        run: xvfb-run -a -s "-screen 0 1600x1000x24" bash scripts/capture-gtk-screenshots.sh
+
+      - name: Publish screenshots in README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/screenshots/*.png
+          if git diff --cached --quiet; then
+            echo "Screenshots are unchanged."
+            exit 0
+          fi
+          git commit -m "docs: refresh Hyrule theme screenshots"
+          git push origin HEAD:main
+
+      - name: Upload screenshot artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hyrule-theme-screenshots
+          path: docs/screenshots/*.png
+          if-no-files-found: warn
+          retention-days: 30
