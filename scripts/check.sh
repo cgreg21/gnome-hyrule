@@ -14,7 +14,8 @@ import sys
 import xml.etree.ElementTree as ET
 
 root = pathlib.Path(sys.argv[1])
-ast.parse((root / "scripts/draw-icons.py").read_text())\nast.parse((root / "scripts/draw-theme-textures.py").read_text())
+ast.parse((root / "scripts/draw-icons.py").read_text())
+ast.parse((root / "scripts/draw-theme-textures.py").read_text())
 icons = root / "icons" / "Hyrule-Icons"
 svg_files = sorted(icons.rglob("*.svg"))
 for svg in svg_files:
