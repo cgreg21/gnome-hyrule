@@ -93,23 +93,6 @@ stage {
   color: #f2d49a;
 }
 
-.message,
-.notification-banner,
-.message-list-placeholder {
-  background-color: #123f2b;
-  color: #fff3d2;
-  border: none;
-  border-image: url("../assets/panel-frame.png") 12 12 12 12;
-  border-radius: 0;
-}
-
-.workspace-thumbnail {
-  border: 1px solid #e5b83e;
-}
-
-.workspace-thumbnail:active {
-  background-color: #28783c;
-}
 
 #overview,
 .overview {
@@ -185,16 +168,20 @@ StLabel {
 
 .workspace-thumbnail {
   background-color: rgba(18, 63, 43, 0.8);
+  border: 1px solid #e5b83e;
 }
 
 .workspace-thumbnail:active,
 .workspace-thumbnail:checked {
+  background-color: #28783c;
   border: 2px solid #e5b83e;
 }
 
 /* Notifications */
+.message,
 .notification,
-.notification-banner {
+.notification-banner,
+.message-list-placeholder {
   background-color: #123f2b;
   color: #fff3d2;
   border: none;
