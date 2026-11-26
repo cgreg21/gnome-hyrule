@@ -1,0 +1,86 @@
+name: Capture GNOME Shell 51 screenshots
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/capture-gnome-shell.yml"
+      - "scripts/capture-gnome-shell-screenshots.sh"
+      - "themes/Hyrule-Pixel/gnome-shell/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: capture-gnome-shell-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-24.04
+    container:
+      image: fedora:45
+    timeout-minutes: 20
+    steps:
+      - name: Install GNOME 51 and virtual display dependencies
+        run: |
+          dnf -y install \
+            dbus-daemon \
+            gnome-shell \
+            gnome-shell-extension-user-theme \
+            mutter-devkit \
+            weston \
+            xorg-x11-server-Xvfb \
+            xorg-x11-utils \
+            xdotool \
+            ImageMagick \
+            libnotify \
+            git \
+            shadow-utils
+          gnome-shell --version
+          useradd --create-home --uid 1001 theme-ci
+          install -d -o theme-ci -g theme-ci /run/user/1001
+          chmod 700 /run/user/1001
+
+      - name: Check out theme
+        uses: actions/checkout@v4
+
+      - name: Capture GNOME Shell 51 desktop views
+        run: |
+          chown -R theme-ci:theme-ci "$GITHUB_WORKSPACE"
+          runuser -u theme-ci -- env \
+            HOME=/home/theme-ci \
+            USER=theme-ci \
+            LOGNAME=theme-ci \
+            XDG_RUNTIME_DIR=/run/user/1001 \
+            dbus-run-session -- bash scripts/capture-gnome-shell-screenshots.sh
+
+      - name: Validate theme and GNOME Shell screenshots
+        run: |
+          bash scripts/check.sh
+          for screenshot in docs/screenshots/shell-*.png; do
+            identify -format '%f: %wx%h (%b)\\n' "$screenshot"
+          done
+          test "$(find docs/screenshots -maxdepth 1 -name 'shell-*.png' | wc -l)" -eq 4
+
+      - name: Publish screenshots in README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A docs/screenshots/
+          if git diff --cached --quiet; then
+            echo "GNOME Shell screenshots are unchanged."
+            exit 0
+          fi
+          git commit -m "docs: add GNOME Shell 51 screenshots"
+          git push origin HEAD:main
+
+      - name: Upload GNOME Shell screenshot artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hyrule-gnome-shell-51-screenshots
+          path: docs/screenshots/shell-*.png
+          if-no-files-found: warn
+          retention-days: 30
