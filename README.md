@@ -43,7 +43,7 @@ widget sizes without stretching its pixel-art corners.
 GNOME Shell St uses its compact `border-image: url(...) top right bottom left`
 syntax. GTK uses the standard `border-image: url(...) slice / width stretch`
 syntax. These are 9-slice borders, not Android's marker-pixel `.9.png` format.
-The PNG files are generated reproducibly by `scripts/draw-theme-textures.py`. The parchment frame is applied to Shell popups. Reusable inventory sprites include `inventory-tab.png`, `inventory-tab-selected.png`, `inventory-cursor.png`, `heart-red.png`, both item-slot states, and `rupee-green.png`.
+The PNG files are generated reproducibly by `scripts/draw-theme-textures.py`. The parchment frame is applied to Shell popups. Reusable inventory sprites include normal and selected tabs, a cursor, full/half/empty hearts, green/red/blue rupees, a Triforce emblem, and both item-slot states. All decorative sprites are generated at their intended native pixel dimensions by the same Pillow script and checked by `scripts/check.sh`.
 
 ## Compatibility notes
 
