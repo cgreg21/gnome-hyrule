@@ -72,6 +72,55 @@ def draw_icon(name):
         rect(d, (6,8,25,11), P["gold_dark"])
         d.polygon([(9,14),(13,17),(9,20),(11,21),(16,17),(11,13)], fill=P["cream"])
         rect(d, (17,20,22,21), P["gold"])
+    elif name == "org.gnome.TextEditor":
+        frame(d, 7, 4, 24, 27, "paper")
+        d.polygon([(18,4),(24,10),(18,10)], fill=P["gold"], outline=P["ink"])
+        rect(d, (11,13,20,15), P["forest"])
+        rect(d, (11,17,21,18), P["forest"])
+        rect(d, (11,20,18,21), P["forest"])
+        rect(d, (18,22,23,24), P["gold_dark"], P["ink"])
+    elif name == "org.gnome.Loupe":
+        d.ellipse((5,5,21,21), fill=P["blue"], outline=P["ink"])
+        d.ellipse((9,9,17,17), fill=P["cream"], outline=P["gold_dark"])
+        rect(d, (19,19,25,25), P["gold_dark"], P["ink"])
+        rect(d, (21,21,24,24), P["gold"])
+        rect(d, (10,8,14,9), P["white"])
+    elif name == "org.gnome.clocks":
+        d.ellipse((5,5,26,26), fill=P["paper"], outline=P["ink"])
+        d.ellipse((8,8,23,23), outline=P["gold_dark"])
+        rect(d, (15,10,16,16), P["forest"])
+        rect(d, (15,15,21,16), P["red"])
+        rect(d, (10,3,12,6), P["gold"], P["ink"])
+        rect(d, (20,3,22,6), P["gold"], P["ink"])
+    elif name == "org.gnome.Music":
+        rect(d, (7,6,24,25), P["forest"], P["ink"])
+        rect(d, (10,9,21,18), P["gold_dark"], P["ink"])
+        d.polygon([(12,17),(16,12),(20,17)], fill=P["cream"])
+        d.ellipse((10,19,15,24), fill=P["gold"], outline=P["ink"])
+        d.ellipse((18,19,23,24), fill=P["gold"], outline=P["ink"])
+    elif name == "org.gnome.Maps":
+        d.polygon([(4,9),(11,6),(20,9),(27,6),(27,23),(20,26),(11,23),(4,26)], fill=P["blue"], outline=P["ink"])
+        rect(d, (10,8,11,22), P["cream"])
+        rect(d, (19,10,20,24), P["cream"])
+        d.polygon([(16,9),(20,14),(16,20),(12,14)], fill=P["red"], outline=P["cream"])
+        rect(d, (15,13,17,15), P["cream"])
+    elif name == "org.gnome.SystemMonitor":
+        frame(d, 5, 5, 26, 26, "forest")
+        rect(d, (8,9,23,22), P["deep"], P["gold"])
+        d.line([(9,18),(12,18),(14,12),(17,20),(20,14),(23,14)], fill=P["light_green"], width=2)
+        rect(d, (9,24,22,25), P["gold"])
+    elif name == "org.gnome.Screenshot":
+        rect(d, (5,9,26,24), P["grey"], P["ink"])
+        rect(d, (10,7,16,10), P["gold_dark"], P["ink"])
+        d.ellipse((10,11,21,22), fill=P["blue"], outline=P["ink"])
+        d.ellipse((13,14,18,19), fill=P["cream"], outline=P["gold"])
+        rect(d, (7,11,9,13), P["red"])
+    elif name == "org.gnome.DiskUtility":
+        d.ellipse((5,7,26,16), fill=P["gold"], outline=P["ink"])
+        rect(d, (5,11,26,22), P["gold_dark"], P["ink"])
+        d.ellipse((5,17,26,26), fill=P["gold"], outline=P["ink"])
+        d.ellipse((11,18,20,23), fill=P["forest"], outline=P["ink"])
+        rect(d, (14,19,17,22), P["cream"])
     elif name.startswith("folder"):
         rect(d, (4,10,27,25), P["gold_dark"], P["ink"])
         rect(d, (5,8,15,13), P["gold"], P["ink"])
@@ -129,7 +178,7 @@ def draw_icon(name):
 
 ICONS = {
     "apps": ["org.gnome.Nautilus", "org.gnome.Settings", "org.gnome.Software",
-             "org.gnome.Calculator", "org.gnome.Calendar", "utilities-terminal"],
+             "org.gnome.Calculator", "org.gnome.Calendar", "utilities-terminal",\n             "org.gnome.TextEditor", "org.gnome.Loupe", "org.gnome.clocks",\n             "org.gnome.Music", "org.gnome.Maps", "org.gnome.SystemMonitor",\n             "org.gnome.Screenshot", "org.gnome.DiskUtility"],
     "places": ["folder", "folder-documents", "folder-download", "folder-pictures"],
     "mimetypes": ["text-x-generic", "image-x-generic", "audio-x-generic", "video-x-generic"],
     "status": ["network-wireless", "battery-full", "bluetooth-active", "user-trash"],
