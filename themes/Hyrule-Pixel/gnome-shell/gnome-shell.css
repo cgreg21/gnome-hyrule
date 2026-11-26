@@ -250,3 +250,96 @@ StLabel {
   background-color: #28783c;
 }
 
+/* Quick Settings, media controls and application folders */
+.quick-settings {
+  background-color: #09291d;
+  color: #fff3d2;
+  border: 1px solid #e5b83e;
+  border-radius: 0;
+  padding: 8px;
+}
+
+.quick-settings-grid {
+  spacing: 8px;
+}
+
+.quick-toggle-menu,
+.quick-toggle-menu .popup-menu-content {
+  background-color: #123f2b;
+  color: #fff3d2;
+  border: 1px solid #e5b83e;
+  border-radius: 0;
+}
+
+.quick-toggle-menu .header,
+.quick-toggle-menu .header .title {
+  color: #f2d49a;
+  font-weight: bold;
+}
+
+.quick-toggle-menu .icon-button,
+.quick-settings .icon-button {
+  background-color: #123f2b;
+  color: #f2d49a;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+}
+
+.quick-toggle-menu .icon-button:hover,
+.quick-settings .icon-button:hover {
+  background-color: #28783c;
+  border-color: #e5b83e;
+}
+
+.media-message {
+  background-color: #123f2b;
+  color: #fff3d2;
+  border: 1px solid #e5b83e;
+  border-radius: 0;
+  padding: 8px;
+}
+
+.media-message .message-title,
+.media-message .message-subtitle {
+  color: #f2d49a;
+}
+
+.media-message .media-control {
+  background-color: #09291d;
+  color: #fff3d2;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+}
+
+.media-message .media-control:hover {
+  background-color: #28783c;
+  color: #fff0c4;
+  border-color: #e5b83e;
+}
+
+.app-folder,
+.app-folder-dialog {
+  background-color: #123f2b;
+  color: #fff3d2;
+  border: 1px solid #e5b83e;
+  border-radius: 0;
+}
+
+.app-folder-dialog .folder-name-entry {
+  background-color: #f2d49a;
+  color: #241b12;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+}
+
+.app-folder-dialog .folder-name-entry:focus {
+  border-color: #e5b83e;
+  box-shadow: none;
+}
+
+.calendar-day.calendar-day-selected {
+  background-color: #28783c;
+  color: #fff3d2;
+  border: 1px solid #e5b83e;
+  border-radius: 0;
+}
