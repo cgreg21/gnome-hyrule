@@ -41,7 +41,3 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "art: regenerate Hyrule pixel icons with Pillow"
           git push
-      - name: Trigger validation for generated commit
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run ci.yml --ref main
