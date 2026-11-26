@@ -41,7 +41,7 @@ for png in png_files:
     data = png.read_bytes()
     if data[:8] != b"\x89PNG\r\n\x1a\n":
         raise SystemExit(f"Invalid PNG signature: {png.relative_to(root)}")
-    if len(data) < 24 or data[12:16] != b"IHDR":
+    if data[:4] != bytes([137, 80, 78, 71]) or data[12:16] != b"IHDR":
         raise SystemExit(f"Missing PNG header: {png.relative_to(root)}")
     width = int.from_bytes(data[16:20], "big")
     height = int.from_bytes(data[20:24], "big")
@@ -53,7 +53,7 @@ for png in native_png_files:
     data = png.read_bytes()
     if data[:8] != b"\x89PNG\r\n\x1a\n":
         raise SystemExit(f"Invalid native PNG signature: {png.relative_to(root)} ({data[:8]!r})")
-    if len(data) < 24 or data[12:16] != b"IHDR":
+    if data[:4] != bytes([137, 80, 78, 71]) or data[12:16] != b"IHDR":
         raise SystemExit(f"Invalid native PNG header: {png.relative_to(root)} ({data[12:16]!r})")
     width = int.from_bytes(data[16:20], "big")
     height = int.from_bytes(data[20:24], "big")
@@ -91,7 +91,7 @@ for name, expected in texture_sizes.items():
     if not path.is_file():
         raise SystemExit(f"Missing theme texture: {path.relative_to(root)}")
     data = path.read_bytes()
-    if data[:8] != b"\\x89PNG\\r\\n\\x1a\\n" or data[12:16] != b"IHDR":
+    if data[:4] != bytes([137, 80, 78, 71]) or data[12:16] != b"IHDR":
         raise SystemExit(f"Invalid theme PNG: {path.relative_to(root)}")
     actual = (int.from_bytes(data[16:20], "big"), int.from_bytes(data[20:24], "big"))
     if actual != expected:
