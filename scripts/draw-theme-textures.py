@@ -193,6 +193,51 @@ def make_rupee():
     image.save(OUT / "rupee-green.png", format="PNG", optimize=True)
 
 
+
+def make_inventory_tab(selected=False):
+    image = Image.new("RGBA", (64, 24), C["clear"])
+    d = ImageDraw.Draw(image)
+    edge = "gold_light" if selected else "gold_shadow"
+    rect(d, (2, 5, 61, 23), "outline")
+    rect(d, (3, 4, 60, 21), edge)
+    rect(d, (5, 6, 58, 20), "wood_light" if selected else "wood")
+    rect(d, (7, 8, 56, 18), "deep")
+    line(d, [(9, 9), (54, 9)], "gold" if selected else "wood_high")
+    # Stepped leaf engraving at both ends leaves the center clear for a label.
+    for x, flip in ((12, 1), (51, -1)):
+        diamond(d, x, 14, 4, "leaf_dark")
+        diamond(d, x, 14, 2, "leaf")
+        d.point((x - 1, 12), fill=C["leaf_light"])
+        line(d, [(x + flip, 14), (x + 3 * flip, 11)], "gold_light")
+    if selected:
+        line(d, [(20, 20), (43, 20)], "gold_light")
+        diamond(d, 32, 3, 2, "gold_light")
+    image.save(OUT / ("inventory-tab-selected.png" if selected else "inventory-tab.png"),
+               format="PNG", optimize=True)
+
+
+def make_item_cursor():
+    image = Image.new("RGBA", (16, 16), C["clear"])
+    d = ImageDraw.Draw(image)
+    # Classic stepped pointer with dark outline and a warm highlight.
+    d.polygon([(1, 1), (14, 8), (9, 9), (12, 14), (9, 15), (6, 10), (2, 14)],
+              fill=C["outline"])
+    d.polygon([(3, 3), (11, 8), (7, 9), (10, 13), (8, 13), (5, 8), (3, 11)],
+              fill=C["gold_light"])
+    line(d, [(3, 3), (3, 10)], "cream")
+    image.save(OUT / "inventory-cursor.png", format="PNG", optimize=True)
+
+
+def make_heart():
+    image = Image.new("RGBA", (16, 16), C["clear"])
+    d = ImageDraw.Draw(image)
+    d.polygon([(1, 4), (4, 1), (7, 3), (8, 4), (11, 1), (14, 4),
+               (14, 8), (8, 15), (1, 8)], fill=C["outline"])
+    d.polygon([(2, 4), (4, 2), (7, 4), (8, 5), (11, 2), (13, 4),
+               (13, 8), (8, 13), (2, 8)], fill=(185, 48, 52, 255))
+    d.polygon([(3, 4), (5, 3), (7, 5), (5, 6)], fill=(255, 164, 151, 255))
+    image.save(OUT / "heart-red.png", format="PNG", optimize=True)
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     make_frame("panel-frame.png", 64, 16, "deep")
@@ -203,6 +248,10 @@ def main():
     make_inventory_slot()
     make_inventory_slot(selected=True)
     make_rupee()
+    make_inventory_tab()
+    make_inventory_tab(selected=True)
+    make_item_cursor()
+    make_heart()
     print("Generated detailed Hyrule pixel-art 9-slice PNG textures.")
 
 
