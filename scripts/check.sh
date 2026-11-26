@@ -101,5 +101,5 @@ if missing_icons:
     raise SystemExit("Missing system icons: " + ", ".join(missing_icons))
 if len(svg_files) < 10:
     raise SystemExit(f"Expected at least 10 SVG icons, found {len(svg_files)}")
-print(f"Validated {len(svg_files)} SVG, {len(png_files)} legacy PNG and {len(native_png_files)} native 512x512 PNG icon(s), pixel-art rendering, system icons, scripts, and theme files.")
+print(f"Validated {len(svg_files)} SVG, {len(png_files)} legacy PNG and {len(native_png_files)} native 512x512 PNG icon(s), pixel-art rendering, system icons, scripts, and 9-slice PNG textures, scripts, and theme files.")
 PY
