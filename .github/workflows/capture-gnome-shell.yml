@@ -46,6 +46,7 @@ jobs:
           useradd --create-home --uid 1001 theme-ci
           install -d -o theme-ci -g theme-ci /run/user/1001
           chmod 700 /run/user/1001
+          install -d -m 755 /run/dbus
           dbus-daemon --system --fork
           /usr/libexec/accounts-daemon &
 
