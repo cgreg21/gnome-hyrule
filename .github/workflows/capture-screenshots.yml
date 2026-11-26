@@ -31,6 +31,13 @@ jobs:
       - name: Capture GTK 3 and GTK 4 applications
         run: xvfb-run -a -s "-screen 0 1600x1000x24" bash scripts/capture-gtk-screenshots.sh
 
+      - name: Validate theme and generated screenshots
+        run: |
+          bash scripts/check.sh
+          for screenshot in docs/screenshots/*.png; do
+            identify -format '%f: %wx%h\\n' "$screenshot"
+          done
+
       - name: Publish screenshots in README
         run: |
           git config user.name "github-actions[bot]"
