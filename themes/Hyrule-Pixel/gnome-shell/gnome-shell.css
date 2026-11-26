@@ -1,0 +1,134 @@
+/* Hyrule Pixel — GNOME Shell 51 starter theme */
+$panel_bg: #09291d;
+$panel_fg: #fff3d2;
+$gold: #e5b83e;
+$forest: #123f2b;
+$active: #28783c;
+$paper: #f2d49a;
+$ink: #241b12;
+
+stage {
+  color: $panel_fg;
+  font-family: Cantarell, sans-serif;
+}
+
+#panel {
+  background-color: $panel_bg;
+  color: $panel_fg;
+  border-bottom: 2px solid $gold;
+  font-weight: bold;
+  box-shadow: none;
+}
+
+#panel .panel-button {
+  color: $panel_fg;
+  border-radius: 0;
+  padding: 0 8px;
+  transition-duration: 120ms;
+}
+
+#panel .panel-button:hover,
+#panel .panel-button:active,
+#panel .panel-button:checked {
+  background-color: $active;
+  color: $paper;
+  box-shadow: inset 0 -2px $gold;
+}
+
+.popup-menu-content,
+.popup-menu {
+  background-color: $forest;
+  color: $panel_fg;
+  border: 2px solid $gold;
+  border-radius: 0;
+  padding: 6px;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45);
+}
+
+.popup-menu-item {
+  color: $panel_fg;
+  border-radius: 0;
+  padding: 8px 12px;
+}
+
+.popup-menu-item:hover,
+.popup-menu-item:focus,
+.popup-menu-item:active {
+  background-color: $active;
+  color: $paper;
+}
+
+.popup-separator-menu-item .popup-separator {
+  background-color: $gold;
+  height: 1px;
+}
+
+.button,
+.modal-dialog .modal-dialog-button {
+  background-color: $forest;
+  color: $panel_fg;
+  border: 2px solid $gold;
+  border-radius: 0;
+  padding: 7px 12px;
+}
+
+.button:hover,
+.modal-dialog .modal-dialog-button:hover {
+  background-color: $active;
+  color: $paper;
+}
+
+.quick-settings,
+.quick-toggle,
+.quick-menu-toggle {
+  border-radius: 0;
+}
+
+.quick-toggle,
+.quick-menu-toggle .quick-toggle {
+  background-color: $forest;
+  border: 1px solid $gold;
+  color: $panel_fg;
+}
+
+.quick-toggle:checked,
+.quick-menu-toggle .quick-toggle:checked {
+  background-color: $active;
+  color: $paper;
+}
+
+.message,
+.notification-banner,
+.message-list-placeholder {
+  background-color: $forest;
+  color: $panel_fg;
+  border: 2px solid $gold;
+  border-radius: 0;
+}
+
+.workspace-thumbnail {
+  border: 1px solid $gold;
+}
+
+.workspace-thumbnail:active {
+  background-color: $active;
+}
+
+#overview,
+.overview {
+  background-color: rgba(9, 41, 29, 0.94);
+}
+
+.search-entry {
+  background-color: $paper;
+  color: $ink;
+  border: 2px solid $gold;
+  border-radius: 0;
+  selection-background-color: $active;
+}
+
+StEntry,
+StLabel {
+  color: inherit;
+}
+
