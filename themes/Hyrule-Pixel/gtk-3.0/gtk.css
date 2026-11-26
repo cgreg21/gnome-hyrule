@@ -42,8 +42,10 @@ button {
   background-image: none;
   background-color: @hyrule_forest;
   color: #fff3d2;
-  border: 1px solid @hyrule_gold;
+  border: none;
+  border-image: url("../assets/button-frame.png") 6 / 6 stretch;
   box-shadow: none;
+  padding: 6px 10px;
 }
 
 button:hover,
@@ -52,7 +54,14 @@ button:checked {
   color: @hyrule_paper;
 }
 
-entry,
+entry {
+  background-color: @hyrule_paper;
+  color: @hyrule_ink;
+  border: none;
+  border-image: url("../assets/entry-frame.png") 6 / 6 stretch;
+  padding: 6px;
+}
+
 textview,
 list,
 treeview {
@@ -66,4 +75,3 @@ selection,
   background-color: @hyrule_active;
   color: @hyrule_paper;
 }
-
