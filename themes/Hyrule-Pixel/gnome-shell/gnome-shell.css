@@ -330,3 +330,93 @@ StLabel {
   border: 1px solid #e5b83e;
   border-radius: 0;
 }
+
+/* Overview search, workspace switcher and dash details */
+#overviewGroup {
+  background-color: rgba(9, 41, 29, 0.94);
+}
+
+.overview-controls {
+  color: #fff3d2;
+}
+
+.search-entry:focus,
+.search-entry:focus-within {
+  border-color: #e5b83e;
+  box-shadow: inset 0 0 0 1px #e5b83e;
+}
+
+.search-section,
+.search-section-content {
+  color: #fff3d2;
+}
+
+.search-section-title {
+  color: #f2d49a;
+  font-weight: bold;
+}
+
+.list-search-result,
+.grid-search-result {
+  border: 1px solid transparent;
+  border-radius: 0;
+}
+
+.list-search-result:hover,
+.list-search-result:focus,
+.grid-search-result:hover,
+.grid-search-result:focus {
+  background-color: rgba(40, 120, 60, 0.7);
+  border-color: #e5b83e;
+}
+
+.workspace-switcher {
+  background-color: #09291d;
+  border: 1px solid #e5b83e;
+  border-radius: 0;
+  padding: 4px;
+}
+
+.workspace-switcher .workspace {
+  background-color: #123f2b;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+}
+
+.workspace-switcher .workspace.active {
+  background-color: #28783c;
+  border: 2px solid #e5b83e;
+}
+
+#dash {
+  background-color: rgba(9, 41, 29, 0.92);
+  border: 1px solid #e5b83e;
+  border-radius: 0;
+  padding: 6px;
+}
+
+#dash .dash-item-container > .app-well-app .overview-icon {
+  border-radius: 0;
+  border: 1px solid transparent;
+}
+
+#dash .dash-item-container > .app-well-app:focus .overview-icon,
+#dash .dash-item-container > .app-well-app:hover .overview-icon {
+  background-color: #28783c;
+  border-color: #e5b83e;
+}
+
+#dash .dash-separator {
+  background-color: #e5b83e;
+  width: 2px;
+}
+
+.show-apps .overview-icon {
+  border-radius: 0;
+}
+
+.show-apps:hover .overview-icon,
+.show-apps:focus .overview-icon {
+  background-color: #28783c;
+  border: 1px solid #e5b83e;
+}
