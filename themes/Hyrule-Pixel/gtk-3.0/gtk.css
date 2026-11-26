@@ -43,7 +43,7 @@ button {
   background-color: @hyrule_forest;
   color: #fff3d2;
   border: none;
-  border-image: url("../assets/button-frame.png") 6 / 6 stretch;
+  border-image: url("../assets/button-frame.png") 12 / 12 stretch;
   box-shadow: none;
   padding: 6px 10px;
 }
@@ -58,7 +58,7 @@ entry {
   background-color: @hyrule_paper;
   color: @hyrule_ink;
   border: none;
-  border-image: url("../assets/entry-frame.png") 6 / 6 stretch;
+  border-image: url("../assets/entry-frame.png") 12 / 12 stretch;
   padding: 6px;
 }
 
