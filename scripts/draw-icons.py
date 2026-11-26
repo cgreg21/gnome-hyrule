@@ -1,0 +1,149 @@
+#!/usr/bin/env python3
+"""Draw Hyrule-themed pixel icons with Pillow; source of truth for 128px PNGs."""
+from pathlib import Path
+from PIL import Image, ImageDraw
+
+ROOT = Path(__file__).resolve().parents[1] / "icons/Hyrule-Icons/128x128"
+S = 32
+P = {
+    "ink": "#241B12", "deep": "#09291D", "forest": "#123F2B",
+    "green": "#28783C", "light_green": "#70A85A", "gold": "#E5B83E",
+    "gold_dark": "#9A6724", "paper": "#F2D49A", "cream": "#FFF3D2",
+    "blue": "#4D91A5", "red": "#A94332", "shadow": "#171B18",
+    "white": "#FFF8E8", "grey": "#77766A",
+}
+
+def canvas():
+    return Image.new("RGBA", (S, S), (0, 0, 0, 0))
+
+def rect(d, xy, color, outline=None):
+    d.rectangle(xy, fill=color, outline=outline)
+
+def outline(d, xy, color="ink", width=1):
+    d.rectangle(xy, outline=P[color], width=width)
+
+def frame(d, x1=5, y1=4, x2=26, y2=27, fill="paper"):
+    rect(d, (x1, y1, x2, y2), P[fill], P["ink"])
+    rect(d, (x1+2, y1+2, x2-2, y1+2), P["cream"])
+
+def draw_icon(name):
+    im, d = canvas(), None
+    d = ImageDraw.Draw(im)
+    # Consistent ground shadow and 32-bit JRPG palette.
+    rect(d, (7, 27, 24, 28), P["shadow"])
+    if name == "org.gnome.Nautilus":
+        # Hylian treasure chest / file manager
+        rect(d, (5, 10, 26, 26), P["gold_dark"], P["ink"])
+        rect(d, (6, 8, 25, 16), P["gold"], P["ink"])
+        rect(d, (8, 10, 23, 14), P["cream"])
+        rect(d, (6, 17, 25, 24), P["forest"])
+        rect(d, (14, 15, 17, 21), P["gold"], P["ink"])
+        rect(d, (15, 17, 16, 19), P["ink"])
+        rect(d, (9, 20, 12, 22), P["light_green"])
+    elif name == "org.gnome.Settings":
+        # Gear with a Triforce-like center
+        d.ellipse((8, 7, 23, 22), fill=P["gold"], outline=P["ink"])
+        for x,y in [(14,4),(14,22),(4,14),(22,14),(7,7),(20,7),(7,20),(20,20)]:
+            rect(d, (x,y,x+3,y+3), P["gold"], P["ink"])
+        d.ellipse((12, 11, 19, 18), fill=P["forest"], outline=P["ink"])
+        d.polygon([(15,12),(12,17),(18,17)], fill=P["cream"], outline=P["ink"])
+    elif name == "org.gnome.Software":
+        # Potion shop bag with rupee
+        rect(d, (7, 9, 24, 25), P["forest"], P["ink"])
+        d.arc((11, 3, 21, 15), 180, 360, fill=P["gold"], width=2)
+        d.polygon([(16,11),(20,17),(16,23),(12,17)], fill=P["blue"], outline=P["cream"])
+        rect(d, (15, 15, 17, 18), P["white"])
+    elif name == "org.gnome.Calculator":
+        frame(d, 7, 4, 24, 27, "forest")
+        rect(d, (10,7,21,11), P["paper"], P["ink"])
+        for x,y in [(10,14),(15,14),(20,14),(10,19),(15,19),(20,19)]:
+            rect(d, (x,y,x+2,y+2), P["gold"] if (x+y)%2 else P["cream"], P["ink"])
+        rect(d, (10,24,21,25), P["blue"])
+    elif name == "org.gnome.Calendar":
+        frame(d, 5, 6, 26, 26, "paper")
+        rect(d, (5,6,26,12), P["red"], P["ink"])
+        rect(d, (10,3,12,9), P["gold"], P["ink"])
+        rect(d, (20,3,22,9), P["gold"], P["ink"])
+        for x,y in [(9,15),(15,15),(21,15),(9,20),(15,20),(21,20)]:
+            rect(d, (x,y,x+2,y+2), P["forest"] if y==15 else P["gold_dark"])
+        rect(d, (14,19,17,22), P["red"])
+    elif name == "utilities-terminal":
+        frame(d, 4, 6, 27, 25, "forest")
+        rect(d, (6,8,25,11), P["gold_dark"])
+        d.polygon([(9,14),(13,17),(9,20),(11,21),(16,17),(11,13)], fill=P["cream"])
+        rect(d, (17,20,22,21), P["gold"])
+    elif name.startswith("folder"):
+        rect(d, (4,10,27,25), P["gold_dark"], P["ink"])
+        rect(d, (5,8,15,13), P["gold"], P["ink"])
+        rect(d, (5,13,26,23), P["paper"], P["ink"])
+        rect(d, (7,15,24,21), P["gold"])
+        if name == "folder-documents":
+            rect(d, (11,13,21,22), P["cream"], P["ink"])
+            for y in (16,18,20): rect(d, (13,y,19,y), P["gold_dark"])
+        elif name == "folder-download":
+            d.polygon([(14,14),(18,14),(18,18),(21,18),(16,23),(11,18),(14,18)], fill=P["green"], outline=P["ink"])
+        elif name == "folder-pictures":
+            rect(d, (9,14,22,22), P["blue"], P["ink"])
+            d.ellipse((17,15,20,18), fill=P["gold"])
+            d.polygon([(10,21),(15,16),(19,21)], fill=P["light_green"])
+    elif name.endswith("-x-generic"):
+        frame(d, 7, 4, 24, 27, "paper")
+        d.polygon([(18,4),(24,10),(18,10)], fill=P["gold"], outline=P["ink"])
+        if name.startswith("text"):
+            for y,w in [(14,10),(17,12),(20,9),(23,11)]: rect(d, (10,y,10+w//2,y+1), P["forest"])
+        elif name.startswith("image"):
+            rect(d, (10,13,21,22), P["blue"], P["ink"])
+            d.ellipse((17,14,19,16), fill=P["gold"])
+            d.polygon([(11,21),(15,16),(18,20),(20,18),(21,21)], fill=P["light_green"])
+        elif name.startswith("audio"):
+            rect(d, (10,16,14,20), P["gold_dark"])
+            d.polygon([(14,14),(22,11),(22,21),(14,23)], fill=P["gold"])
+            d.ellipse((18,20,22,24), fill=P["forest"], outline=P["ink"])
+        else:
+            rect(d, (10,13,21,22), P["forest"], P["ink"])
+            d.polygon([(14,15),(14,20),(19,17)], fill=P["cream"])
+    elif name == "network-wireless":
+        d.arc((5,7,27,27), 220, 320, fill=P["gold"], width=3)
+        d.arc((9,11,23,25), 220, 320, fill=P["cream"], width=3)
+        d.arc((13,15,19,21), 220, 320, fill=P["green"], width=2)
+        rect(d, (14,23,17,26), P["gold"], P["ink"])
+    elif name == "battery-full":
+        rect(d, (5,10,26,23), P["paper"], P["ink"])
+        rect(d, (26,14,28,19), P["gold"], P["ink"])
+        rect(d, (8,13,23,20), P["green"])
+        rect(d, (10,15,12,18), P["light_green"])
+        rect(d, (15,15,17,18), P["light_green"])
+    elif name == "bluetooth-active":
+        d.polygon([(15,4),(22,10),(18,15),(23,20),(15,27),(15,18),(10,22),(8,20),(14,15),(9,10),(11,8),(15,12)], fill=P["blue"], outline=P["ink"])
+        rect(d, (14,7,16,24), P["cream"])
+    elif name == "user-trash":
+        rect(d, (8,10,23,25), P["grey"], P["ink"])
+        rect(d, (7,8,24,10), P["gold"], P["ink"])
+        rect(d, (12,5,19,7), P["gold_dark"], P["ink"])
+        for x in (12,17): rect(d, (x,13,x+1,22), P["cream"])
+    else:
+        raise ValueError(f"Unknown icon: {name}")
+    # Restrained bevel highlights make the tiny art read clearly.
+    rect(d, (6, 5, 8, 6), P["cream"])
+    return im.resize((128, 128), Image.Resampling.NEAREST)
+
+ICONS = {
+    "apps": ["org.gnome.Nautilus", "org.gnome.Settings", "org.gnome.Software",
+             "org.gnome.Calculator", "org.gnome.Calendar", "utilities-terminal"],
+    "places": ["folder", "folder-documents", "folder-download", "folder-pictures"],
+    "mimetypes": ["text-x-generic", "image-x-generic", "audio-x-generic", "video-x-generic"],
+    "status": ["network-wireless", "battery-full", "bluetooth-active", "user-trash"],
+}
+
+def main():
+    count = 0
+    for category, names in ICONS.items():
+        target = ROOT / category
+        target.mkdir(parents=True, exist_ok=True)
+        for name in names:
+            draw_icon(name).save(target / f"{name}.png", optimize=True)
+            count += 1
+    print(f"Generated {count} Hyrule pixel icons at 128x128.")
+
+if __name__ == "__main__":
+    main()
