@@ -1,0 +1,3 @@
+@import url("gtk.css");
+/* Explicit dark preference variant */
+window, .background { background-color: #09291d; color: #fff3d2; }
