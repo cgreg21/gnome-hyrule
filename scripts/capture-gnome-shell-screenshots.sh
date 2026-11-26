@@ -49,7 +49,7 @@ USER_THEME_ID="user-theme@gnome-shell-extensions.gcampax.github.com"
 gsettings set org.gnome.shell enabled-extensions "['$USER_THEME_ID']"
 gsettings set org.gnome.shell.extensions.user-theme name 'Hyrule-Pixel'
 
-gnome-shell --devkit --wayland >"$RUNTIME_DIR/gnome-shell.log" 2>&1 &
+gnome-shell --devkit --x11 >"$RUNTIME_DIR/gnome-shell.log" 2>&1 &
 SHELL_PID=$!
 for _ in $(seq 1 40); do
   kill -0 "$SHELL_PID" 2>/dev/null || { cat "$RUNTIME_DIR/gnome-shell.log"; exit 1; }
@@ -61,13 +61,7 @@ gnome-shell --version | grep -q '51\.' || { gnome-shell --version; exit 1; }
 capture() {
   local name="$1"
   sleep 2
-  local result
-  result="$(gdbus call --session \
-    --dest org.gnome.Shell \
-    --object-path /org/gnome/Shell/Screenshot \
-    --method org.gnome.Shell.Screenshot.Screenshot \
-    false false "$OUTPUT_DIR/$name")"
-  [[ "$result" == *"true"* ]]
+  import -window root "$OUTPUT_DIR/$name"
   identify -format '%wx%h' "$OUTPUT_DIR/$name" | grep -q '^1600x1000$'
 }
 
