@@ -48,6 +48,9 @@ gsettings set org.gnome.shell enabled-extensions "['$USER_THEME_ID']"
 gsettings set org.gnome.shell.extensions.user-theme name 'Hyrule-Pixel'
 # Suppress GNOME Shell's first-run welcome modal in this disposable CI profile.
 gsettings set org.gnome.shell welcome-dialog-last-shown-version '99.0'
+# The nested Devkit session has no screen shield; mark its expected warning as seen.
+mkdir -p "$XDG_DATA_HOME/gnome-shell"
+touch "$XDG_DATA_HOME/gnome-shell/lock-warning-shown"
 
 # Devkit presents the nested Wayland desktop in a GTK window on the Xvfb display.
 gnome-shell --devkit --wayland --unsafe-mode >"$RUNTIME_DIR/gnome-shell.log" 2>&1 &
