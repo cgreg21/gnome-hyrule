@@ -61,13 +61,21 @@ DEVKIT_WINDOW="$(xdotool search --onlyvisible --name 'Mutter Development Kit' | 
 test -n "$DEVKIT_WINDOW"
 xdotool windowmove "$DEVKIT_WINDOW" 0 0
 xdotool windowsize "$DEVKIT_WINDOW" 1600 1000
+xdotool windowactivate --sync "$DEVKIT_WINDOW"
 sleep 2
-# The Skip button is at root-display coordinates in the resized Devkit window.
-xdotool mousemove 675 700 click 1
-sleep 3
-# Fail instead of publishing screenshots if the welcome panel is still present.
-import -window root "$RUNTIME_DIR/devkit-after-skip.png"
-WELCOME_PIXEL="$(convert "$RUNTIME_DIR/devkit-after-skip.png" -format '%[pixel:p{600,300}]' info:)"
+
+# Use the Skip button relative to the host window, then close any remaining
+# welcome modal with Escape. The pixel check below is the final guard.
+xdotool mousemove --window "$DEVKIT_WINDOW" 675 700 click 1
+sleep 1
+magick -window root "$RUNTIME_DIR/devkit-after-skip.png"
+WELCOME_PIXEL="$(magick "$RUNTIME_DIR/devkit-after-skip.png" -format '%[pixel:p{600,300}]' info:)"
+if [[ "$WELCOME_PIXEL" == "srgb(54,54,58)" ]]; then
+  xdotool key --clearmodifiers Escape
+  sleep 2
+  magick -window root "$RUNTIME_DIR/devkit-after-escape.png"
+  WELCOME_PIXEL="$(magick "$RUNTIME_DIR/devkit-after-escape.png" -format '%[pixel:p{600,300}]' info:)"
+fi
 [[ "$WELCOME_PIXEL" != "srgb(54,54,58)" ]] || {
   echo "Devkit welcome dialog is still visible; refusing to capture screenshots."
   exit 1
