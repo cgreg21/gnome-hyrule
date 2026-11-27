@@ -169,6 +169,23 @@ listview row:selected {
   color: #fff3d2;
 }
 
+/* The custom inventory showcase uses these same native PNG frames. */
+frame.hyrule-inventory-hud > border {
+  border: none;
+  border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
+  padding: 10px;
+}
+
+frame.hyrule-inventory-slot > border {
+  border: none;
+  border-image: url("../assets/inventory-slot.png") 8 / 8 stretch;
+  padding: 8px;
+}
+
+frame.hyrule-inventory-slot:selected > border {
+  border-image-source: url("../assets/inventory-slot-selected.png");
+}
+
 /* GTK 4 inventory grids use the normal and selected slot textures. */
 flowbox > flowboxchild,
 gridview > child {
