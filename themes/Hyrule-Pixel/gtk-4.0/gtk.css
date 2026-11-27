@@ -1,4 +1,4 @@
-/* Best-effort GTK 4 stylesheet. libadwaita apps may ignore custom themes. */
+/* GTK 4 theme inspired by Hyrule's stonework, parchment and inventory. */
 @define-color window_bg_color #09291d;
 @define-color window_fg_color #fff3d2;
 @define-color view_bg_color #f2d49a;
@@ -9,8 +9,8 @@
 @define-color headerbar_fg_color #fff3d2;
 @define-color card_bg_color #123f2b;
 @define-color card_fg_color #fff3d2;
-@define-color popover_bg_color #123f2b;
-@define-color popover_fg_color #fff3d2;
+@define-color popover_bg_color #f2d49a;
+@define-color popover_fg_color #241b12;
 
 window {
   background: #09291d;
@@ -26,6 +26,11 @@ button {
   padding: 6px 10px;
 }
 
+button:hover,
+button:checked {
+  background-color: #28783c;
+}
+
 entry {
   background-color: #f2d49a;
   color: #241b12;
@@ -35,8 +40,6 @@ entry {
   padding: 6px;
 }
 
-
-/* Inventory-inspired GTK 4 controls */
 checkbutton check,
 radiobutton radio {
   background-color: #f2d49a;
@@ -61,9 +64,10 @@ switch:checked {
   background-color: #28783c;
 }
 
-switch slider {
+switch slider,
+scale slider {
   background-color: #f2d49a;
-  border: 1px solid #9a6724;
+  border: 2px solid #9a6724;
   border-radius: 0;
 }
 
@@ -79,12 +83,6 @@ scale highlight,
 levelbar block.filled,
 progressbar progress {
   background-color: #28783c;
-  border-radius: 0;
-}
-
-scale slider {
-  background-color: #f2d49a;
-  border: 2px solid #9a6724;
   border-radius: 0;
 }
 
@@ -108,15 +106,33 @@ tooltip.background {
   border-radius: 0;
 }
 
-/* GTK 4 menus, cards and list rows */
+headerbar {
+  background-color: #123f2b;
+  color: #fff3d2;
+  border-bottom: 2px solid #e5b83e;
+  box-shadow: none;
+}
+
+headerbar button {
+  background-color: #09291d;
+  border: none;
+  border-image: url("../assets/button-frame.png") 12 / 12 stretch;
+}
+
+headerbar button:hover {
+  background-color: #28783c;
+}
+
 popover,
 popover > contents,
 .menu,
 .context-menu {
   background-color: #f2d49a;
   color: #241b12;
-  border: 1px solid #9a6724;
+  border: none;
+  border-image: url("../assets/inventory-parchment.png") 16 / 16 stretch;
   border-radius: 0;
+  padding: 8px;
   box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
 }
 
@@ -133,61 +149,60 @@ popover modelbutton:focus {
 }
 
 card,
-.boxed-list {
+.boxed-list,
+frame > border {
   background-color: #123f2b;
   color: #fff3d2;
-  border: 1px solid #e5b83e;
+  border: none;
+  border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
   border-radius: 0;
   box-shadow: none;
 }
 
-listview row,
-gridview child {
+listview row {
   background-color: #f2d49a;
   color: #241b12;
-  border-radius: 0;
 }
 
-listview row:hover,
-gridview child:hover {
-  background-color: #e2c68f;
-}
-
-listview row:selected,
-gridview child:selected {
+listview row:selected {
   background-color: #28783c;
   color: #fff3d2;
+}
+
+/* GTK 4 inventory grids use the normal and selected slot textures. */
+flowbox > flowboxchild,
+gridview > child {
+  background-color: #09291d;
+  border: none;
+  border-image: url("../assets/inventory-slot.png") 8 / 8 stretch;
+  padding: 8px;
+}
+
+flowbox > flowboxchild:selected,
+gridview > child:selected {
+  border-image-source: url("../assets/inventory-slot-selected.png");
+}
+
+tabbar tab {
+  background-color: #123f2b;
+  color: #fff3d2;
+  border: none;
+  border-image: url("../assets/inventory-tab.png") 8 / 8 stretch;
+  border-radius: 0;
+  padding: 8px 14px;
+}
+
+tabbar tab:checked {
+  border-image-source: url("../assets/inventory-tab-selected.png");
 }
 
 separator {
-  background-color: #e5b83e;
-  min-height: 1px;
+  background-image: url("../assets/gold-divider.png");
+  background-repeat: repeat-x;
+  background-position: center;
+  min-height: 5px;
 }
 
-frame > border {
-  border: 1px solid #e5b83e;
-  border-radius: 0;
-}
-
-headerbar {
-  background-color: #123f2b;
-  color: #fff3d2;
-  border-bottom: 2px solid #e5b83e;
-  box-shadow: none;
-}
-
-headerbar button {
-  background-color: #09291d;
-  border: 1px solid #9a6724;
-  border-radius: 0;
-}
-
-headerbar button:hover {
-  background-color: #28783c;
-  border-color: #e5b83e;
-}
-
-/* Keyboard focus and disabled-state contrast */
 :focus-visible {
   outline: 2px solid #e5b83e;
   outline-offset: 2px;
@@ -211,39 +226,4 @@ entry:disabled {
 scale slider:disabled,
 scrollbar slider:disabled {
   background-color: #806b43;
-}
-
-/* Pixel-art PNG surfaces */
-frame > border,
-card,
-.boxed-list {
-  border: none;
-  border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
-}
-
-popover > contents,
-.menu,
-.context-menu {
-  border: none;
-  border-image: url("../assets/inventory-parchment.png") 16 / 16 stretch;
-  padding: 8px;
-}
-
-tabbar tab {
-  background-image: url("../assets/inventory-tab.png");
-  background-repeat: stretch;
-  border: none;
-  border-radius: 0;
-  padding: 8px 14px;
-}
-
-tabbar tab:checked {
-  background-image: url("../assets/inventory-tab-selected.png");
-}
-
-separator {
-  background-image: url("../assets/gold-divider.png");
-  background-repeat: repeat-x;
-  background-position: center;
-  min-height: 5px;
 }
