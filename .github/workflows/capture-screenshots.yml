@@ -16,8 +16,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: capture-screenshots-${{ github.ref }}
-  cancel-in-progress: true
+  group: hyrule-main-assets-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   capture:
