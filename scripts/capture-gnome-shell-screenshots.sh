@@ -56,27 +56,26 @@ for _ in $(seq 1 40); do
 done
 sleep 8
 
-# Resize the Devkit host window, then dismiss its first-run tour.
+# Resize the Devkit host window and close Fedora's automatic first-run tour.
 DEVKIT_WINDOW="$(xdotool search --onlyvisible --name 'Mutter Development Kit' | head -n 1)"
 test -n "$DEVKIT_WINDOW"
 xdotool windowmove "$DEVKIT_WINDOW" 0 0
 xdotool windowsize "$DEVKIT_WINDOW" 1600 1000
 sleep 2
 
-# Use the Skip button relative to the host window, then close any remaining
-# welcome modal with Escape. The pixel check below is the final guard.
-xdotool mousemove --window "$DEVKIT_WINDOW" 675 700 click 1
-sleep 1
-import -window root "$RUNTIME_DIR/devkit-after-skip.png"
-WELCOME_PIXEL="$(magick "$RUNTIME_DIR/devkit-after-skip.png" -format '%[pixel:p{600,300}]' info:)"
-if [[ "$WELCOME_PIXEL" == "srgb(54,54,58)" ]]; then
-  xdotool key --clearmodifiers Escape
-  sleep 2
-  import -window root "$RUNTIME_DIR/devkit-after-escape.png"
-  WELCOME_PIXEL="$(magick "$RUNTIME_DIR/devkit-after-escape.png" -format '%[pixel:p{600,300}]' info:)"
-fi
+# The welcome card is GNOME Tour, not part of the Shell theme. Close only the
+# first-run helpers instead of relying on fragile screen coordinates.
+ps -eo pid=,comm=,args= | grep -E '[g]nome-tour|[g]nome-initial-setup' || true
+for app in gnome-tour gnome-initial-setup; do
+  while read -r pid; do
+    [[ -n "$pid" ]] && kill "$pid" 2>/dev/null || true
+  done < <(ps -eo pid=,comm= | awk -v name="$app" '$2 == name {print $1}')
+done
+sleep 2
+import -window root "$RUNTIME_DIR/devkit-after-tour-close.png"
+WELCOME_PIXEL="$(magick "$RUNTIME_DIR/devkit-after-tour-close.png" -format '%[pixel:p{600,300}]' info:)"
 [[ "$WELCOME_PIXEL" != "srgb(54,54,58)" ]] || {
-  echo "Devkit welcome dialog is still visible; refusing to capture screenshots."
+  echo "GNOME Tour welcome dialog is still visible; refusing to capture screenshots."
   exit 1
 }
 
