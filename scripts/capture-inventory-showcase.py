@@ -55,7 +55,7 @@ def main():
     hud = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
     hud_frame = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hud_frame.add_css_class("hyrule-inventory-hud") if version == "4" else hud_frame.get_style_context().add_class("hyrule-inventory-hud")
-    hud_frame.set_child(hud) if version == "4" else hud_frame.add(hud)
+    add(hud_frame, hud)
     for filename, description in (
         ("heart-red.png", "Full heart"),
         ("heart-red.png", "Full heart"),
@@ -85,7 +85,7 @@ def main():
         slot.set_size_request(76, 76)
         slot.set_halign(Gtk.Align.CENTER)
         slot.set_valign(Gtk.Align.CENTER)
-        slot.set_child(make_sprite(filename, description)) if version == "4" else slot.add(make_sprite(filename, description))
+        add(slot, make_sprite(filename, description))
         add(slots, slot)
     add(root, slots)
 
