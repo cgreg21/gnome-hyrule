@@ -227,7 +227,7 @@ box.hyrule-inventory-slot {
   padding: 8px;
 }
 
-box.hyrule-inventory-slot:selected {
+box.hyrule-inventory-slot-selected {
   border-image-source: url("../assets/inventory-slot-selected.png");
 }
 
