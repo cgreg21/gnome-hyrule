@@ -247,3 +247,26 @@ for ref in re.findall(r'url\("([^"]+\.png)"\)', css):
         raise SystemExit(f"Missing GNOME Shell PNG asset: {ref}")
 print("Validated GNOME Shell Quick Settings, notifications, dash and PNG frames.")
 PY
+
+# Top panel and overview dash must use their dedicated Hyrule PNG assets.
+python3 - "$ROOT" <<'PY'
+import pathlib
+import re
+import sys
+
+root = pathlib.Path(sys.argv[1])
+path = root / "themes/Hyrule-Pixel/gnome-shell/gnome-shell.css"
+css = path.read_text()
+for selector in ("#panel .panel-button:first-child", "#panel .clock",
+                 "#dash .dash-item-container > .app-well-app .overview-icon"):
+    if selector not in css:
+        raise SystemExit(f"GNOME Shell stylesheet is missing {selector}")
+for asset in ("headerbar-stone.png", "triforce.png", "inventory-slot.png",
+              "inventory-slot-selected.png"):
+    if asset not in css:
+        raise SystemExit(f"GNOME Shell stylesheet does not use {asset}")
+for ref in re.findall(r'url\("([^"]+\.png)"\)', css):
+    if not (path.parent / ref).is_file():
+        raise SystemExit(f"Missing GNOME Shell PNG asset: {ref}")
+print("Validated GNOME Shell top panel, Triforce marker, dash slots and PNG assets.")
+PY
