@@ -46,6 +46,8 @@ cp -a "$ROOT/themes/Hyrule-Pixel" "$HOME/.themes/"
 USER_THEME_ID="user-theme@gnome-shell-extensions.gcampax.github.com"
 gsettings set org.gnome.shell enabled-extensions "['$USER_THEME_ID']"
 gsettings set org.gnome.shell.extensions.user-theme name 'Hyrule-Pixel'
+# Suppress GNOME Shell's first-run welcome modal in this disposable CI profile.
+gsettings set org.gnome.shell welcome-dialog-last-shown-version '99.0'
 
 # Devkit presents the nested Wayland desktop in a GTK window on the Xvfb display.
 gnome-shell --devkit --wayland --unsafe-mode >"$RUNTIME_DIR/gnome-shell.log" 2>&1 &
@@ -56,29 +58,16 @@ for _ in $(seq 1 40); do
 done
 sleep 8
 
-# Resize the Devkit host window and dismiss its first-run welcome dialog.
+# Resize the Devkit host window before capturing the nested desktop.
 DEVKIT_WINDOW="$(xdotool search --onlyvisible --name 'Mutter Development Kit' | head -n 1)"
 test -n "$DEVKIT_WINDOW"
 xdotool windowmove "$DEVKIT_WINDOW" 0 0
 xdotool windowsize "$DEVKIT_WINDOW" 1600 1000
-xdotool windowfocus --sync "$DEVKIT_WINDOW" || true
 sleep 2
-
-# The welcome card belongs to the Devkit host surface. Focus it explicitly,
-# click the visible Skip control, and keep a diagnostic capture on failure.
-xdotool mousemove --sync 675 700 click --repeat 2 --delay 100 1
-sleep 2
-import -window root "$RUNTIME_DIR/devkit-after-skip.png"
-WELCOME_PIXEL="$(magick "$RUNTIME_DIR/devkit-after-skip.png" -format '%[pixel:p{600,300}]' info:)"
-if [[ "$WELCOME_PIXEL" == "srgb(54,54,58)" ]]; then
-  xdotool key --clearmodifiers Escape || true
-  sleep 2
-  import -window root "$RUNTIME_DIR/devkit-after-escape.png"
-  WELCOME_PIXEL="$(magick "$RUNTIME_DIR/devkit-after-escape.png" -format '%[pixel:p{600,300}]' info:)"
-fi
+import -window root "$RUNTIME_DIR/devkit-startup.png"
+WELCOME_PIXEL="$(magick "$RUNTIME_DIR/devkit-startup.png" -format '%[pixel:p{600,300}]' info:)"
 [[ "$WELCOME_PIXEL" != "srgb(54,54,58)" ]] || {
-  cp "$RUNTIME_DIR/devkit-after-escape.png" "$OUTPUT_DIR/devkit-welcome-debug.png"
-  echo "Devkit welcome dialog is still visible; refusing to capture screenshots."
+  echo "GNOME Shell welcome dialog appeared despite the CI gsettings guard."
   exit 1
 }
 

@@ -45,7 +45,6 @@ jobs:
             xdotool \
             ImageMagick \
             libnotify \
-            procps-ng \
             git \
             shadow-utils
           gnome-shell --version
@@ -85,9 +84,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: hyrule-gnome-shell-51-screenshots
-          path: |
-            docs/screenshots/shell-*.png
-            docs/screenshots/devkit-welcome-debug.png
+          path: docs/screenshots/shell-*.png
           if-no-files-found: warn
           retention-days: 30
 
