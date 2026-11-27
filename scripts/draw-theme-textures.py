@@ -103,6 +103,37 @@ def make_frame(name, size, slice_size, center_color):
     image.save(OUT / name, format="PNG", optimize=True)
 
 
+
+def make_headerbar_stone():
+    """Create a seamless stone-and-brass strip for GTK title bars."""
+    image = Image.new("RGBA", (128, 48), C["deep"])
+    d = ImageDraw.Draw(image)
+    # Dark stone blocks with subtly varied pixel facets.
+    for tile_x in (0, 32, 64, 96):
+        rect(d, (tile_x + 1, 7, tile_x + 30, 40), "wood")
+        rect(d, (tile_x + 2, 8, tile_x + 29, 39), "deep")
+        line(d, [(tile_x + 3, 10), (tile_x + 28, 10)], "wood_light")
+        line(d, [(tile_x + 3, 37), (tile_x + 28, 37)], "outline")
+        # A tiny stepped Hylian diamond is repeated with the tile.
+        cx = tile_x + 16
+        diamond(d, cx, 23, 7, "gold_shadow")
+        diamond(d, cx, 23, 5, "gold")
+        diamond(d, cx, 23, 3, "gold_light")
+        diamond(d, cx, 23, 1, "gem")
+        # Corner rivets and stone chips.
+        for px, py in ((tile_x + 4, 12), (tile_x + 27, 12),
+                       (tile_x + 4, 35), (tile_x + 27, 35)):
+            d.point((px, py), fill=C["gold_light"])
+        d.point((tile_x + 8, 17), fill=C["wood_high"])
+        d.point((tile_x + 23, 30), fill=C["wood_high"])
+    # Continuous brass rails make adjacent tiles seamless.
+    for y, color in ((0, "outline"), (1, "gold_shadow"), (2, "gold"),
+                     (3, "gold_light"), (44, "outline"), (45, "gold_shadow"),
+                     (46, "gold"), (47, "gold_light")):
+        line(d, [(0, y), (127, y)], color)
+    image.save(OUT / "headerbar-stone.png", format="PNG", optimize=True)
+
+
 def make_divider():
     image = Image.new("RGBA", (32, 5), C["clear"])
     d = ImageDraw.Draw(image)
@@ -300,6 +331,7 @@ def main():
     make_frame("button-frame.png", 48, 12, "deep")
     make_frame("entry-frame.png", 48, 12, "deep")
     make_divider()
+    make_headerbar_stone()
     make_parchment_panel()
     make_inventory_slot()
     make_inventory_slot(selected=True)
