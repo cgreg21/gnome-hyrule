@@ -75,3 +75,31 @@ capture_app() {
 capture_app "GTK 3 Widget Factory" "gtk3-widget-factory.png" "gtk3-widget-factory"
 capture_app "GTK 4 Demo" "gtk4-demo.png" "gtk4-demo"
 capture_app "GTK 4 Widget Factory" "gtk4-widget-factory.png" "gtk4-widget-factory"
+
+capture_inventory() {
+  local version="$1"
+  local output="$OUTPUT_DIR/gtk${version}-inventory.png"
+  echo "Launching GTK $version Hyrule inventory showcase..."
+  GTK_THEME=Hyrule-Pixel python3 "$ROOT/scripts/capture-inventory-showcase.py" "$version" >/tmp/hyrule-inventory.log 2>&1 &
+  local app_pid=$!
+  local window_id=""
+  for _ in $(seq 1 30); do
+    window_id="$(xdotool search --onlyvisible --pid "$app_pid" 2>/dev/null | head -n 1 || true)"
+    [[ -n "$window_id" ]] && break
+    sleep 1
+  done
+  if [[ -z "$window_id" ]]; then
+    cat /tmp/hyrule-inventory.log >&2 || true
+    kill "$app_pid" 2>/dev/null || true
+    return 1
+  fi
+  xdotool windowactivate --sync "$window_id"
+  sleep 2
+  timeout 20s import -window "$window_id" "$output"
+  kill "$app_pid" 2>/dev/null || true
+  wait "$app_pid" 2>/dev/null || true
+  echo "Captured $output"
+}
+
+capture_inventory "3"
+capture_inventory "4"
