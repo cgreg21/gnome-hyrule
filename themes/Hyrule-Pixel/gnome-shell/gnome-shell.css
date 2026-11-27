@@ -523,3 +523,87 @@ StLabel {
   color: #fff3d2;
   border-color: #e5b83e;
 }
+
+/* Reference: parchment Quick Settings with carved gold frame. */
+.quick-settings {
+  background-color: #f2d49a;
+  color: #241b12;
+  border: none;
+  border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
+  border-radius: 0;
+  padding: 10px;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+.quick-settings .quick-toggle,
+.quick-settings .quick-menu-toggle .quick-toggle {
+  background-color: #e2c68f;
+  color: #241b12;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+}
+
+.quick-settings .quick-toggle:checked,
+.quick-settings .quick-menu-toggle .quick-toggle:checked {
+  background-color: #28783c;
+  color: #fff3d2;
+  border-color: #e5b83e;
+}
+
+.quick-settings .slider {
+  -barlevel-background-color: #b58b4b;
+  -barlevel-active-background-color: #28783c;
+}
+
+/* Notifications match the parchment GTK dialogs. */
+.message,
+.notification,
+.notification-banner,
+.message-list .message {
+  background-color: #f2d49a;
+  color: #241b12;
+  border: none;
+  border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
+  border-radius: 0;
+  padding: 10px;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+.message-list .message-title,
+.message-list .message-body,
+.notification-banner .notification-content,
+.notification-banner .notification-title,
+.notification-banner .notification-body {
+  color: #241b12;
+}
+
+.notification-button,
+.notification-banner .notification-button,
+.message-list .message .message-action {
+  background-color: #123f2b;
+  color: #fff3d2;
+  border: none;
+  border-image: url("../assets/button-frame.png") 12 / 12 stretch;
+  border-radius: 0;
+}
+
+.notification-button:hover,
+.notification-banner .notification-button:hover,
+.message-list .message .message-action:hover {
+  background-color: #28783c;
+  color: #fff3d2;
+}
+
+/* Frame the application dash like a Hyrule inventory rail. */
+#dash {
+  background-color: rgba(9, 41, 29, 0.96);
+  border: none;
+  border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
+  border-radius: 0;
+  padding: 8px;
+}
+
+#dash .dash-separator {
+  background-color: #e5b83e;
+  width: 2px;
+}

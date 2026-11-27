@@ -226,3 +226,24 @@ for directory, selectors in checks.items():
         raise SystemExit(f"{directory} is missing preferences PNG decorations")
 print("Validated GTK 3/4 preferences styling.")
 PY
+
+# GNOME Shell reference surfaces must use the shared native PNG frames.
+python3 - "$ROOT" <<'PY'
+import pathlib
+import re
+import sys
+
+root = pathlib.Path(sys.argv[1])
+path = root / "themes/Hyrule-Pixel/gnome-shell/gnome-shell.css"
+css = path.read_text()
+for selector in (".quick-settings {", ".message-list .message {", "#dash {"):
+    if selector not in css:
+        raise SystemExit(f"GNOME Shell stylesheet is missing {selector}")
+for asset in ("panel-frame.png", "button-frame.png"):
+    if asset not in css:
+        raise SystemExit(f"GNOME Shell stylesheet does not use {asset}")
+for ref in re.findall(r'url\("([^"]+\.png)"\)', css):
+    if not (path.parent / ref).is_file():
+        raise SystemExit(f"Missing GNOME Shell PNG asset: {ref}")
+print("Validated GNOME Shell Quick Settings, notifications, dash and PNG frames.")
+PY
