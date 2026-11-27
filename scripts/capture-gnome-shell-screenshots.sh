@@ -68,7 +68,7 @@ sleep 3
 # Fail instead of publishing screenshots if the welcome panel is still present.
 import -window root "$RUNTIME_DIR/devkit-after-skip.png"
 WELCOME_PIXEL="$(convert "$RUNTIME_DIR/devkit-after-skip.png" -format '%[pixel:p{600,300}]' info:)"
-[[ "$WELCOME_PIXEL" != "srgb(52,52,56)" ]] || {
+[[ "$WELCOME_PIXEL" != "srgb(54,54,58)" ]] || {
   echo "Devkit welcome dialog is still visible; refusing to capture screenshots."
   exit 1
 }
