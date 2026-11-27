@@ -3,7 +3,6 @@
 
 from pathlib import Path
 import re
-import sys
 
 from PIL import Image
 
@@ -14,10 +13,10 @@ STYLESHEETS = {
     "GTK 3": THEME / "gtk-3.0" / "gtk.css",
     "GTK 4": THEME / "gtk-4.0" / "gtk.css",
 }
-URL_PATTERN = re.compile(r"url\\(\\s*(['\\"]?)(.*?)\\1\\s*\\)", re.IGNORECASE)
-BLOCK_PATTERN = re.compile(r"([^{}]+)\\{([^{}]*)\\}")
+URL_PATTERN = re.compile(r"""url\(\s*(["']?)(.*?)\1\s*\)""", re.IGNORECASE)
+BLOCK_PATTERN = re.compile(r"([^{}]+)\{([^{}]*)\}")
 BORDER_IMAGE_PATTERN = re.compile(
-    r"border-image\\s*:\\s*url\\(\\s*(['\\"]?)(.*?)\\1\\s*\\)\\s*([^;]+);",
+    r"""border-image\s*:\s*url\(\s*(["']?)(.*?)\1\s*\)\s*([^;]+);""",
     re.IGNORECASE,
 )
 EXPECTED_ASSETS = {
@@ -59,7 +58,7 @@ def validate_border_image(css_name, css, dimensions):
         if reference not in dimensions:
             fail(f"{css_name}: border-image references unvalidated image {reference}")
         slices = slice_value.split("/", 1)[0]
-        numbers = re.findall(r"(?<![\\w.])\\d+(?:\\.\\d+)?", slices)
+        numbers = re.findall(r"(?<![\w.])\d+(?:\.\d+)?", slices)
         if len(numbers) not in (1, 4):
             fail(f"{css_name}: unsupported 9-slice values for {reference}: {slice_value.strip()}")
         values = [float(value) for value in numbers]
@@ -80,7 +79,7 @@ def main():
     for css_name, stylesheet in STYLESHEETS.items():
         if not stylesheet.is_file():
             fail(f"missing stylesheet {stylesheet.relative_to(ROOT)}")
-        css = re.sub(r"/\\*.*?\\*/", "", stylesheet.read_text(), flags=re.DOTALL)
+        css = re.sub(r"/\*.*?\*/", "", stylesheet.read_text(), flags=re.DOTALL)
         dimensions = {}
         references = URL_PATTERN.findall(css)
         if not references:
@@ -103,7 +102,8 @@ def main():
                 if "background-repeat" not in declarations:
                     fail(f"{css_name}: background image has no explicit repeat mode in {selector.strip()}")
         validate_border_image(css_name, css, dimensions)
-        total_border_images += len(BORDER_IMAGE_PATTERN.findall(css))
+        border_count = len(BORDER_IMAGE_PATTERN.findall(css))
+        total_border_images += border_count
 
         used_names = {Path(reference).name for _, reference in references}
         missing = EXPECTED_ASSETS[css_name] - used_names
@@ -118,7 +118,7 @@ def main():
             fail("GNOME Shell: app grid must use the inventory PNG frame")
 
         print(f"{css_name}: {len(references)} image references, "
-              f"{len(dimensions)} distinct RGBA PNGs, {len(BORDER_IMAGE_PATTERN.findall(css))} 9-slice borders")
+              f"{len(dimensions)} distinct RGBA PNGs, {border_count} 9-slice borders")
 
     print(f"Validated {total_references} CSS image references and "
           f"{total_border_images} 9-slice declarations across all stylesheets.")
