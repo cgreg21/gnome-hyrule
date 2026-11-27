@@ -62,9 +62,16 @@ test -n "$DEVKIT_WINDOW"
 xdotool windowmove "$DEVKIT_WINDOW" 0 0
 xdotool windowsize "$DEVKIT_WINDOW" 1600 1000
 sleep 2
-# The Skip button is centered in the Devkit welcome dialog at 1600x1000.
-xdotool mousemove --window "$DEVKIT_WINDOW" 700 730 click 1
+# The Skip button is at root-display coordinates in the resized Devkit window.
+xdotool mousemove 675 700 click 1
 sleep 3
+# Fail instead of publishing screenshots if the welcome panel is still present.
+import -window root "$RUNTIME_DIR/devkit-after-skip.png"
+WELCOME_PIXEL="$(convert "$RUNTIME_DIR/devkit-after-skip.png" -format '%[pixel:p{600,300}]' info:)"
+[[ "$WELCOME_PIXEL" != "srgb(52,52,56)" ]] || {
+  echo "Devkit welcome dialog is still visible; refusing to capture screenshots."
+  exit 1
+}
 
 gnome-shell --version | grep -q '51\.' || { gnome-shell --version; exit 1; }
 
