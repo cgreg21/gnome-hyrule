@@ -6,6 +6,9 @@ on:
     paths:
       - ".github/workflows/capture-gnome-shell.yml"
       - "scripts/capture-gnome-shell-screenshots.sh"
+      - "scripts/check.sh"
+      - "scripts/check-css-assets.py"
+      - "themes/Hyrule-Pixel/assets/**"
       - "themes/Hyrule-Pixel/gnome-shell/**"
   workflow_dispatch:
 
@@ -54,6 +57,8 @@ jobs:
 
       - name: Check out theme
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
 
       - name: Capture GNOME Shell 51 desktop views
         run: |
@@ -107,4 +112,5 @@ jobs:
             exit 0
           fi
           git commit -m "docs: add GNOME Shell 51 screenshots"
+          git pull --rebase origin main
           git push origin HEAD:main
