@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import base64
-import hashlib
 import io
 import json
 import os
@@ -77,9 +76,9 @@ ICONS = {
 }
 
 
-def request_image(prompt: str, token: str, account_id: str, seed: int) -> bytes:
+def request_image(prompt: str, token: str, account_id: str) -> bytes:
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{MODEL}"
-    payload = json.dumps({"prompt": prompt, "steps": 4, "seed": seed}).encode()
+    payload = json.dumps({"prompt": prompt, "steps": 4}).encode()
     request = urllib.request.Request(
         url, data=payload,
         headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
@@ -140,10 +139,9 @@ def main() -> None:
         target = ROOT / category
         target.mkdir(parents=True, exist_ok=True)
         for name, subject in items.items():
-            seed = int.from_bytes(hashlib.sha256(name.encode()).digest()[:4], "big")
             prompt = f"{subject}. {STYLE}"
             print(f"[{done + 1}/{total}] Generating {category}/{name}.png", flush=True)
-            raw = request_image(prompt, token, account_id, seed)
+            raw = request_image(prompt, token, account_id)
             with Image.open(io.BytesIO(raw)) as source:
                 image = make_transparent(source)
                 output = target / f"{name}.png"
