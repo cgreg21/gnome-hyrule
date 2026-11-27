@@ -61,7 +61,6 @@ DEVKIT_WINDOW="$(xdotool search --onlyvisible --name 'Mutter Development Kit' | 
 test -n "$DEVKIT_WINDOW"
 xdotool windowmove "$DEVKIT_WINDOW" 0 0
 xdotool windowsize "$DEVKIT_WINDOW" 1600 1000
-xdotool windowactivate --sync "$DEVKIT_WINDOW"
 sleep 2
 
 # Use the Skip button relative to the host window, then close any remaining
