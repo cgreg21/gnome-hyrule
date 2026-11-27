@@ -56,27 +56,29 @@ for _ in $(seq 1 40); do
 done
 sleep 8
 
-# Resize the Devkit host window and dismiss its first-run welcome window.
+# Resize the Devkit host window and dismiss its first-run welcome dialog.
 DEVKIT_WINDOW="$(xdotool search --onlyvisible --name 'Mutter Development Kit' | head -n 1)"
 test -n "$DEVKIT_WINDOW"
 xdotool windowmove "$DEVKIT_WINDOW" 0 0
 xdotool windowsize "$DEVKIT_WINDOW" 1600 1000
+xdotool windowfocus --sync "$DEVKIT_WINDOW" || true
 sleep 2
 
-# The welcome card is a nested Shell window. Close it through Mutter rather
-# than relying on host-window pointer coordinates or a window manager.
-WELCOME_WINDOWS="$(gdbus call --session --dest org.gnome.Shell \
-  --object-path /org/gnome/Shell --method org.gnome.Shell.Eval \
-  "global.get_window_actors().map(a => a.meta_window.get_title()).join(' | ')")"
-echo "GNOME Shell windows: $WELCOME_WINDOWS"
-gdbus call --session --dest org.gnome.Shell \
-  --object-path /org/gnome/Shell --method org.gnome.Shell.Eval \
-  "global.get_window_actors().filter(a => /Welcome|Tour/.test(a.meta_window.get_title() || '')).forEach(a => a.meta_window.delete(global.get_current_time()))"
+# The welcome card belongs to the Devkit host surface. Focus it explicitly,
+# click the visible Skip control, and keep a diagnostic capture on failure.
+xdotool mousemove --sync 675 700 click --repeat 2 --delay 100 1
 sleep 2
-import -window root "$RUNTIME_DIR/devkit-after-tour-close.png"
-WELCOME_PIXEL="$(magick "$RUNTIME_DIR/devkit-after-tour-close.png" -format '%[pixel:p{600,300}]' info:)"
+import -window root "$RUNTIME_DIR/devkit-after-skip.png"
+WELCOME_PIXEL="$(magick "$RUNTIME_DIR/devkit-after-skip.png" -format '%[pixel:p{600,300}]' info:)"
+if [[ "$WELCOME_PIXEL" == "srgb(54,54,58)" ]]; then
+  xdotool key --clearmodifiers Escape || true
+  sleep 2
+  import -window root "$RUNTIME_DIR/devkit-after-escape.png"
+  WELCOME_PIXEL="$(magick "$RUNTIME_DIR/devkit-after-escape.png" -format '%[pixel:p{600,300}]' info:)"
+fi
 [[ "$WELCOME_PIXEL" != "srgb(54,54,58)" ]] || {
-  echo "GNOME Shell welcome window is still visible; refusing to capture screenshots."
+  cp "$RUNTIME_DIR/devkit-after-escape.png" "$OUTPUT_DIR/devkit-welcome-debug.png"
+  echo "Devkit welcome dialog is still visible; refusing to capture screenshots."
   exit 1
 }
 
