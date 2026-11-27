@@ -333,3 +333,45 @@ actionbar {
   border-top: 2px solid @hyrule_gold;
   color: #fff3d2;
 }
+
+/* Dialogs use parchment interiors and carved-stone outer frames. */
+dialog,
+messagedialog {
+  background-color: #f2d49a;
+  color: #241b12;
+  border: none;
+  border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
+  border-radius: 0;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+dialog headerbar,
+messagedialog headerbar {
+  background-color: #123f2b;
+  background-image: url("../assets/headerbar-stone.png");
+  background-repeat: repeat-x;
+  color: #fff3d2;
+  border-bottom: 2px solid #e5b83e;
+}
+
+dialog .dialog-vbox,
+messagedialog .dialog-vbox {
+  background-color: #f2d49a;
+  color: #241b12;
+  padding: 12px;
+}
+
+dialog .dialog-action-area,
+messagedialog .dialog-action-area {
+  background-color: #123f2b;
+  border-top: 2px solid #e5b83e;
+  padding: 8px;
+}
+
+dialog button,
+messagedialog button {
+  background-color: #123f2b;
+  color: #fff3d2;
+  border: none;
+  border-image: url("../assets/button-frame.png") 12 / 12 stretch;
+}
