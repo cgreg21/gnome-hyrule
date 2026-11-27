@@ -135,3 +135,18 @@ if len(svg_files) < 10:
     raise SystemExit(f"Expected at least 10 SVG icons, found {len(svg_files)}")
 print(f"Validated {len(svg_files)} SVG, {len(png_files)} legacy PNG and {len(native_png_files)} native 512x512 PNG icon(s), pixel-art rendering, system icons, scripts, and 9-slice PNG textures, scripts, and theme files.")
 PY
+
+
+# Every PNG referenced by a GTK stylesheet must exist relative to that stylesheet.
+python3 - "$ROOT" <<'PY'
+import pathlib
+import re
+import sys
+
+root = pathlib.Path(sys.argv[1])
+for stylesheet in sorted((root / "themes/Hyrule-Pixel").glob("gtk-*/gtk*.css")):
+    for asset in re.findall(r'url\\(["\\']([^"\\']+\\.png)["\\']\\)', stylesheet.read_text()):
+        path = (stylesheet.parent / asset).resolve()
+        if not path.is_file():
+            raise SystemExit(f"Missing GTK PNG asset: {stylesheet.relative_to(root)} -> {asset}")
+PY
