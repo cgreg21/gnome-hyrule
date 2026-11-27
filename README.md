@@ -6,6 +6,7 @@ A user-installable GNOME desktop theme inspired by 16/32-bit Zelda-era JRPG pixe
 
 - GNOME Shell stylesheet (GNOME 51 target; live-session validation still required)
 - PNG pixel-art frames using 9-slice borders for Shell menus, notifications, buttons, and entries
+- Repeating carved-stone and brass titlebar texture shared by GTK 3 and GTK 4
 - Zelda-style inventory details: parchment menu frame, recessed item slots, selected-slot frame, and a faceted green rupee
 - GTK 3 light/dark stylesheets and a best-effort GTK 4 stylesheet using the same PNG frame assets
 - Pixel-art SVG, 128×128 compatibility PNG, and native 512×512 PNG icon sets for GNOME apps, folders, file types, and system status
@@ -114,6 +115,7 @@ widget sizes without stretching its pixel-art corners.
 - `themes/Hyrule-Pixel/assets/button-frame.png`: 48×48 PNG, 12 px slice
 - `themes/Hyrule-Pixel/assets/entry-frame.png`: 48×48 PNG, 12 px slice
 - `themes/Hyrule-Pixel/assets/gold-divider.png`: 32×5 repeatable PNG divider
+- `themes/Hyrule-Pixel/assets/headerbar-stone.png`: 128×48 seamless repeating stone titlebar with Hylian diamond engraving
 
 GNOME Shell St uses its compact `border-image: url(...) top right bottom left`
 syntax. GTK uses the standard `border-image: url(...) slice / width stretch`
