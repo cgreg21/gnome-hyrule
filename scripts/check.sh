@@ -145,7 +145,7 @@ import sys
 
 root = pathlib.Path(sys.argv[1])
 for stylesheet in sorted((root / "themes/Hyrule-Pixel").glob("gtk-*/gtk*.css")):
-    for asset in re.findall(r'url\\(["\\']([^"\\']+\\.png)["\\']\\)', stylesheet.read_text()):
+    for asset in re.findall(r'url\\("([^"]+\\.png)"\\)', stylesheet.read_text()):
         path = (stylesheet.parent / asset).resolve()
         if not path.is_file():
             raise SystemExit(f"Missing GTK PNG asset: {stylesheet.relative_to(root)} -> {asset}")
