@@ -215,14 +215,14 @@ frame > border {
 /* Inventory HUD and item cells use the native Zelda sprite artwork. */
 box.hyrule-inventory-hud {
   background-color: #123f2b;
-  border: none;
+  border: 16px solid transparent;
   border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
   padding: 10px;
 }
 
 box.hyrule-inventory-slot {
   background-color: #09291d;
-  border: none;
+  border: 8px solid transparent;
   border-image: url("../assets/inventory-slot.png") 8 / 8 stretch;
   padding: 8px;
 }
