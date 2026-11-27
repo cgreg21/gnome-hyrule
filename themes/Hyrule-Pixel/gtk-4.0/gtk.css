@@ -250,3 +250,36 @@ scale slider:disabled,
 scrollbar slider:disabled {
   background-color: #806b43;
 }
+
+/* GTK 4 menu bars and action bars use the same Hyrule frame assets. */
+menubar {
+  background-color: #f2d49a;
+  color: #241b12;
+  border: none;
+  border-image: url("../assets/inventory-parchment.png") 16 / 16 stretch;
+  padding: 2px 6px;
+}
+
+menubar > item {
+  color: #241b12;
+  padding: 6px 10px;
+}
+
+menubar > item:hover,
+menubar > item:selected {
+  background-color: #28783c;
+  color: #fff3d2;
+}
+
+actionbar {
+  background-color: #123f2b;
+  background-image: url("../assets/headerbar-stone.png");
+  background-repeat: repeat-x;
+  border-top: 2px solid #e5b83e;
+  color: #fff3d2;
+}
+
+actionbar button {
+  border: none;
+  border-image: url("../assets/button-frame.png") 12 / 12 stretch;
+}

@@ -171,3 +171,21 @@ for directory, required in required_assets.items():
             raise SystemExit(f"Missing GTK PNG asset: {stylesheet.relative_to(root)} -> {reference}")
 print("Validated GTK 3/4 PNG references and inventory texture usage.")
 PY
+
+# Keep the titlebar, menu-bar and action-bar artwork covered by static checks.
+python3 - "$ROOT" <<'PY'
+import pathlib
+import sys
+
+root = pathlib.Path(sys.argv[1])
+checks = {
+    "gtk-3.0": ("headerbar", "menubar > menuitem", "actionbar"),
+    "gtk-4.0": ("headerbar", "menubar > item", "actionbar"),
+}
+for directory, selectors in checks.items():
+    css = (root / "themes/Hyrule-Pixel" / directory / "gtk.css").read_text()
+    missing = [selector for selector in selectors if selector not in css]
+    if missing:
+        raise SystemExit(f"{directory} is missing themed widget selectors: {', '.join(missing)}")
+print("Validated GTK 3/4 titlebar, menu-bar and action-bar styling.")
+PY

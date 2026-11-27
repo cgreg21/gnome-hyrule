@@ -305,3 +305,31 @@ scale slider:disabled,
 scrollbar slider:disabled {
   background-color: #806b43;
 }
+
+/* Menus and action areas share the carved-stone and parchment language. */
+menubar {
+  background-color: @hyrule_paper;
+  color: @hyrule_ink;
+  border: none;
+  border-image: url("../assets/inventory-parchment.png") 16 / 16 stretch;
+  padding: 2px 6px;
+}
+
+menubar > menuitem {
+  color: @hyrule_ink;
+  padding: 6px 10px;
+}
+
+menubar > menuitem:hover,
+menubar > menuitem:prelight {
+  background-color: @hyrule_active;
+  color: #fff3d2;
+}
+
+actionbar {
+  background-color: @hyrule_forest;
+  background-image: url("../assets/headerbar-stone.png");
+  background-repeat: repeat-x;
+  border-top: 2px solid @hyrule_gold;
+  color: #fff3d2;
+}
