@@ -7,7 +7,7 @@ import gi
 
 version = sys.argv[1]
 gi.require_version("Gtk", version + ".0")
-from gi.repository import Gtk
+from gi.repository import GdkPixbuf, Gtk
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "themes" / "Hyrule-Pixel" / "assets"
@@ -29,8 +29,9 @@ def make_label(text, css_class=None):
 
 
 def make_sprite(filename, description):
-    image = Gtk.Image.new_from_file(str(ASSETS / filename))
-    image.set_pixel_size(32) if version == "4" else None
+    pixbuf = GdkPixbuf.Pixbuf.new_from_file(str(ASSETS / filename))
+    pixbuf = pixbuf.scale_simple(pixbuf.get_width() * 2, pixbuf.get_height() * 2, GdkPixbuf.InterpType.NEAREST)
+    image = Gtk.Image.new_from_pixbuf(pixbuf)
     image.set_tooltip_text(description)
     return image
 
@@ -52,7 +53,7 @@ def main():
     add(root, subtitle)
 
     hud = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
-    hud_frame = Gtk.Frame()
+    hud_frame = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hud_frame.add_css_class("hyrule-inventory-hud") if version == "4" else hud_frame.get_style_context().add_class("hyrule-inventory-hud")
     hud_frame.set_child(hud) if version == "4" else hud_frame.add(hud)
     for filename, description in (
@@ -77,9 +78,11 @@ def main():
         ("rupee-red.png", "Red rupee"),
         ("triforce.png", "Triforce emblem"),
     ):
-        slot = Gtk.Frame()
+        slot = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         slot.add_css_class("hyrule-inventory-slot") if version == "4" else slot.get_style_context().add_class("hyrule-inventory-slot")
         slot.set_size_request(76, 76)
+        slot.set_halign(Gtk.Align.CENTER)
+        slot.set_valign(Gtk.Align.CENTER)
         slot.set_child(make_sprite(filename, description)) if version == "4" else slot.add(make_sprite(filename, description))
         add(slots, slot)
     add(root, slots)
