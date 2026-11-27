@@ -6,7 +6,7 @@ from pathlib import Path
 import gi
 
 version = sys.argv[1]
-gi.require_version("Gtk", version)
+gi.require_version("Gtk", version + ".0")
 from gi.repository import Gtk
 
 ROOT = Path(__file__).resolve().parents[1]
