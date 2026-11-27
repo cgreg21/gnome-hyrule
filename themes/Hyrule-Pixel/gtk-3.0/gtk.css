@@ -212,6 +212,23 @@ frame > border {
   border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
 }
 
+/* Inventory HUD and item cells use the native Zelda sprite artwork. */
+frame.hyrule-inventory-hud > border {
+  border: none;
+  border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
+  padding: 10px;
+}
+
+frame.hyrule-inventory-slot > border {
+  border: none;
+  border-image: url("../assets/inventory-slot.png") 8 / 8 stretch;
+  padding: 8px;
+}
+
+frame.hyrule-inventory-slot:selected > border {
+  border-image-source: url("../assets/inventory-slot-selected.png");
+}
+
 /* Inventory slots use the actual pixel-art slot sprites. */
 flowbox flowboxchild,
 iconview.view {
