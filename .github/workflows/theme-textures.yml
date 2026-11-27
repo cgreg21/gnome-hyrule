@@ -9,8 +9,8 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: hyrule-theme-textures-main
-  cancel-in-progress: true
+  group: hyrule-main-assets-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
