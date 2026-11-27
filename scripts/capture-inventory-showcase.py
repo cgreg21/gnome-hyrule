@@ -32,6 +32,7 @@ def make_sprite(filename, description):
     pixbuf = GdkPixbuf.Pixbuf.new_from_file(str(ASSETS / filename))
     pixbuf = pixbuf.scale_simple(pixbuf.get_width() * 2, pixbuf.get_height() * 2, GdkPixbuf.InterpType.NEAREST)
     image = Gtk.Image.new_from_pixbuf(pixbuf)
+    image.set_size_request(pixbuf.get_width(), pixbuf.get_height())
     image.set_tooltip_text(description)
     return image
 
