@@ -292,3 +292,25 @@ for ref in re.findall(r'url\("([^"]+\.png)"\)', css):
         raise SystemExit(f"Missing GNOME Shell PNG asset: {ref}")
 print("Validated applications grid, folders and inventory PNG assets.")
 PY
+
+# Workspace previews and switcher must use the shared Hyrule frame assets.
+python3 - "$ROOT" <<'PY'
+import pathlib
+import re
+import sys
+
+root = pathlib.Path(sys.argv[1])
+path = root / "themes/Hyrule-Pixel/gnome-shell/gnome-shell.css"
+css = path.read_text()
+for selector in (".workspace-thumbnails {", ".workspace-thumbnail-indicator",
+                 ".workspace-switcher-container", ".workspace-switcher-active"):
+    if selector not in css:
+        raise SystemExit(f"GNOME Shell stylesheet is missing {selector}")
+for asset in ("panel-frame.png", "inventory-slot-selected.png"):
+    if asset not in css:
+        raise SystemExit(f"GNOME Shell stylesheet does not use {asset}")
+for ref in re.findall(r'url\("([^"]+\.png)"\)', css):
+    if not (path.parent / ref).is_file():
+        raise SystemExit(f"Missing GNOME Shell PNG asset: {ref}")
+print("Validated workspace previews, switcher and PNG frames.")
+PY
