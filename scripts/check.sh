@@ -16,6 +16,7 @@ import xml.etree.ElementTree as ET
 root = pathlib.Path(sys.argv[1])
 ast.parse((root / "scripts/draw-icons.py").read_text())
 ast.parse((root / "scripts/draw-theme-textures.py").read_text())
+ast.parse((root / "scripts/capture-inventory-showcase.py").read_text())
 icons = root / "icons" / "Hyrule-Icons"
 svg_files = sorted(icons.rglob("*.svg"))
 for svg in svg_files:
@@ -111,6 +112,7 @@ required = [
     root / "themes/Hyrule-Pixel/gnome-shell/gnome-shell.css",
     root / "themes/Hyrule-Pixel/gtk-3.0/gtk.css",
     root / "themes/Hyrule-Pixel/gtk-4.0/gtk.css",
+    root / "scripts/capture-inventory-showcase.py",
     root / "icons/Hyrule-Icons/index.theme",
 ]
 missing = [str(path.relative_to(root)) for path in required if not path.is_file()]
