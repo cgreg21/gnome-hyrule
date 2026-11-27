@@ -64,6 +64,10 @@ repository's **Actions → Capture theme screenshots** page.
 
 ![Hyrule Pixel GTK 4 frames](docs/screenshots/gtk4-frames.png)
 
+**GTK 4 Widget Factory – controls and inventory-style surfaces**
+
+![Hyrule Pixel GTK 4 Widget Factory](docs/screenshots/gtk4-widget-factory.png)
+
 ### GNOME Shell 51
 
 A separate Fedora 45 job runs GNOME Shell 51 in a nested Wayland session,
