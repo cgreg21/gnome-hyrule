@@ -335,3 +335,26 @@ for ref in re.findall(r'url\("([^"]+\.png)"\)', css):
         raise SystemExit(f"Missing GNOME Shell PNG asset: {ref}")
 print("Validated Overview backdrop, search panels and window captions.")
 PY
+
+# Calendar and popup menus must share the parchment panel and gold frame assets.
+python3 - "$ROOT" <<'PY'
+import pathlib
+import re
+import sys
+
+root = pathlib.Path(sys.argv[1])
+path = root / "themes/Hyrule-Pixel/gnome-shell/gnome-shell.css"
+css = path.read_text()
+for selector in (".datemenu-calendar-column {", ".calendar .calendar-day:hover",
+                 ".calendar .calendar-day.calendar-today",
+                 ".popup-menu-content {", ".popup-menu-item:hover",
+                 ".popup-separator-menu-item .popup-separator-menu-item-separator"):
+    if selector not in css:
+        raise SystemExit(f"GNOME Shell stylesheet is missing {selector}")
+if "panel-frame.png" not in css:
+    raise SystemExit("Calendar and popup menus must use the Hyrule PNG frame")
+for ref in re.findall(r'url\("([^"]+\.png)"\)', css):
+    if not (path.parent / ref).is_file():
+        raise SystemExit(f"Missing GNOME Shell PNG asset: {ref}")
+print("Validated calendar, popup menus and PNG frames.")
+PY

@@ -874,3 +874,95 @@ StLabel {
   border-radius: 0;
   padding: 5px 8px;
 }
+
+/* Calendar popover: parchment calendar with gold day markers. */
+.datemenu-calendar-column,
+.datemenu-calendar-column .calendar,
+.calendar {
+  background-color: #f2d49a;
+  color: #241b12;
+}
+
+.datemenu-calendar-column {
+  border: none;
+  border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
+  border-radius: 0;
+  padding: 8px;
+}
+
+.calendar .calendar-month-label,
+.calendar .calendar-day-heading,
+.calendar .calendar-week-number {
+  color: #6d4a20;
+  font-weight: bold;
+}
+
+.calendar .calendar-day {
+  color: #241b12;
+  border-radius: 0;
+}
+
+.calendar .calendar-day:hover {
+  background-color: #e2c68f;
+  box-shadow: inset 0 0 0 1px #9a6724;
+}
+
+.calendar .calendar-day:focus,
+.calendar .calendar-day:selected {
+  background-color: #28783c;
+  color: #fff3d2;
+  box-shadow: inset 0 0 0 2px #e5b83e;
+}
+
+.calendar .calendar-day.calendar-today {
+  background-color: #e5b83e;
+  color: #241b12;
+  font-weight: bold;
+  border-radius: 0;
+}
+
+.calendar .calendar-day.calendar-day-heading {
+  color: #6d4a20;
+}
+
+/* Popup menus: dark forest text on parchment, with squared gold separators. */
+.popup-menu-content {
+  background-color: #f2d49a;
+  color: #241b12;
+  border: none;
+  border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
+  border-radius: 0;
+  padding: 6px;
+}
+
+.popup-menu-item {
+  color: #241b12;
+  border-radius: 0;
+  padding: 7px 10px;
+}
+
+.popup-menu-item:hover,
+.popup-menu-item:focus,
+.popup-menu-item:selected {
+  background-color: #28783c;
+  color: #fff3d2;
+}
+
+.popup-separator-menu-item .popup-separator-menu-item-separator {
+  background-color: #9a6724;
+  height: 2px;
+}
+
+.popup-sub-menu {
+  background-color: #e2c68f;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+}
+
+.popup-menu .popup-menu-icon {
+  color: #6d4a20;
+}
+
+.popup-menu-item:insensitive {
+  color: #927d5b;
+}
