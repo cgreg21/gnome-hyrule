@@ -74,3 +74,4 @@ capture_app() {
 
 capture_app "GTK 3 Widget Factory" "gtk3-widget-factory.png" "gtk3-widget-factory"
 capture_app "GTK 4 Demo" "gtk4-demo.png" "gtk4-demo"
+capture_app "GTK 4 Widget Factory" "gtk4-widget-factory.png" "gtk4-widget-factory"
