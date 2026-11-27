@@ -108,7 +108,11 @@ tooltip.background {
 
 headerbar {
   background-color: #123f2b;
+  background-image: url("../assets/headerbar-stone.png");
+  background-repeat: repeat-x;
+  background-position: center;
   color: #fff3d2;
+  min-height: 48px;
   border-bottom: 2px solid #e5b83e;
   box-shadow: none;
 }
