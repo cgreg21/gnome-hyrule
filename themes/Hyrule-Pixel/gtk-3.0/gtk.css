@@ -289,3 +289,35 @@ scale slider:disabled,
 scrollbar slider:disabled {
   background-color: #806b43;
 }
+
+/* Pixel-art PNG surfaces */
+frame > border {
+  border: none;
+  border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
+}
+
+menu,
+.menu,
+.context-menu {
+  border: none;
+  border-image: url("../assets/inventory-parchment.png") 16 / 16 stretch;
+  padding: 8px;
+}
+
+notebook > header tab {
+  background-image: url("../assets/inventory-tab.png");
+  background-repeat: stretch;
+  border: none;
+  padding: 8px 14px;
+}
+
+notebook > header tab:checked {
+  background-image: url("../assets/inventory-tab-selected.png");
+}
+
+separator {
+  background-image: url("../assets/gold-divider.png");
+  background-repeat: repeat-x;
+  background-position: center;
+  min-height: 5px;
+}
