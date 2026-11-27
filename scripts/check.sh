@@ -314,3 +314,24 @@ for ref in re.findall(r'url\("([^"]+\.png)"\)', css):
         raise SystemExit(f"Missing GNOME Shell PNG asset: {ref}")
 print("Validated workspace previews, switcher and PNG frames.")
 PY
+
+# Overview background, search and window captions follow the Hyrule reference.
+python3 - "$ROOT" <<'PY'
+import pathlib
+import re
+import sys
+
+root = pathlib.Path(sys.argv[1])
+path = root / "themes/Hyrule-Pixel/gnome-shell/gnome-shell.css"
+css = path.read_text()
+for selector in ("#overviewGroup {", ".workspace-background {",
+                 ".search-entry {", ".search-section-content {", ".window-caption {"):
+    if selector not in css:
+        raise SystemExit(f"GNOME Shell stylesheet is missing {selector}")
+if "panel-frame.png" not in css:
+    raise SystemExit("Overview search panels must use the Hyrule PNG frame")
+for ref in re.findall(r'url\("([^"]+\.png)"\)', css):
+    if not (path.parent / ref).is_file():
+        raise SystemExit(f"Missing GNOME Shell PNG asset: {ref}")
+print("Validated Overview backdrop, search panels and window captions.")
+PY

@@ -798,3 +798,79 @@ StLabel {
   border: 3px solid #e5b83e;
   border-radius: 0;
 }
+
+/* Overview backdrop: deep Hyrule forest behind windows and search results. */
+#overviewGroup {
+  background-color: #09291d;
+  color: #fff3d2;
+}
+
+.workspace-background {
+  background-color: #123f2b;
+  border: 2px solid #9a6724;
+  border-radius: 0;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45);
+}
+
+/* Search field: parchment inset with a carved gold edge. */
+.search-entry {
+  background-color: #f2d49a;
+  color: #241b12;
+  border: 3px solid #e5b83e;
+  border-radius: 0;
+  caret-color: #28783c;
+  selection-background-color: #28783c;
+  selection-color: #fff3d2;
+  padding: 8px 12px;
+}
+
+.search-entry StIcon,
+.search-entry .search-entry-icon {
+  color: #6d4a20;
+}
+
+.search-entry:focus {
+  background-color: #fff0c4;
+  border-color: #fff3d2;
+  box-shadow: 0 0 0 2px #28783c;
+}
+
+/* Search results: parchment panels with compact inventory-style entries. */
+.search-section-content {
+  background-color: #f2d49a;
+  color: #241b12;
+  border: 6px solid transparent;
+  border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
+  border-radius: 0;
+  padding: 10px;
+}
+
+.search-statustext,
+.search-section,
+.search-section-content .search-provider-icon,
+.search-section-content .list-search-result {
+  color: #241b12;
+}
+
+.search-section-content .list-search-result,
+.search-section-content .search-provider-icon,
+.search-section-content .grid-search-result {
+  background-color: #e2c68f;
+  border: 1px solid #9a6724;
+  border-radius: 0;
+  padding: 8px;
+}
+
+.search-section-content .list-search-result:hover,
+.search-section-content .grid-search-result:hover {
+  background-color: #28783c;
+  color: #fff3d2;
+}
+
+.window-caption {
+  background-color: #f2d49a;
+  color: #241b12;
+  border: 2px solid #e5b83e;
+  border-radius: 0;
+  padding: 5px 8px;
+}
