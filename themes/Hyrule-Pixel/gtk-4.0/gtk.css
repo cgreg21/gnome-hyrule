@@ -194,16 +194,31 @@ box.hyrule-inventory-slot-selected {
 
 /* GTK 4 inventory grids use the normal and selected slot textures. */
 flowbox > flowboxchild,
-gridview > child {
+gridview > child,
+.nautilus-grid-view > child,
+.nautilus-desktop gridview > child {
   background-color: #09291d;
-  border: none;
+  color: #fff3d2;
+  border: 8px solid transparent;
   border-image: url("../assets/inventory-slot.png") 8 / 8 stretch;
   padding: 8px;
 }
 
 flowbox > flowboxchild:selected,
-gridview > child:selected {
+gridview > child:selected,
+.nautilus-grid-view > child:selected,
+.nautilus-desktop gridview > child:selected {
+  background-color: #28783c;
   border-image-source: url("../assets/inventory-slot-selected.png");
+}
+
+/* Desktop icon cells are framed without painting over the wallpaper. */
+.nautilus-desktop {
+  background-color: transparent;
+}
+
+.nautilus-desktop gridview > child {
+  background-color: transparent;
 }
 
 tabbar tab {

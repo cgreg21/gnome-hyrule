@@ -237,16 +237,28 @@ box.hyrule-inventory-slot-selected {
 
 /* Inventory slots use the actual pixel-art slot sprites. */
 flowbox flowboxchild,
-iconview.view {
+iconview.view cell {
   background-color: @hyrule_deep;
-  border: none;
+  color: @hyrule_ink;
+  border: 8px solid transparent;
   border-image: url("../assets/inventory-slot.png") 8 / 8 stretch;
   padding: 8px;
 }
 
 flowbox flowboxchild:selected,
-iconview.view:selected {
+iconview.view cell:selected {
+  background-color: @hyrule_active;
   border-image-source: url("../assets/inventory-slot-selected.png");
+}
+
+/* Nautilus desktop icons keep the wallpaper while using framed PNG cells. */
+.nautilus-desktop {
+  background-color: transparent;
+}
+
+.nautilus-desktop iconview.view cell {
+  background-color: transparent;
+  color: #fff3d2;
 }
 
 separator {

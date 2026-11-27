@@ -358,3 +358,6 @@ for ref in re.findall(r'url\("([^"]+\.png)"\)', css):
         raise SystemExit(f"Missing GNOME Shell PNG asset: {ref}")
 print("Validated calendar, popup menus and PNG frames.")
 PY
+
+# Audit every image URL and 9-slice declaration in GTK 3/4 and GNOME Shell CSS.
+python3 "$ROOT/scripts/check-css-assets.py"
