@@ -6,6 +6,9 @@ on:
     paths:
       - ".github/workflows/capture-screenshots.yml"
       - "scripts/capture-gtk-screenshots.sh"
+      - "themes/Hyrule-Pixel/gtk-3.0/**"
+      - "themes/Hyrule-Pixel/gtk-4.0/**"
+      - "themes/Hyrule-Pixel/assets/**"
   workflow_dispatch:
 
 permissions:
