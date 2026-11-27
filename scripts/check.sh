@@ -144,9 +144,26 @@ import re
 import sys
 
 root = pathlib.Path(sys.argv[1])
-for stylesheet in sorted((root / "themes/Hyrule-Pixel").glob("gtk-*/gtk*.css")):
-    for asset in re.findall(r'url\\("([^"]+\\.png)"\\)', stylesheet.read_text()):
-        path = (stylesheet.parent / asset).resolve()
+required_assets = {
+    "gtk-3.0": {"button-frame.png", "entry-frame.png", "panel-frame.png",
+                "inventory-parchment.png", "inventory-tab.png",
+                "inventory-tab-selected.png", "inventory-slot.png",
+                "inventory-slot-selected.png", "gold-divider.png"},
+    "gtk-4.0": {"button-frame.png", "entry-frame.png", "panel-frame.png",
+                "inventory-parchment.png", "inventory-tab.png",
+                "inventory-tab-selected.png", "inventory-slot.png",
+                "inventory-slot-selected.png", "gold-divider.png"},
+}
+for directory, required in required_assets.items():
+    stylesheet = root / "themes/Hyrule-Pixel" / directory / "gtk.css"
+    references = set(re.findall(r'url\("([^"]+\.png)"\)', stylesheet.read_text()))
+    names = {pathlib.Path(reference).name for reference in references}
+    missing = required - names
+    if missing:
+        raise SystemExit(f"{directory} does not use required PNG textures: {', '.join(sorted(missing))}")
+    for reference in references:
+        path = (stylesheet.parent / reference).resolve()
         if not path.is_file():
-            raise SystemExit(f"Missing GTK PNG asset: {stylesheet.relative_to(root)} -> {asset}")
+            raise SystemExit(f"Missing GTK PNG asset: {stylesheet.relative_to(root)} -> {reference}")
+print("Validated GTK 3/4 PNG references and inventory texture usage.")
 PY
