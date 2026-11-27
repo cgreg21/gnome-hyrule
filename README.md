@@ -50,6 +50,10 @@ repository's **Actions → Capture theme screenshots** page.
 
 ![Hyrule Pixel GTK 3 Widget Factory page 3](docs/screenshots/gtk3-page-3.png)
 
+**Hyrule inventory – native hearts, rupees and Triforce PNGs**
+
+![Hyrule Pixel GTK 3 inventory](docs/screenshots/gtk3-inventory.png)
+
 ### GTK 4
 
 **GTK Demo – overview**
@@ -67,6 +71,10 @@ repository's **Actions → Capture theme screenshots** page.
 **GTK 4 Widget Factory – controls and inventory-style surfaces**
 
 ![Hyrule Pixel GTK 4 Widget Factory](docs/screenshots/gtk4-widget-factory.png)
+
+**Hyrule inventory – native hearts, rupees and Triforce PNGs**
+
+![Hyrule Pixel GTK 4 inventory](docs/screenshots/gtk4-inventory.png)
 
 ### GNOME Shell 51
 
