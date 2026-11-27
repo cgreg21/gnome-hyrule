@@ -6,6 +6,7 @@ on:
     paths:
       - ".github/workflows/capture-screenshots.yml"
       - "scripts/capture-gtk-screenshots.sh"
+      - "scripts/capture-inventory-showcase.py"
       - "themes/Hyrule-Pixel/gtk-3.0/**"
       - "themes/Hyrule-Pixel/gtk-4.0/**"
       - "themes/Hyrule-Pixel/assets/**"
