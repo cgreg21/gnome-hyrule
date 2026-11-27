@@ -68,12 +68,12 @@ sleep 2
 # welcome modal with Escape. The pixel check below is the final guard.
 xdotool mousemove --window "$DEVKIT_WINDOW" 675 700 click 1
 sleep 1
-magick -window root "$RUNTIME_DIR/devkit-after-skip.png"
+import -window root "$RUNTIME_DIR/devkit-after-skip.png"
 WELCOME_PIXEL="$(magick "$RUNTIME_DIR/devkit-after-skip.png" -format '%[pixel:p{600,300}]' info:)"
 if [[ "$WELCOME_PIXEL" == "srgb(54,54,58)" ]]; then
   xdotool key --clearmodifiers Escape
   sleep 2
-  magick -window root "$RUNTIME_DIR/devkit-after-escape.png"
+  import -window root "$RUNTIME_DIR/devkit-after-escape.png"
   WELCOME_PIXEL="$(magick "$RUNTIME_DIR/devkit-after-escape.png" -format '%[pixel:p{600,300}]' info:)"
 fi
 [[ "$WELCOME_PIXEL" != "srgb(54,54,58)" ]] || {
