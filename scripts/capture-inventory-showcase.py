@@ -72,14 +72,16 @@ def main():
 
     add(root, make_label("EQUIPMENT"))
     slots = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=14)
-    for filename, description in (
+    for index, (filename, description) in enumerate((
         ("inventory-cursor.png", "Selected item cursor"),
         ("rupee-blue.png", "Blue rupee"),
         ("rupee-red.png", "Red rupee"),
         ("triforce.png", "Triforce emblem"),
-    ):
+    )):
         slot = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         slot.add_css_class("hyrule-inventory-slot") if version == "4" else slot.get_style_context().add_class("hyrule-inventory-slot")
+        if index == 0:
+            slot.add_css_class("hyrule-inventory-slot-selected") if version == "4" else slot.get_style_context().add_class("hyrule-inventory-slot-selected")
         slot.set_size_request(76, 76)
         slot.set_halign(Gtk.Align.CENTER)
         slot.set_valign(Gtk.Align.CENTER)
