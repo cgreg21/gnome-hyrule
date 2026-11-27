@@ -206,3 +206,23 @@ for directory, selectors in {
         raise SystemExit(f"{directory} is missing dialog styling: {', '.join(missing)}")
 print("Validated GTK 3/4 dialog styling.")
 PY
+
+# Preferences pages must retain their parchment panels and section dividers.
+python3 - "$ROOT" <<'PY'
+import pathlib
+import sys
+
+root = pathlib.Path(sys.argv[1])
+checks = {
+    "gtk-3.0": (".hyrule-preferences-page", ".hyrule-preferences-group", "stacksidebar row:selected"),
+    "gtk-4.0": ("preferencespage", "preferencesgroup", "actionrow"),
+}
+for directory, selectors in checks.items():
+    css = (root / "themes/Hyrule-Pixel" / directory / "gtk.css").read_text()
+    missing = [selector for selector in selectors if selector not in css]
+    if missing:
+        raise SystemExit(f"{directory} is missing preferences styling: {', '.join(missing)}")
+    if "gold-divider.png" not in css or "panel-frame.png" not in css:
+        raise SystemExit(f"{directory} is missing preferences PNG decorations")
+print("Validated GTK 3/4 preferences styling.")
+PY

@@ -375,3 +375,57 @@ messagedialog button {
   border: none;
   border-image: url("../assets/button-frame.png") 12 / 12 stretch;
 }
+
+/* Preferences: parchment content, stone section frames and clear navigation. */
+.hyrule-preferences-page {
+  background-color: @hyrule_deep;
+  color: #fff3d2;
+  padding: 12px;
+}
+
+.hyrule-preferences-group,
+.preferences-group {
+  background-color: @hyrule_paper;
+  color: @hyrule_ink;
+  border: none;
+  border-image: url("../assets/panel-frame.png") 16 / 16 stretch;
+  padding: 10px;
+  margin: 8px;
+}
+
+.hyrule-preferences-group > label,
+.preferences-group > label {
+  color: @hyrule_gold;
+  font-weight: bold;
+  padding: 4px 8px;
+}
+
+.hyrule-preferences-row,
+.preferences-row {
+  background-color: @hyrule_paper;
+  color: @hyrule_ink;
+  border-bottom: 1px solid #c49a52;
+  padding: 8px 10px;
+}
+
+.hyrule-preferences-row:hover,
+.preferences-row:hover {
+  background-color: #e2c68f;
+}
+
+stacksidebar row {
+  color: #fff3d2;
+  padding: 8px;
+}
+
+stacksidebar row:selected {
+  background-color: @hyrule_active;
+  color: @hyrule_paper;
+  border-left: 3px solid @hyrule_gold;
+}
+
+.preferences-group separator {
+  background-image: url("../assets/gold-divider.png");
+  background-repeat: repeat-x;
+  min-height: 5px;
+}
