@@ -45,6 +45,7 @@ jobs:
             xdotool \
             ImageMagick \
             libnotify \
+            procps-ng \
             git \
             shadow-utils
           gnome-shell --version
