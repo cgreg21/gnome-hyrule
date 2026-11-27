@@ -25,7 +25,11 @@ headerbar,
 .titlebar,
 toolbar {
   background-color: @hyrule_forest;
+  background-image: url("../assets/headerbar-stone.png");
+  background-repeat: repeat-x;
+  background-position: center;
   color: #fff3d2;
+  min-height: 48px;
   border: none;
   border-bottom: 2px solid @hyrule_gold;
   box-shadow: none;
